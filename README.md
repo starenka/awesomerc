@@ -1,0 +1,1 @@
+"My" config files & scripts for [Awesome](http://awesome.naquadah.org/)
