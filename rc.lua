@@ -29,9 +29,6 @@ altkey = "Mod1"
 ctrlkey = "Control"
 shiftkey = "Shift"
 
-battery_poll_int = 7
-battery_id = 'BAT0'
-
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {
@@ -53,12 +50,14 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names  = { 'terms', 	'dev', 		'dev:www', 	'[www]', 	'#', 		'd{-_-}b', 	'/tmp', },
-	layout = { layouts[1], 	layouts[1], 	layouts[1], 	layouts[1], 	layouts[6], 	layouts[1], 	layouts[1],
-}}
- 
+  names = { 'terms', 'dev', 'dev:www', '[www]', '#', 'd{-_-}b', '/tmp', },
+  layout = {
+    layouts[1], layouts[1], layouts[1], layouts[1], layouts[6], layouts[1], layouts[1],
+  }
+}
+
 for s = 1, screen.count() do
-	tags[s] = awful.tag(tags.names, s, tags.layout)
+  tags[s] = awful.tag(tags.names, s, tags.layout)
 end
 
 
@@ -86,34 +85,43 @@ mylauncher = awful.widget.launcher({
 -- }}}
 
 -- Keyboard layout switching
-kbdcfg = {}
-kbdcfg.cmd = "setxkbmap"
-kbdcfg.layout = { "us", "cz -variant qwerty", }
-kbdcfg.current = 1 -- us is our default layout
-kbdcfg.widget = widget({ type = "textbox", align = "right" })
-kbdcfg.widget.text = " " .. kbdcfg.layout[kbdcfg.current] .. " "
+kbdcfg = {
+  cmd = "setxkbmap",
+  layout = { "us", "cz -variant qwerty" },
+  current = 1,
+  widget = widget({ type = "textbox", align = "right" })
+}
 kbdcfg.switch = function()
   kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
   local t = " " .. kbdcfg.layout[kbdcfg.current] .. " "
-  --local m = kbdcfg.layout[kbdcfg.current]:gmatch("%S+")
-  kbdcfg.widget.text = t
+  kbdcfg.widget.text = t:gsub('%s%-variant%s', ':')
   os.execute(kbdcfg.cmd .. t)
 end
+kbdcfg.widget.text = " " .. kbdcfg.layout[kbdcfg.current] .. " "
 -- Mouse bindings
 kbdcfg.widget:buttons(awful.util.table.join(awful.button({}, 1, function() kbdcfg.switch() end)))
 
 -- Gmail widget
+-- cat ~/.netrc: machine mail.google.com login johndoe@gmail.com password secretpass
 awful.widget.gmail = require('awful.widget.gmail')
 gmailwidget = awful.widget.gmail.new()
 
 -- battery
-batterywidget = widget({type = "textbox", name = "batterywidget", align = "right" })
-batterywidget.text = " ?? "
+battery_poll_int = 7
+battery_id = 'BAT0'
 
+battery = require('battery')
+batterywidget = {
+  widget = widget({ type = "textbox", name = "batterywidget", align = "right" }),
+  timer = timer({ timeout = battery_poll_int })
+}
+batterywidget.widget.text = " ?? "
+batterywidget.timer:add_signal("timeout", function() batterywidget.widget.text = battery.get_info(battery_id) end)
+batterywidget.timer:start()
 
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock({ align = "right" }," %b %d, %H:%M ")
+mytextclock = awful.widget.textclock({ align = "right" }, " %b %d, %H:%M ")
 
 -- Create a systray
 mysystray = widget({ type = "systray" })
@@ -167,13 +175,13 @@ end),
 
 
 -- Left padding
-padding_left = widget({type = "textbox", name = "left-padding", align = "left"})
+padding_left = widget({ type = "textbox", name = "left-padding", align = "left" })
 padding_left.text = " "
 -- Right padding
-padding_right = widget({type = "textbox", name = "right-padding", align = "right"})
+padding_right = widget({ type = "textbox", name = "right-padding", align = "right" })
 padding_right.text = " "
 --widget sep
-widget_sep = widget({type = "textbox", name = "widget-sep", align = "right"})
+widget_sep = widget({ type = "textbox", name = "widget-sep", align = "right" })
 widget_sep.text = "|"
 
 for s = 1, screen.count() do
@@ -203,8 +211,8 @@ for s = 1, screen.count() do
       padding_left,
       mypromptbox[s],
       mytaglist[s],
-	  padding_right,
-	  padding_right,
+      padding_right,
+      padding_right,
       layout = awful.widget.layout.horizontal.leftright
     },
     {
@@ -213,7 +221,7 @@ for s = 1, screen.count() do
       widget_sep,
       kbdcfg.widget,
       widget_sep,
-      batterywidget,
+      batterywidget.widget,
       widget_sep,
       padding_right,
       gmailwidget,
@@ -233,8 +241,7 @@ root.buttons(awful.util.table.join(awful.button({}, 3, function() mymainmenu:tog
 -- }}}
 
 -- {{{ Key bindings
-globalkeys = awful.util.table.join(
-  awful.key({ modkey, }, "Left", awful.tag.viewprev),
+globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.viewprev),
   awful.key({ modkey, }, ",", awful.tag.viewprev),
   awful.key({ modkey, }, "Right", awful.tag.viewnext),
   awful.key({ modkey, }, ".", awful.tag.viewnext),
@@ -266,7 +273,7 @@ globalkeys = awful.util.table.join(
       if client.focus then
         client.focus:raise()
       end
-    end),		
+    end),
 
   -- Standard program
   awful.key({ modkey, }, "Return", function() awful.util.spawn(terminal) end),
@@ -361,7 +368,7 @@ for i = 1, keynumber do
         if tags[screen][i] then
           awful.tag.viewtoggle(tags[screen][i])
         end
-     end),
+      end),
     awful.key({ modkey, shiftkey }, "#" .. i + 9,
       function()
         if client.focus and tags[client.focus.screen][i] then
@@ -426,8 +433,6 @@ awful.rules.rules = {
   { rule = { class = "Okular" }, properties = { tag = tags[1][7] } },
   { rule = { class = "java-lang-Thread" }, properties = { tag = tags[1][2] } }, --pycharm
   { rule = { class = "Keepassx" }, properties = { tag = tags[1][7] } },
-
-
 }
 -- }}}
 
@@ -462,55 +467,8 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
--- @TODO as a signal
-awful.hooks.timer.register(battery_poll_int, function()
-  battery(battery_id)
-end)
-
--- runonce
-
-require("lfs")
--- {{{ Run programm once
-local function processwalker()
-  local function yieldprocess()
-    for dir in lfs.dir("/proc") do
-      -- All directories in /proc containing a number, represent a process
-      if tonumber(dir) ~= nil then
-        local f, err = io.open("/proc/" .. dir .. "/cmdline")
-        if f then
-          local cmdline = f:read("*all")
-          f:close()
-          if cmdline ~= "" then
-            coroutine.yield(cmdline)
-          end
-        end
-      end
-    end
-  end
-
-  return coroutine.wrap(yieldprocess)
-end
-
-local function run_once(process, cmd)
-  assert(type(process) == "string")
-  local regex_killer = {
-    ["+"] = "%+",
-    ["-"] = "%-",
-    ["*"] = "%*",
-    ["?"] = "%?"
-  }
-
-  for p in processwalker() do
-    if p:find(process:gsub("[-+?*]", regex_killer)) then
-      return
-    end
-  end
-  return awful.util.spawn(cmd or process)
-end
-
--- }}}
-
-run_once("terminator")
+run_once = require('run_once')
+run_once.run_once("terminator")
 awful.util.spawn("rm -rf /var/tmp/kdecache-starenka; qdbus org.kde.kded /kded loadModule powerdevil")
 -- Use the second argument, if the programm you wanna start, 
 -- differs from the what you want to search.
@@ -520,83 +478,6 @@ awful.util.spawn("rm -rf /var/tmp/kdecache-starenka; qdbus org.kde.kded /kded lo
 
 -- remove spawn cursor
 local oldspawn = awful.util.spawn
-awful.util.spawn = function (s)
+awful.util.spawn = function(s)
   oldspawn(s, false)
 end
-
-
--- mess starts here
-blinkers = {}
-function blinking(tb,iv,es)
-    if (tb==nil) then 
-        return
-    end
-    local fiv = iv or 1
-    if blinkers[tb] then
-        if blinkers[tb].timer.started then
-            blinkers[tb].timer:stop()
-        else
-            blinkers[tb].timer:start()
-        end
-    else
-        if (tb.text == nil) then
-            return
-        end
-        blinkers[tb]= {}
-        blinkers[tb].timer = timer({timeout=fiv})
-        blinkers[tb].text = tb.text
-        blinkers[tb].empty = 0
-
-        blinkers[tb].timer:add_signal("timeout", function ()
-            if (blinkers[tb].empty==1) then
-                tb.text = blinkers[tb].text
-                blinkers[tb].empty=0
-            else
-                blinkers[tb].empty=1
-                tb.text = string.rep(" ",es)
-            end
-        end)
-
-        blinkers[tb].timer:start()
-
-    end
-end
-
--- @TODO to module
-function battery(adapter)
-     spacer = ""
-     local fcur = io.open("/sys/class/power_supply/"..adapter.."/energy_now")
-     local fcap = io.open("/sys/class/power_supply/"..adapter.."/energy_full")
-     local fsta = io.open("/sys/class/power_supply/"..adapter.."/status")
-     local cur = fcur:read()
-     local cap = fcap:read()
-     local sta = fsta:read()
-     local battery = math.floor(cur * 100 / cap)
-     local blink = 0
-     local color = '#DCDCCC'
-     if sta:match("Charging") then
-         dir = "+"
-     elseif sta:match("Discharging") then
-         dir = "-"
-         if tonumber(battery) < 31 then
-	   color = '#fecf35'
-	 end
-	 if tonumber(battery) < 16 then
-	   blink = 1
-	   --color = '#C80003'
-	   color = 'red'
-         end
-         battery = battery
-     else
-         dir = "="
-         battery = "100"
-     end
-     text = spacer..dir..battery.."%"..spacer
-     batterywidget.text = '<span color="'..color..'">'..text..'</span>'
-     --if blink == 1 then
-     --  blinking(batterywidget, 1.2, string.len(text))
-     --end
-     fcur:close()
-     fcap:close()
-     fsta:close()
- end
