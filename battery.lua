@@ -1,26 +1,26 @@
-local M = {}
+local M = { settings={color='#dcdccc', battery='BAT0', warning={ color='#fecf35', level=31}, critical={color='red', level=16}} }
+-- you can override settings in rc.lua
 
-function M.get_info(battery_id)
+function M.get_info()
   spacer = ""
-  local fcur = io.open("/sys/class/power_supply/" .. battery_id .. "/energy_now")
-  local fcap = io.open("/sys/class/power_supply/" .. battery_id .. "/energy_full")
-  local fsta = io.open("/sys/class/power_supply/" .. battery_id .. "/status")
+  local fcur = io.open("/sys/class/power_supply/" .. M.settings.battery .. "/energy_now")
+  local fcap = io.open("/sys/class/power_supply/" .. M.settings.battery .. "/energy_full")
+  local fsta = io.open("/sys/class/power_supply/" .. M.settings.battery .. "/status")
   local cur = fcur:read()
   local cap = fcap:read()
   local sta = fsta:read()
   local battery = math.floor(cur * 100 / cap)
-  local blink = 0
-  local color = '#DCDCCC'
+  local color = M.settings.color
+  --local blink = 0
   if sta:match("Charging") then
     dir = "+"
   elseif sta:match("Discharging") then
     dir = "-"
-    if tonumber(battery) < 31 then
-      color = '#fecf35'
-    end
-    if tonumber(battery) < 16 then
-      blink = 1
-      color = 'red'
+    if tonumber(battery) < M.settings.warning.level then
+      color = M.settings.warning.color
+    elseif tonumber(battery) < M.settings.critical.level then
+      --blink = 1
+      color = M.settings.critical.color
     end
     battery = battery
   else

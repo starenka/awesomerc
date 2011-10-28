@@ -107,16 +107,15 @@ awful.widget.gmail = require('awful.widget.gmail')
 gmailwidget = awful.widget.gmail.new()
 
 -- battery
-battery_poll_int = 7
-battery_id = 'BAT0'
-
 battery = require('battery')
+battery_poll_int = 7
+
 batterywidget = {
   widget = widget({ type = "textbox", name = "batterywidget", align = "right" }),
   timer = timer({ timeout = battery_poll_int })
 }
 batterywidget.widget.text = " ?? "
-batterywidget.timer:add_signal("timeout", function() batterywidget.widget.text = battery.get_info(battery_id) end)
+batterywidget.timer:add_signal("timeout", function() batterywidget.widget.text = battery.get_info() end)
 batterywidget.timer:start()
 
 -- {{{ Wibox
