@@ -593,9 +593,9 @@ function battery(adapter)
      end
      text = spacer..dir..battery.."%"..spacer
      batterywidget.text = '<span color="'..color..'">'..text..'</span>'
-     if blink == 1 then
-       blinking(batterywidget, 1.2, string.len(text))
-     end
+     --if blink == 1 then
+     --  blinking(batterywidget, 1.2, string.len(text))
+     --end
      fcur:close()
      fcap:close()
      fsta:close()
