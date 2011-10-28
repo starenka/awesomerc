@@ -29,6 +29,9 @@ altkey = "Mod1"
 ctrlkey = "Control"
 shiftkey = "Shift"
 
+battery_poll_int = 7
+battery_id = 'BAT0'
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {
@@ -50,8 +53,8 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names  = { 'terms', 	'dev', 		'dev:www', 	'[www]', 	'#', 		'd{-_-}b', '/null', },
-	layout = { layouts[1], 	layouts[1], layouts[1], layouts[1], layouts[6], layouts[1], layouts[1],
+	names  = { 'terms', 	'dev', 		'dev:www', 	'[www]', 	'#', 		'd{-_-}b', 	'/tmp', },
+	layout = { layouts[1], 	layouts[1], 	layouts[1], 	layouts[1], 	layouts[6], 	layouts[1], 	layouts[1],
 }}
  
 for s = 1, screen.count() do
@@ -105,6 +108,8 @@ gmailwidget = awful.widget.gmail.new()
 
 -- battery
 batterywidget = widget({type = "textbox", name = "batterywidget", align = "right" })
+batterywidget.text = " ?? "
+
 
 -- {{{ Wibox
 -- Create a textclock widget
@@ -457,9 +462,9 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
--- @TODO signal
-awful.hooks.timer.register(7, function()
-  battery('BAT0')
+-- @TODO as a signal
+awful.hooks.timer.register(battery_poll_int, function()
+  battery(battery_id)
 end)
 
 -- runonce
@@ -506,7 +511,7 @@ end
 -- }}}
 
 run_once("terminator")
--- awful.util.spawn("qdbus org.kde.kded /kded loadModule powerdevil")
+awful.util.spawn("rm -rf /var/tmp/kdecache-starenka; qdbus org.kde.kded /kded loadModule powerdevil")
 -- Use the second argument, if the programm you wanna start, 
 -- differs from the what you want to search.
 -- run_once("redshift", "nice -n19 redshift -l 51:14 -t 5700:4500")
@@ -519,41 +524,78 @@ awful.util.spawn = function (s)
   oldspawn(s, false)
 end
 
--- @TODO to module, colors
+
+-- mess starts here
+blinkers = {}
+function blinking(tb,iv,es)
+    if (tb==nil) then 
+        return
+    end
+    local fiv = iv or 1
+    if blinkers[tb] then
+        if blinkers[tb].timer.started then
+            blinkers[tb].timer:stop()
+        else
+            blinkers[tb].timer:start()
+        end
+    else
+        if (tb.text == nil) then
+            return
+        end
+        blinkers[tb]= {}
+        blinkers[tb].timer = timer({timeout=fiv})
+        blinkers[tb].text = tb.text
+        blinkers[tb].empty = 0
+
+        blinkers[tb].timer:add_signal("timeout", function ()
+            if (blinkers[tb].empty==1) then
+                tb.text = blinkers[tb].text
+                blinkers[tb].empty=0
+            else
+                blinkers[tb].empty=1
+                tb.text = string.rep(" ",es)
+            end
+        end)
+
+        blinkers[tb].timer:start()
+
+    end
+end
+
+-- @TODO to module
 function battery(adapter)
      spacer = ""
-     local fcur = io.open("/sys/class/power_supply/"..adapter.."/energy_now")    
+     local fcur = io.open("/sys/class/power_supply/"..adapter.."/energy_now")
      local fcap = io.open("/sys/class/power_supply/"..adapter.."/energy_full")
      local fsta = io.open("/sys/class/power_supply/"..adapter.."/status")
      local cur = fcur:read()
      local cap = fcap:read()
      local sta = fsta:read()
      local battery = math.floor(cur * 100 / cap)
+     local blink = 0
+     local color = '#DCDCCC'
      if sta:match("Charging") then
          dir = "+"
      elseif sta:match("Discharging") then
          dir = "-"
-	 if tonumber(battery) > 25 and tonumber(battery) < 75 then
-             battery = battery
-         elseif tonumber(battery) < 25 then
-             if tonumber(battery) < 10 then
-                 naughty.notify({ title      = "Battery Warning"
-                                , text       = "Battery low!"..spacer..battery.."%"..spacer.."left!"
-                                , timeout    = 5
-                                , position   = "top_right"
-                                , fg         = beautiful.fg_focus
-                                , bg         = beautiful.bg_focus
-                                })
-             end
-             battery = battery
-         else
-             battery = battery
+         if tonumber(battery) < 31 then
+	   color = '#fecf35'
+	 end
+	 if tonumber(battery) < 16 then
+	   blink = 1
+	   --color = '#C80003'
+	   color = 'red'
          end
+         battery = battery
      else
          dir = "="
          battery = "100"
      end
-     batterywidget.text = spacer..dir..battery.."%"..spacer
+     text = spacer..dir..battery.."%"..spacer
+     batterywidget.text = '<span color="'..color..'">'..text..'</span>'
+     if blink == 1 then
+       blinking(batterywidget, 1.2, string.len(text))
+     end
      fcur:close()
      fcap:close()
      fsta:close()
