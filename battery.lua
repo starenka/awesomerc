@@ -1,4 +1,4 @@
-local M = { settings={color='#dcdccc', battery='BAT0', warning={ color='#fecf35', level=31}, critical={color='red', level=16}} }
+local M = { settings = { color = '#dcdccc', battery = 'BAT0', warning = { color = '#fecf35', level = 31 }, critical = { color = 'red', level = 16 } } }
 -- you can override settings in rc.lua
 
 function M.get_info()
