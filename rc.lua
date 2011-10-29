@@ -110,6 +110,7 @@ gmailwidget = awful.widget.gmail.new()
 battery = require('battery')
 battery_poll_int = 7
 
+-- battery.settings={color='#dcdccc', battery='BAT0', warning={ color='#fecf35', level=31}, critical={color='red', level=16}}
 batterywidget = {
   widget = widget({ type = "textbox", name = "batterywidget", align = "right" }),
   timer = timer({ timeout = battery_poll_int })

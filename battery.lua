@@ -18,7 +18,8 @@ function M.get_info()
     dir = "-"
     if tonumber(battery) < M.settings.warning.level then
       color = M.settings.warning.color
-    elseif tonumber(battery) < M.settings.critical.level then
+    end
+    if tonumber(battery) < M.settings.critical.level then
       --blink = 1
       color = M.settings.critical.color
     end
