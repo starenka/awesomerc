@@ -249,16 +249,8 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ modkey, }, "Up", awful.tag.history.restore),
   awful.key({ modkey, }, "Down", awful.tag.history.restore),
 
-  --    awful.key({ altkey,           }, "Tab",
-  --        function ()
-  --            awful.client.focus.byidx( 1)
-  --            if client.focus then client.focus:raise() end
-  --        end),
-  --    awful.key({ altkey, shiftkey   }, "Tab",
-  --        function ()
-  --            awful.client.focus.byidx(-1)
-  --            if client.focus then client.focus:raise() end
-  --        end),
+  awful.key({ altkey, }, "Tab", function () awful.client.focus.byidx(1) if client.focus then client.focus:raise() end end),
+  awful.key({ altkey, shiftkey }, "Tab", function () awful.client.focus.byidx(-1) if client.focus then client.focus:raise() end end),
   awful.key({ modkey, }, "w", function() mymainmenu:show({ keygrabber = true }) end),
 
   -- Layout manipulation
@@ -267,7 +259,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ modkey, ctrlkey }, "j", function() awful.screen.focus_relative(1) end),
   awful.key({ modkey, ctrlkey }, "k", function() awful.screen.focus_relative(-1) end),
   awful.key({ modkey, }, "u", awful.client.urgent.jumpto),
-  awful.key({ altkey, }, "Tab",
+  awful.key({ modkey, }, "Tab",
     function()
       awful.client.focus.history.previous()
       if client.focus then
