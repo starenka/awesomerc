@@ -240,7 +240,8 @@ root.buttons(awful.util.table.join(awful.button({}, 3, function() mymainmenu:tog
   awful.button({}, 5, awful.tag.viewprev)))
 -- }}}
 
--- {{{ Key bindings
+
+-- {{{ Key bindings (use xev)
 globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.viewprev),
   awful.key({ modkey, }, ",", awful.tag.viewprev),
   awful.key({ modkey, }, "Right", awful.tag.viewnext),
@@ -308,14 +309,18 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   -- misc
   awful.key({ altkey, }, "space", function() mypromptbox[mouse.screen]:run() end), --prompt
   awful.key({}, "Print", function() awful.util.spawn("ksnapshot") end), -- screenshot
+  awful.key({ ctrlkey }, "Escape", function() awful.util.spawn("ksysguard") end), -- "ktop"
 
-  awful.key({ modkey }, "x",
-    function()
-      awful.prompt.run({ prompt = "Run Lua code: " },
-        mypromptbox[mouse.screen].widget,
-        awful.util.eval, nil,
-        awful.util.getdir("cache") .. "/history_eval")
-    end))
+  --
+--  awful.key({ modkey }, "x",
+--    function()
+--      awful.prompt.run({ prompt = "Run Lua code: " },
+--        mypromptbox[mouse.screen].widget,
+--        awful.util.eval, nil,
+--        awful.util.getdir("cache") .. "/history_eval")
+--    end))
+
+  awful.key({ modkey }, "x", function() awful.util.spawn("terminator -x python") end)) -- spawn term w/ python
 
 clientkeys = awful.util.table.join(awful.key({ modkey, }, "f", function(c) c.fullscreen = not c.fullscreen end),
   awful.key({ modkey, shiftkey }, "c", function(c) c:kill() end),
@@ -424,7 +429,10 @@ awful.rules.rules = {
   { rule = { class = "jd-Main" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Okular" }, properties = { tag = tags[1][7] } },
   { rule = { class = "java-lang-Thread" }, properties = { tag = tags[1][2] } }, --pycharm
-  { rule = { class = "Keepassx" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] } },
+  { rule = { class = "VirtualBox" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "vox" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "Ktorrent" }, properties = { tag = tags[1][7] } },
 }
 -- }}}
 
@@ -460,7 +468,8 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- }}}
 
 run_once = require('run_once')
-run_once.run_once("terminator")
+run_once.run_once("terminator -m")
+run_once.run_once("ktorrent")
 awful.util.spawn("rm -rf /var/tmp/kdecache-starenka; qdbus org.kde.kded /kded loadModule powerdevil")
 -- Use the second argument, if the programm you wanna start, 
 -- differs from the what you want to search.
