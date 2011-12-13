@@ -320,7 +320,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
 --        awful.util.getdir("cache") .. "/history_eval")
 --    end))
 
-  awful.key({ modkey }, "x", function() awful.util.spawn("terminator -x python") end)) -- spawn term w/ python
+  awful.key({ modkey }, "x", function() awful.util.spawn("terminator -x ipython") end)) -- spawn term w/ python
 
 clientkeys = awful.util.table.join(awful.key({ modkey, }, "f", function(c) c.fullscreen = not c.fullscreen end),
   awful.key({ modkey, shiftkey }, "c", function(c) c:kill() end),
@@ -417,6 +417,7 @@ awful.rules.rules = {
   -- default apps -> tags
   -- xprop | grep WM_CLAS
   { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } },
+  { rule = { class = "Opera" }, properties = { tag = tags[1][4] } },
   { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] } },
   { rule = { class = "Wireshark" }, properties = { tag = tags[1][3] } },
   { rule = { class = "Krusader" }, properties = { tag = tags[1][7] } },
@@ -428,7 +429,8 @@ awful.rules.rules = {
   { rule = { class = "Gvim" }, properties = { tag = tags[1][2] } },
   { rule = { class = "jd-Main" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Okular" }, properties = { tag = tags[1][7] } },
-  { rule = { class = "java-lang-Thread" }, properties = { tag = tags[1][2] } }, --pycharm
+--  { rule = { class = "java-lang-Thread" }, properties = { tag = tags[1][2] } }, --pycharm 1.x
+  { rule = { class = "jetbrains-pycharm" }, properties = { tag = tags[1][2] } },
   { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] } },
   { rule = { class = "VirtualBox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "vox" }, properties = { tag = tags[1][7] } },
@@ -468,7 +470,7 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- }}}
 
 run_once = require('run_once')
-run_once.run_once("terminator -m")
+run_once.run_once("terminator")
 run_once.run_once("ktorrent")
 awful.util.spawn("rm -rf /var/tmp/kdecache-starenka; qdbus org.kde.kded /kded loadModule powerdevil")
 -- Use the second argument, if the programm you wanna start, 
