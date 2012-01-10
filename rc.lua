@@ -416,25 +416,28 @@ awful.rules.rules = {
 
   -- default apps -> tags
   -- xprop | grep WM_CLAS
-  { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } },
-  { rule = { class = "Opera" }, properties = { tag = tags[1][4] } },
-  { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] } },
+  { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] }, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "Opera" }, properties = { tag = tags[1][4] }, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] }, maximized_vertical = true, maximized_horizontal = true, },
   { rule = { class = "Wireshark" }, properties = { tag = tags[1][3] } },
   { rule = { class = "Krusader" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Pidgin" }, properties = { tag = tags[1][5] } },
   { rule = { class = "Konversation" }, properties = { tag = tags[1][5] } },
-  { rule = { class = "Kate" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "Kate" }, properties = { tag = tags[1][7] }, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "Sublime_text" }, properties = { tag = tags[1][7] }, maximized_vertical = true, maximized_horizontal = true, },
   { rule = { class = "Clementine" }, properties = { tag = tags[1][6] } },
+  { rule = { class = "Audacity" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Vlc" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Gvim" }, properties = { tag = tags[1][2] } },
   { rule = { class = "jd-Main" }, properties = { tag = tags[1][7] } },
-  { rule = { class = "Okular" }, properties = { tag = tags[1][7] } },
---  { rule = { class = "java-lang-Thread" }, properties = { tag = tags[1][2] } }, --pycharm 1.x
+  { rule = { class = "Okular" }, properties = { tag = tags[1][7] }, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "java-lang-Thread" }, properties = { tag = tags[1][2] }, maximized_vertical = true, maximized_horizontal = true, }, --pycharm 1.x
   { rule = { class = "jetbrains-pycharm" }, properties = { tag = tags[1][2] } },
-  { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] } },
+  { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] }, maximized_vertical = false, maximized_horizontal = false, },
   { rule = { class = "VirtualBox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "vox" }, properties = { tag = tags[1][7] } },
-  { rule = { class = "Ktorrent" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "Ktorrent" }, properties = { tag = tags[1][7] }, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "Nicotine" }, properties = { tag = tags[1][7] }, maximized_vertical = true, maximized_horizontal = true, },
 }
 -- }}}
 
@@ -472,6 +475,7 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 run_once = require('run_once')
 run_once.run_once("terminator")
 run_once.run_once("ktorrent")
+run_once.run_once("/home/starenka/.dropbox-dist/dropboxd")
 awful.util.spawn("rm -rf /var/tmp/kdecache-starenka; qdbus org.kde.kded /kded loadModule powerdevil")
 -- Use the second argument, if the programm you wanna start, 
 -- differs from the what you want to search.
