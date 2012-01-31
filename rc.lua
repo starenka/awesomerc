@@ -50,9 +50,9 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-  names = { 'terms', 'dev', 'dev:www', '[www]', '#', 'd{-_-}b', '/tmp', },
+  names = { 'terms', 'dev', 'dev:www', '[www]', '#', 'd{-_-}b', '/tmp', 'μdev' },
   layout = {
-    layouts[1], layouts[1], layouts[1], layouts[1], layouts[6], layouts[1], layouts[1],
+    layouts[1], layouts[1], layouts[1], layouts[1], layouts[6], layouts[1], layouts[1], layouts[1]
   }
 }
 
@@ -291,6 +291,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ modkey }, "v", function() awful.tag.viewonly(tags[mouse.screen][3]) end), --dev:www
   awful.key({ modkey }, "c", function() awful.tag.viewonly(tags[mouse.screen][5]) end), --irc/im
   awful.key({ modkey }, "/", function() awful.tag.viewonly(tags[mouse.screen][1]) end), --terminals
+  awful.key({ modkey }, "u", function() awful.tag.viewonly(tags[mouse.screen][8]) end), --udev
 
   awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end),
 
@@ -419,12 +420,14 @@ awful.rules.rules = {
   { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] }, maximized_vertical = true, maximized_horizontal = true, },
   { rule = { class = "Opera" }, properties = { tag = tags[1][4] }, maximized_vertical = true, maximized_horizontal = true, },
   { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] }, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "Google-chrome" }, properties = { tag = tags[1][3] }, maximized_vertical = true, maximized_horizontal = true, },
   { rule = { class = "Wireshark" }, properties = { tag = tags[1][3] } },
   { rule = { class = "Krusader" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Pidgin" }, properties = { tag = tags[1][5] } },
   { rule = { class = "Konversation" }, properties = { tag = tags[1][5] } },
-  { rule = { class = "Kate" }, properties = { tag = tags[1][7] }, maximized_vertical = true, maximized_horizontal = true, },
-  { rule = { class = "Sublime_text" }, properties = { tag = tags[1][7] }, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "Kate" }, properties = { tag = tags[1][8] }, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "Sublime_text" }, properties = { tag = tags[1][8] }, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "Sublime" }, properties = { tag = tags[1][8] }, maximized_vertical = true, maximized_horizontal = true, },
   { rule = { class = "Clementine" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Audacity" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Vlc" }, properties = { tag = tags[1][6] } },
@@ -433,6 +436,7 @@ awful.rules.rules = {
   { rule = { class = "Okular" }, properties = { tag = tags[1][7] }, maximized_vertical = true, maximized_horizontal = true, },
   { rule = { class = "java-lang-Thread" }, properties = { tag = tags[1][2] }, maximized_vertical = true, maximized_horizontal = true, }, --pycharm 1.x
   { rule = { class = "jetbrains-pycharm" }, properties = { tag = tags[1][2] } },
+  { rule = { class = "sun-awt-X11-XFramePeer" }, properties = { tag = tags[1][2] } },
   { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] }, maximized_vertical = false, maximized_horizontal = false, },
   { rule = { class = "VirtualBox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "vox" }, properties = { tag = tags[1][7] } },
