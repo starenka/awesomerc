@@ -225,6 +225,7 @@ for s = 1, screen.count() do
       widget_sep,
       padding_right,
       gmailwidget,
+--	  padding_left,
       layout = awful.widget.layout.horizontal.rightleft
     },
     s == 1 and mysystray or nil,
@@ -296,9 +297,9 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end),
 
   -- volume
+  awful.key({}, "XF86AudioMute", function() awful.util.spawn("amixer -c 0 set Master toggle") end ),
   awful.key({}, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer -c 0 set Master 2+ unmute") end),
   awful.key({}, "XF86AudioLowerVolume", function() awful.util.spawn("amixer -c 0 set Master 2- unmute") end),
-  -- awful.key({}, "XF86AudioLowerVolume", function() awful.util.spawn("amixer -c 0 set Master nmute") end),
 
   -- clementine
   awful.key({}, "XF86AudioPrev", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Prev") end),
@@ -399,15 +400,13 @@ awful.rules.rules = {
       border_color = beautiful.border_normal,
       focus = true,
       keys = clientkeys,
-      buttons = clientbuttons
+      buttons = clientbuttons,
+      --maximized_vertical = true,
+      --maximized_horizontal = true
     }
   },
   {
     rule = { class = "MPlayer" },
-    properties = { floating = true }
-  },
-  {
-    rule = { class = "pinentry" },
     properties = { floating = true }
   },
   {
@@ -417,32 +416,33 @@ awful.rules.rules = {
 
   -- default apps -> tags
   -- xprop | grep WM_CLAS
-  { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] }, maximized_vertical = true, maximized_horizontal = true, },
-  { rule = { class = "Opera" }, properties = { tag = tags[1][4] }, maximized_vertical = true, maximized_horizontal = true, },
-  { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] }, maximized_vertical = true, maximized_horizontal = true, },
-  { rule = { class = "Google-chrome" }, properties = { tag = tags[1][3] }, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } }, --, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "Opera" }, properties = { tag = tags[1][4] } },
+  { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] } },
+  { rule = { class = "Google-chrome" }, properties = { tag = tags[1][3] }},
   { rule = { class = "Wireshark" }, properties = { tag = tags[1][3] } },
   { rule = { class = "Krusader" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Pidgin" }, properties = { tag = tags[1][5] } },
   { rule = { class = "Konversation" }, properties = { tag = tags[1][5] } },
-  { rule = { class = "Kate" }, properties = { tag = tags[1][8] }, maximized_vertical = true, maximized_horizontal = true, },
-  { rule = { class = "Sublime_text" }, properties = { tag = tags[1][8] }, maximized_vertical = true, maximized_horizontal = true, },
-  { rule = { class = "Sublime" }, properties = { tag = tags[1][8] }, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "Kate" }, properties = { tag = tags[1][8] } },
+  { rule = { class = "Sublime_text" }, properties = { tag = tags[1][8] } },
+  { rule = { class = "Sublime" }, properties = { tag = tags[1][8] } },
+  { rule = { class = "Rubyroom" }, properties = { tag = tags[1][8] },},
   { rule = { class = "Clementine" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Audacity" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Vlc" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Gvim" }, properties = { tag = tags[1][2] } },
   { rule = { class = "jd-Main" }, properties = { tag = tags[1][7] } },
-  { rule = { class = "Okular" }, properties = { tag = tags[1][7] }, maximized_vertical = true, maximized_horizontal = true, },
-  { rule = { class = "java-lang-Thread" }, properties = { tag = tags[1][2] }, maximized_vertical = true, maximized_horizontal = true, }, --pycharm 1.x
+  { rule = { class = "Okular" }, properties = { tag = tags[1][7] } },
+ -- { rule = { class = "java-lang-Thread" }, properties = { tag = tags[1][2] } }, --pycharm 1.x
   { rule = { class = "jetbrains-pycharm" }, properties = { tag = tags[1][2] } },
   { rule = { class = "sun-awt-X11-XFramePeer" }, properties = { tag = tags[1][2] } },
-  { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] }, maximized_vertical = false, maximized_horizontal = false, },
+  { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] } },
   { rule = { class = "VirtualBox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "vox" }, properties = { tag = tags[1][7] } },
-  { rule = { class = "Ktorrent" }, properties = { tag = tags[1][7] }, maximized_vertical = true, maximized_horizontal = true, },
-  { rule = { class = "Nicotine" }, properties = { tag = tags[1][7] }, maximized_vertical = true, maximized_horizontal = true, },
-}
+  { rule = { class = "Ktorrent" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "Nicotine" }, properties = { tag = tags[1][7] } },
+} 
 -- }}}
 
 -- {{{ Signals
@@ -477,10 +477,9 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- }}}
 
 run_once = require('run_once')
-run_once.run_once("terminator")
+run_once.run_once("terminator")--, "-m -x startup")
 run_once.run_once("ktorrent")
-run_once.run_once("/home/starenka/.dropbox-dist/dropboxd")
-awful.util.spawn("rm -rf /var/tmp/kdecache-starenka; qdbus org.kde.kded /kded loadModule powerdevil")
+run_once.run_once("klipper")
 -- Use the second argument, if the programm you wanna start, 
 -- differs from the what you want to search.
 -- run_once("redshift", "nice -n19 redshift -l 51:14 -t 5700:4500")
