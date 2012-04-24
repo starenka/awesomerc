@@ -33,14 +33,14 @@ shiftkey = "Shift"
 layouts =
 {
   awful.layout.suit.floating,
-  awful.layout.suit.tile,
   awful.layout.suit.tile.left,
-  awful.layout.suit.tile.bottom,
-  awful.layout.suit.tile.top,
-  awful.layout.suit.fair,
-  awful.layout.suit.fair.horizontal,
-  awful.layout.suit.spiral,
-  awful.layout.suit.spiral.dwindle,
+  awful.layout.suit.tile,
+  --awful.layout.suit.tile.bottom,
+  --awful.layout.suit.tile.top,
+  --awful.layout.suit.fair,
+  --awful.layout.suit.fair.horizontal,
+  --awful.layout.suit.spiral,
+  --awful.layout.suit.spiral.dwindle,
   awful.layout.suit.max,
   awful.layout.suit.max.fullscreen,
   awful.layout.suit.magnifier
@@ -52,7 +52,7 @@ layouts =
 tags = {
   names = { 'terms', 'dev', 'dev:www', '[www]', '#', 'd{-_-}b', '/tmp', 'μdev' },
   layout = {
-    layouts[1], layouts[1], layouts[1], layouts[1], layouts[6], layouts[1], layouts[1], layouts[1]
+    layouts[1], layouts[1], layouts[1], layouts[1], layouts[2], layouts[1], layouts[1], layouts[1]
   }
 }
 
@@ -297,9 +297,10 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end),
 
   -- volume
-  awful.key({}, "XF86AudioMute", function() awful.util.spawn("amixer -c 0 set Master toggle") end ),
-  awful.key({}, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer -c 0 set Master 2+ unmute") end),
-  awful.key({}, "XF86AudioLowerVolume", function() awful.util.spawn("amixer -c 0 set Master 2- unmute") end),
+  awful.key({}, "XF86AudioMute", function() awful.util.spawn("amixer xprosset Master toggle") end ),
+  awful.key({}, "XF86Launch1", function() awful.util.spawn("amixer xprosset Master toggle") end ),
+  awful.key({}, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer -c0 set Master 2+ unmute") end),
+  awful.key({}, "XF86AudioLowerVolume", function() awful.util.spawn("amixer -c0 set Master 2- unmute") end),
 
   -- clementine
   awful.key({}, "XF86AudioPrev", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Prev") end),
@@ -401,8 +402,8 @@ awful.rules.rules = {
       focus = true,
       keys = clientkeys,
       buttons = clientbuttons,
-      --maximized_vertical = true,
-      --maximized_horizontal = true
+      maximized_vertical = false,
+      maximized_horizontal = false
     }
   },
   {
@@ -477,9 +478,10 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- }}}
 
 run_once = require('run_once')
-run_once.run_once("terminator")--, "-m -x startup")
+run_once.run_once("terminator -x /home/starenka/bin/startup")
 run_once.run_once("ktorrent")
 run_once.run_once("klipper")
+run_once.run_once("wicd-client -o")
 -- Use the second argument, if the programm you wanna start, 
 -- differs from the what you want to search.
 -- run_once("redshift", "nice -n19 redshift -l 51:14 -t 5700:4500")
