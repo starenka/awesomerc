@@ -269,6 +269,12 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
       end
     end),
 
+   -- Resizing
+   awful.key({ modkey }, "l",          function () awful.tag.incmwfact( 0.05) end),
+   awful.key({ modkey }, "h",          function () awful.tag.incmwfact(-0.05) end),
+   awful.key({ modkey, "Shift" }, "l", function () awful.client.incwfact(-0.05) end),
+   awful.key({ modkey, "Shift" }, "h", function () awful.client.incwfact( 0.05) end),
+
   -- Standard program
   awful.key({ modkey, }, "Return", function() awful.util.spawn(terminal) end),
   awful.key({ modkey, ctrlkey }, "r", awesome.restart),
@@ -420,6 +426,7 @@ awful.rules.rules = {
   { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } }, --, maximized_vertical = true, maximized_horizontal = true, },
   { rule = { class = "Opera" }, properties = { tag = tags[1][4] } },
   { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] } },
+  { rule = { class = "Firefox-bin" }, properties = { tag = tags[1][3] } },
   { rule = { class = "Google-chrome" }, properties = { tag = tags[1][3] }},
   { rule = { class = "Wireshark" }, properties = { tag = tags[1][3] } },
   { rule = { class = "Krusader" }, properties = { tag = tags[1][7] } },
@@ -442,6 +449,7 @@ awful.rules.rules = {
   { rule = { class = "VirtualBox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "vox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Ktorrent" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "Deluge" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Nicotine" }, properties = { tag = tags[1][7] } },
 } 
 -- }}}
