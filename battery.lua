@@ -29,10 +29,6 @@ function M.get_info()
     battery = "100"
   end
   text = spacer .. dir .. battery .. "%" .. spacer
-  --batterywidget.text = '<span color="'..color..'">'..text..'</span>'
-  --if blink == 1 then
-  --blinking(batterywidget, 1.2, #text)
-  --end
   fcur:close()
   fcap:close()
   fsta:close()

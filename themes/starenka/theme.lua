@@ -29,7 +29,7 @@ theme.bg_urgent = "#FF6600"
 -- }}}
 
 -- {{{ Borders
-theme.border_width  = "2"
+theme.border_width  = "1"
 theme.border_normal = "#3F3F3F"
 theme.border_focus  = "#6F6F6F"
 theme.border_marked = "#CC9393"
@@ -82,8 +82,9 @@ theme.taglist_squares_unsel = "~/.config/awesome/themes/starenka/taglist/squarez
 -- }}}
 
 -- {{{ Misc
-theme.awesome_icon           = "~/.config/awesome/themes/starenka/awesome-icon.png"
+theme.awesome_icon           = "~/.config/awesome/themes/starenka/debian-icon.png"
 theme.menu_submenu_icon      = "/usr/share/awesome/themes/default/submenu.png"
+theme.tasklist_font = "monospace 7.5"
 -- theme.tasklist_floating_icon = "~/.config/awesome/themes/default/tasklist/floating.png"
 -- theme.tasklist_floating_icon = "~/.config/awesome/themes/starenka/titlebar/ontop_focus_active.png"
 -- }}}

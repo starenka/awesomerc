@@ -6,13 +6,14 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
-
 -- Load Debian menu entries
 require("debian.menu")
+-- awesome-client
+require("awful.remote")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/home/starenka/.config/awesome/themes/starenka/theme.lua")
+beautiful.init("/home/starenka/.config/awesome/themes/starenka/theme.lua") -- won't resolve ~
 
 -- This is used later as the default terminal and editor to run.
 terminal = "terminator"
@@ -313,7 +314,6 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({}, "XF86AudioNext", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Next") end),
   awful.key({}, "XF86AudioPlay", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Play") end),
   awful.key({}, "XF86AudioStop", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Pause") end),
-  --  awful.key({}, "XF86AudioStop", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Stop") end),
 
   -- misc
   awful.key({ altkey, }, "space", function() mypromptbox[mouse.screen]:run() end), --prompt
@@ -329,7 +329,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
 --        awful.util.getdir("cache") .. "/history_eval")
 --    end))
 
-  awful.key({ modkey }, "x", function() awful.util.spawn("terminator -x ipython") end)) -- spawn term w/ python
+  awful.key({ modkey }, "x", function() awful.util.spawn("terminator -x bpython") end)) -- spawn term w/ python
 
 clientkeys = awful.util.table.join(awful.key({ modkey, }, "f", function(c) c.fullscreen = not c.fullscreen end),
   awful.key({ modkey, shiftkey }, "c", function(c) c:kill() end),
@@ -421,36 +421,51 @@ awful.rules.rules = {
     properties = { floating = true }
   },
 
-  -- default apps -> tags
-  -- xprop | grep WM_CLAS
-  { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } }, --, maximized_vertical = true, maximized_horizontal = true, },
-  { rule = { class = "Opera" }, properties = { tag = tags[1][4] } },
+  -- default apps -> tags, use xprop | grep WM_CLAS to determine window props
+  -- terms
+
+  -- dev
+  -- { rule = { class = "java-lang-Thread" }, properties = { tag = tags[1][2] } }, --pycharm 1.x
+  { rule = { class = "jetbrains-pycharm" }, properties = { tag = tags[1][2] } },
+  { rule = { class = "sun-awt-X11-XFramePeer" }, properties = { tag = tags[1][2] } },
+  { rule = { class = "Gvim" }, properties = { tag = tags[1][2] } },
+
+  -- dev:www
   { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] } },
   { rule = { class = "Firefox-bin" }, properties = { tag = tags[1][3] } },
   { rule = { class = "Google-chrome" }, properties = { tag = tags[1][3] }},
-  { rule = { class = "Wireshark" }, properties = { tag = tags[1][3] } },
-  { rule = { class = "Krusader" }, properties = { tag = tags[1][7] } },
+
+  -- [www]
+  { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } }, --, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "Opera" }, properties = { tag = tags[1][4] } },
+  { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] } },
+
+  -- #
   { rule = { class = "Pidgin" }, properties = { tag = tags[1][5] } },
   { rule = { class = "Konversation" }, properties = { tag = tags[1][5] } },
-  { rule = { class = "Kate" }, properties = { tag = tags[1][8] } },
-  { rule = { class = "Sublime_text" }, properties = { tag = tags[1][8] } },
-  { rule = { class = "Sublime" }, properties = { tag = tags[1][8] } },
-  { rule = { class = "Rubyroom" }, properties = { tag = tags[1][8] },},
+
+  -- d{-_-}b
   { rule = { class = "Clementine" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Audacity" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Vlc" }, properties = { tag = tags[1][6] } },
-  { rule = { class = "Gvim" }, properties = { tag = tags[1][2] } },
-  { rule = { class = "jd-Main" }, properties = { tag = tags[1][7] } },
-  { rule = { class = "Okular" }, properties = { tag = tags[1][7] } },
- -- { rule = { class = "java-lang-Thread" }, properties = { tag = tags[1][2] } }, --pycharm 1.x
-  { rule = { class = "jetbrains-pycharm" }, properties = { tag = tags[1][2] } },
-  { rule = { class = "sun-awt-X11-XFramePeer" }, properties = { tag = tags[1][2] } },
-  { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] } },
+
+  -- /tmp
+  { rule = { class = "Krusader" }, properties = { tag = tags[1][7] } },
   { rule = { class = "VirtualBox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "vox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Ktorrent" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Deluge" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Nicotine" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "jd-Main" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "Okular" }, properties = { tag = tags[1][7] } },
+
+  -- udev
+  { rule = { class = "Wireshark" }, properties = { tag = tags[1][8] } },
+  { rule = { class = "Kate" }, properties = { tag = tags[1][8] } },
+  { rule = { class = "Sublime_text" }, properties = { tag = tags[1][8] } },
+  { rule = { class = "Sublime" }, properties = { tag = tags[1][8] } },
+  { rule = { class = "Rubyroom" }, properties = { tag = tags[1][8] },},
+
 } 
 -- }}}
 
@@ -485,19 +500,28 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
-run_once = require('run_once')
-run_once.run_once("terminator -x /home/starenka/bin/startup")
-run_once.run_once("ktorrent")
-run_once.run_once("klipper")
-run_once.run_once("wicd-client -o")
--- Use the second argument, if the programm you wanna start, 
--- differs from the what you want to search.
--- run_once("redshift", "nice -n19 redshift -l 51:14 -t 5700:4500")
 
--- function find_tag (name, s) local s = s or mouse.screen for _, t in pairs(tags[s]) do if t.name == name then return t end end end
+-- autostart items (won't run on awesome restart)
+run_once = require("runonce")
+
+autorun_items =
+{
+	"ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
+	"terminator -x /home/starenka/bin/startup",
+	"ktorrent",
+	"wicd-client -o",
+	--"klipper",
+}
+
+for index, item in ipairs(autorun_items) do
+  run_once.run(item)
+end
+
 
 -- remove spawn cursor
 local oldspawn = awful.util.spawn
 awful.util.spawn = function(s)
   oldspawn(s, false)
 end
+
+-- function find_tag (name, s) local s = s or mouse.screen for _, t in pairs(tags[s]) do if t.name == name then return t end end end
