@@ -507,7 +507,7 @@ run_once = require("runonce")
 autorun_items =
 {
 	"ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
-	"terminator -x /home/starenka/bin/startup",
+	"terminator -x ~/bin/startup",
 	"ktorrent",
 	"wicd-client -o",
 	--"klipper",
