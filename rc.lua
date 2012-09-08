@@ -185,6 +185,7 @@ padding_right.text = " "
 widget_sep = widget({ type = "textbox", name = "widget-sep", align = "right" })
 widget_sep.text = "|"
 
+-- launcher
 for s = 1, screen.count() do
   -- Create a promptbox for each screen
   mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
@@ -226,7 +227,6 @@ for s = 1, screen.count() do
       widget_sep,
       padding_right,
       gmailwidget,
---	  padding_left,
       layout = awful.widget.layout.horizontal.rightleft
     },
     s == 1 and mysystray or nil,
@@ -293,7 +293,6 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ modkey, ctrlkey }, "n", awful.client.restore),
 
   -- shortcuts for tags
-  awful.key({ ctrlkey, altkey }, "space", function() awful.tag.viewonly(tags[mouse.screen][1]) end),
   awful.key({ modkey }, "b", function() awful.tag.viewonly(tags[mouse.screen][4]) end), --browser [www]
   awful.key({ modkey }, "d", function() awful.tag.viewonly(tags[mouse.screen][2]) end), --dev
   awful.key({ modkey }, "v", function() awful.tag.viewonly(tags[mouse.screen][3]) end), --dev:www
@@ -316,7 +315,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({}, "XF86AudioStop", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Pause") end),
 
   -- misc
-  awful.key({ altkey, }, "space", function() mypromptbox[mouse.screen]:run() end), --prompt
+  awful.key({ altkey, }, "space", function() mypromptbox[mouse.screen]:run() end), --launcher
   awful.key({}, "Print", function() awful.util.spawn("ksnapshot") end), -- screenshot
   awful.key({ ctrlkey }, "Escape", function() awful.util.spawn("ksysguard") end), -- "ktop"
 
@@ -510,6 +509,7 @@ autorun_items =
 	"terminator -x ~/bin/startup",
 	"ktorrent",
 	"wicd-client -o",
+	"dropbox start",
 	--"klipper",
 }
 
