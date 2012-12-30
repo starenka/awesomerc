@@ -219,11 +219,14 @@ for s = 1, screen.count() do
     },
     {
       mylayoutbox[s],
+
       mytextclock,
       widget_sep,
       kbdcfg.widget,
       widget_sep,
       batterywidget.widget,
+      
+      --end widgets, start tray icon
       widget_sep,
       padding_right,
       gmailwidget,
@@ -328,7 +331,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
 --        awful.util.getdir("cache") .. "/history_eval")
 --    end))
 
-  awful.key({ modkey }, "x", function() awful.util.spawn("terminator -x bpython") end)) -- spawn term w/ python
+  awful.key({ modkey }, "x", function() awful.util.spawn("uxterm bpython") end)) -- spawn term w/ python
 
 clientkeys = awful.util.table.join(awful.key({ modkey, }, "f", function(c) c.fullscreen = not c.fullscreen end),
   awful.key({ modkey, shiftkey }, "c", function(c) c:kill() end),
@@ -445,8 +448,11 @@ awful.rules.rules = {
 
   -- d{-_-}b
   { rule = { class = "Clementine" }, properties = { tag = tags[1][6] } },
+  { rule = { class = "Sonata" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Audacity" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Vlc" }, properties = { tag = tags[1][6] } },
+  { rule = { class = "Smplayer2" }, properties = { tag = tags[1][6] } },
+  { rule = { class = "Qmpdclient" }, properties = { tag = tags[1][6] } },
 
   -- /tmp
   { rule = { class = "Krusader" }, properties = { tag = tags[1][7] } },
@@ -464,6 +470,7 @@ awful.rules.rules = {
   { rule = { class = "Sublime_text" }, properties = { tag = tags[1][8] } },
   { rule = { class = "Sublime" }, properties = { tag = tags[1][8] } },
   { rule = { class = "Rubyroom" }, properties = { tag = tags[1][8] },},
+  { rule = { class = "dosbox" }, properties = { tag = tags[1][8] },},
 
 } 
 -- }}}
