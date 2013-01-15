@@ -310,12 +310,18 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({}, "XF86Launch1", function() awful.util.spawn("amixer xprosset Master toggle") end ),
   awful.key({}, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer -c0 set Master 2+ unmute") end),
   awful.key({}, "XF86AudioLowerVolume", function() awful.util.spawn("amixer -c0 set Master 2- unmute") end),
+  awful.key({}, "F12", function() awful.util.spawn("amixer -c0 set Master 2+ unmute") end),
+  awful.key({}, "F11", function() awful.util.spawn("amixer -c0 set Master 2- unmute") end),
 
   -- clementine
+  awful.key({ modkey, shiftkey }, "Left", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Prev") end),
+  awful.key({ modkey, shiftkey }, "Right", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Next") end),
   awful.key({}, "XF86AudioPrev", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Prev") end),
   awful.key({}, "XF86AudioNext", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Next") end),
   awful.key({}, "XF86AudioPlay", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Play") end),
   awful.key({}, "XF86AudioStop", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Pause") end),
+  awful.key({ modkey, shiftkey }, "Up", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Play") end),
+  awful.key({ modkey, shiftkey }, "Down", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Pause") end),
 
   -- misc
   awful.key({ altkey, }, "space", function() mypromptbox[mouse.screen]:run() end), --launcher
