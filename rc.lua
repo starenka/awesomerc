@@ -437,6 +437,7 @@ awful.rules.rules = {
   { rule = { class = "jetbrains-pycharm" }, properties = { tag = tags[1][2] } },
   { rule = { class = "sun-awt-X11-XFramePeer" }, properties = { tag = tags[1][2] } },
   { rule = { class = "Gvim" }, properties = { tag = tags[1][2] } },
+  { rule = { class = "Emacs" }, properties = { tag = tags[1][2] } },
 
   -- dev:www
   { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] } },
