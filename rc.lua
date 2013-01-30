@@ -35,16 +35,16 @@ layouts =
 {
   awful.layout.suit.floating,
   awful.layout.suit.tile.left,
-  awful.layout.suit.tile,
   --awful.layout.suit.tile.bottom,
   --awful.layout.suit.tile.top,
   --awful.layout.suit.fair,
   --awful.layout.suit.fair.horizontal,
   --awful.layout.suit.spiral,
   --awful.layout.suit.spiral.dwindle,
-  awful.layout.suit.max,
+  --awful.layout.suit.max,
   awful.layout.suit.max.fullscreen,
-  awful.layout.suit.magnifier
+  --awful.layout.suit.magnifier
+  awful.layout.suit.tile
 }
 -- }}}
 
@@ -257,7 +257,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
 
   awful.key({ altkey, }, "Tab", function () awful.client.focus.byidx(1) if client.focus then client.focus:raise() end end),
   awful.key({ altkey, shiftkey }, "Tab", function () awful.client.focus.byidx(-1) if client.focus then client.focus:raise() end end),
-  awful.key({ modkey, }, "w", function() mymainmenu:show({ keygrabber = true }) end),
+  --awful.key({ modkey, }, "w", function() mymainmenu:show({ keygrabber = true }) end),
 
   -- Layout manipulation
   awful.key({ modkey, shiftkey }, "j", function() awful.client.swap.byidx(1) end),
@@ -437,7 +437,6 @@ awful.rules.rules = {
   { rule = { class = "jetbrains-pycharm" }, properties = { tag = tags[1][2] } },
   { rule = { class = "sun-awt-X11-XFramePeer" }, properties = { tag = tags[1][2] } },
   { rule = { class = "Gvim" }, properties = { tag = tags[1][2] } },
-  { rule = { class = "Emacs" }, properties = { tag = tags[1][2] } },
 
   -- dev:www
   { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] } },
@@ -478,6 +477,7 @@ awful.rules.rules = {
   { rule = { class = "Sublime" }, properties = { tag = tags[1][8] } },
   { rule = { class = "Rubyroom" }, properties = { tag = tags[1][8] },},
   { rule = { class = "dosbox" }, properties = { tag = tags[1][8] },},
+  { rule = { class = "Emacs" }, properties = { tag = tags[1][8] } },
 
 } 
 -- }}}
@@ -524,6 +524,7 @@ autorun_items =
 	"ktorrent",
 	"wicd-client -o",
 	"dropbox start",
+	"emacs",
 	--"klipper",
 }
 
