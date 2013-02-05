@@ -273,17 +273,12 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
       end
     end),
 
-   -- Resizing
-   awful.key({ modkey }, "l",          function () awful.tag.incmwfact( 0.05) end),
-   awful.key({ modkey }, "h",          function () awful.tag.incmwfact(-0.05) end),
-   awful.key({ modkey, "Shift" }, "l", function () awful.client.incwfact(-0.05) end),
-   awful.key({ modkey, "Shift" }, "h", function () awful.client.incwfact( 0.05) end),
-
   -- Standard program
   awful.key({ modkey, }, "Return", function() awful.util.spawn(terminal) end),
   awful.key({ modkey, ctrlkey }, "r", awesome.restart),
   awful.key({ modkey, shiftkey }, "q", awesome.quit),
 
+  -- Resizing
   awful.key({ modkey, }, "l", function() awful.tag.incmwfact(0.05) end),
   awful.key({ modkey, }, "h", function() awful.tag.incmwfact(-0.05) end),
   awful.key({ modkey, shiftkey }, "h", function() awful.tag.incnmaster(1) end),
@@ -337,7 +332,8 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
 --        awful.util.getdir("cache") .. "/history_eval")
 --    end))
 
-  awful.key({ modkey }, "x", function() awful.util.spawn("uxterm bpython") end)) -- spawn term w/ python
+  awful.key({ modkey }, "x", function() awful.util.spawn("uxterm bpython") end), -- spawn term w/ python
+  awful.key({ modkey }, "z", function() awful.util.spawn("uxterm lua") end)) -- spawn term w/ lua
 
 clientkeys = awful.util.table.join(awful.key({ modkey, }, "f", function(c) c.fullscreen = not c.fullscreen end),
   awful.key({ modkey, shiftkey }, "c", function(c) c:kill() end),
