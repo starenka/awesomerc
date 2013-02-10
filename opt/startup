@@ -1,1 +1,11 @@
-/home/starenka/bin/startup
+#!/bin/zsh
+
+qdbus org.kde.kded /kded loadModule powerdevil > /dev/null
+
+echo -e "\n==== SSH Agent keyphrase: ====\n"
+ssh-agent && ssh-add
+
+echo -e "\n==== root passwd: ====\n"
+cd /tmp
+su
+
