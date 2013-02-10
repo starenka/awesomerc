@@ -332,8 +332,10 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
 --        awful.util.getdir("cache") .. "/history_eval")
 --    end))
 
-  awful.key({ modkey }, "x", function() awful.util.spawn("uxterm bpython") end), -- spawn term w/ python
-  awful.key({ modkey }, "z", function() awful.util.spawn("uxterm lua") end)) -- spawn term w/ lua
+  awful.key({ modkey }, "a", function() awful.util.spawn("uxterm -e '~/bin/repls'") end), -- spawn term w/ REPL choices
+  awful.key({ modkey }, "x", function() awful.util.spawn("uxterm -e 'bpython'") end), -- spawn term w/ python  
+  awful.key({ modkey }, "z", function() awful.util.spawn("uxterm -e 'lua5.2 -i'") end) -- spawn term w/ lua
+)
 
 clientkeys = awful.util.table.join(awful.key({ modkey, }, "f", function(c) c.fullscreen = not c.fullscreen end),
   awful.key({ modkey, shiftkey }, "c", function(c) c:kill() end),
