@@ -41,9 +41,13 @@ function M.get_smapi(battery)
 end
    
 function M.get_info()
-   local spacer = ''
+   local spacer = ' '
    local dir = ''
    local color = M.settings.color
+
+   function mins_to_hm_str(mins)
+      return math.floor(mins/60) .. ':' .. string.format('%02d', mins%60)
+   end
 
    local stats = M['get_' .. M.settings.method](M.settings.battery)
 
@@ -54,11 +58,16 @@ function M.get_info()
       elseif stats.rem_perc < M.settings.critical.level then
 	 color = M.settings.critical.color
       end      
-   elseif stats.state == 1 then dir = '+'
+      rtime = stats.rem_time
+   elseif stats.state == 1 then 
+      dir = '+'
+      rtime = stats.rem_chtime
    end
-
-   text = spacer ..  (stats.ac and '' or '@ ') .. dir .. stats.rem_perc .. "%" .. spacer
-   return '<span color="' .. color .. '">' .. text .. '</span>'
+   
+   time = rtime and (' ' .. mins_to_hm_str(rtime)) or ''
+   --text = (stats.ac and '' or '@ ') .. dir .. stats.rem_perc .. "%"
+   text = dir .. stats.rem_perc .. "%"
+   return spacer .. '<span color="' .. color .. '">' .. text .. '<span font-size="small">' .. time .. '</span></span>' .. spacer
 end
 
 return M
