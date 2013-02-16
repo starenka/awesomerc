@@ -109,7 +109,7 @@ gmailwidget = awful.widget.gmail.new()
 
 -- battery
 battery = require('battery')
-battery_poll_int = 1 --seconds
+battery_poll_int = 7 --seconds
 
 -- you can override default battery settings here
 -- battery.settings={method='generic', color='#dcdccc', battery='BAT0', warning={ color='#fecf35', level=31}, critical={color='red', level=16}}
