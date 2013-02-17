@@ -15,7 +15,7 @@ require('blinker')
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/home/starenka/.config/awesome/themes/starenka/theme.lua") -- won't resolve ~
+beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.getenv("HOME")))
 
 -- This is used later as the default terminal and editor to run.
 terminal = "terminator"
