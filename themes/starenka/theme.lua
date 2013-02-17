@@ -8,7 +8,7 @@
 
 -- {{{ Main
 theme = {}
-theme.wallpaper_cmd = { "awsetbg /home/starenka/.config/awesome/themes/starenka/awesome.png" } -- this won't resolve ~
+theme.wallpaper_cmd = { string.format("awsetbg %s/.config/awesome/themes/starenka/awesome.png", os.getenv("HOME")) }
 -- }}}
 
 -- {{{ Styles
