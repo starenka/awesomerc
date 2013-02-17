@@ -11,6 +11,8 @@ require("debian.menu")
 -- awesome-client
 require("awful.remote")
 
+require('blinker')
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/home/starenka/.config/awesome/themes/starenka/theme.lua") -- won't resolve ~
@@ -29,6 +31,7 @@ modkey = "Mod4"
 altkey = "Mod1"
 ctrlkey = "Control"
 shiftkey = "Shift"
+
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
@@ -112,14 +115,22 @@ battery = require('battery')
 battery_poll_int = 7 --seconds
 
 -- you can override default battery settings here
--- battery.settings={method='generic', color='#dcdccc', battery='BAT0', warning={ color='#fecf35', level=31}, critical={color='red', level=16}}
+-- battery.settings={method='generic', color='#dcdccc', battery='BAT0', warning={ color='#fecf35', level=30}, critical={color='red', level=15}}
 battery.settings.method = 'smapi'
 batterywidget = {
   widget = widget({ type = "textbox", name = "batterywidget", align = "right" }),
   timer = timer({ timeout = battery_poll_int })
 }
 batterywidget.widget.text = " ?? "
-batterywidget.timer:add_signal("timeout", function() batterywidget.widget.text = battery.get_info() end)
+batterywidget.timer:add_signal("timeout", 
+    function() 
+       local is_critical, blank_text, text = battery.get_info()
+       batterywidget.widget.text = text
+       if is_critical then blinking(batterywidget.widget, battery_poll_init, blank_text)
+       else blinkers[batterywidget.widget] = nil 
+       end
+    end
+)
 batterywidget.timer:start()
 
 -- {{{ Wibox

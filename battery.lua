@@ -1,12 +1,13 @@
 local M = { settings = { method = 'generic', 
 			 color = '#dcdccc', 
 			 battery = 'BAT0', 
-			 warning = { color = '#fecf35', level = 31 }, 
-			 critical = { color = 'red', level = 16 } } 
+			 warning = { color = '#fecf35', level = 30 }, 
+			 critical = { color = '#ff8000', level = 15 } } 
 }
 -- you can override settings in rc.lua
 
 function M.get_generic(battery)
+   --or is it "acpi -b" now the right way?
    local cur = io.open('/sys/class/power_supply/' .. battery .. '/energy_now'):read()
    local cap = io.open('/sys/class/power_supply/' .. battery .. '/energy_full'):read()
    local sta = io.open('/sys/class/power_supply/' .. battery .. '/status'):read()
@@ -53,10 +54,10 @@ function M.get_info()
 
    if stats.state == 0 then
       dir = '-'
-      if stats.rem_perc < M.settings.warning.level then
-	 color = M.settings.warning.color
-      elseif stats.rem_perc < M.settings.critical.level then
+      if stats.rem_perc <= M.settings.critical.level then
 	 color = M.settings.critical.color
+      elseif stats.rem_perc <= M.settings.warning.level then
+	 color = M.settings.warning.color
       end      
       rtime = stats.rem_time
    elseif stats.state == 1 then 
@@ -67,7 +68,10 @@ function M.get_info()
    time = rtime and (' ' .. mins_to_hm_str(rtime)) or ''
    --text = (stats.ac and '' or '@ ') .. dir .. stats.rem_perc .. "%"
    text = dir .. stats.rem_perc .. "%"
-   return spacer .. '<span color="' .. color .. '">' .. text .. '<span font-size="small">' .. time .. '</span></span>' .. spacer
+   return stats.rem_perc <= M.settings.critical.level and stats.state == 0, 
+          spacer .. '<span>' .. string.rep(' ', string.len(text)) .. '<span font-size="small">' .. string.rep(' ', string.len(time)) .. '</span></span>' .. spacer,
+          spacer .. '<span color="' .. color .. '">' .. text .. '<span font-size="small">' .. time .. '</span></span>' .. spacer
+
 end
 
 return M
