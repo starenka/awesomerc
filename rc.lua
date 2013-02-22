@@ -54,7 +54,7 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-  names = { 'terms', 'dev', 'dev:www', '[www]', '#', 'd{-_-}b', '/tmp', 'μdev' },
+  names = { '$', 'dev', 'dev:www', '[www]', '#', 'd{-_-}b', '/tmp', 'μ' },
   layout = {
     layouts[1], layouts[1], layouts[1], layouts[1], layouts[2], layouts[1], layouts[1], layouts[1]
   }
