@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -z "$1" ] && [ -z "$2" ]; then
+    echo "O HAI! CAN I HAS ARGS? USE MEH LAIK DIS: $0 'message to show' at_time_spec" 
+    exit 1
+fi
+
+TITLE='Master????!!!'
+MESS=$1
+ATTIME=$2
+
+echo "echo 'naughty.notify({text = \"$MESS\",title = \"$TITLE\",timeout = 0})' | awesome-client" | at $ATTIME 
