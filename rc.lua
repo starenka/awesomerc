@@ -116,7 +116,7 @@ battery_poll_int = 7 --seconds
 
 -- you can override default battery settings here
 -- battery.settings={method='generic', color='#dcdccc', battery='BAT0', warning={ color='#fecf35', level=30}, critical={color='red', level=15}}
-battery.settings.method = 'smapi'
+battery.settings.method = 'generic'
 batterywidget = {
   widget = widget({ type = "textbox", name = "batterywidget", align = "right" }),
   timer = timer({ timeout = battery_poll_int })
