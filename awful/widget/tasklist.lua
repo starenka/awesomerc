@@ -1,7 +1,7 @@
 ---------------------------------------------------------------------------
 -- @author Julien Danjou &lt;julien@danjou.info&gt;
 -- @copyright 2008-2009 Julien Danjou
--- @release debian/3.4.10-1
+-- @release debian/3.4.13-1
 ---------------------------------------------------------------------------
 
 -- Grab environment we need
@@ -70,6 +70,7 @@ function new(label, buttons)
         c:add_signal("property::icon_name", u)
         c:add_signal("property::icon", u)
         c:add_signal("property::skip_taskbar", u)
+        c:add_signal("property::screen", u)
         c:add_signal("property::hidden", u)
         c:add_signal("tagged", u)
         c:add_signal("untagged", u)
@@ -122,8 +123,8 @@ local function widget_tasklist_label_common(c, args)
         text = text .. name
     end
     text = text .. "</span>"
-    -- return text, bg, status_image, c.icon
     return text, bg, status_image, nil
+    --return text, bg, status_image, c.icon
 end
 
 --- Return labels for a tasklist widget with clients from all tags and screen.
@@ -210,4 +211,4 @@ end
 
 setmetatable(_M, { __call = function(_, ...) return new(...) end })
 
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=80
+-- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
