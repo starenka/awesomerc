@@ -85,8 +85,11 @@ theme.taglist_squares_unsel = "~/.config/awesome/themes/starenka/taglist/squarez
 theme.awesome_icon           = "~/.config/awesome/themes/starenka/debian-icon.png"
 theme.menu_submenu_icon      = "/usr/share/awesome/themes/default/submenu.png"
 theme.tasklist_font = "monospace 7.5"
--- theme.tasklist_floating_icon = "~/.config/awesome/themes/default/tasklist/floating.png"
--- theme.tasklist_floating_icon = "~/.config/awesome/themes/starenka/titlebar/ontop_focus_active.png"
+
+--theme.tasklist_bg_focus = '#FFFFFF'
+--theme.tasklist_font = "Droid Sans Mono 8"
+--theme.tasklist_floating_icon = "~/.config/awesome/themes/default/tasklist/floating.png"
+--theme.tasklist_floating_icon = "~/.config/awesome/themes/starenka/titlebar/ontop_focus_active.png"
 -- }}}
 
 -- {{{ Layout
