@@ -2,16 +2,17 @@
 
 source /usr/local/share/chruby/chruby.sh
 
-what=$(whiptail --menu 'What REPL?' 22 58 11 \
+what=$(whiptail --menu 'What REPL?' 22 58 16 \
 "coffee" "coffee" \
-"js" "js" \
 "lua52" "lua 5.2.1" \
+"py34" "python 3.4.0a2" \
 "ruby20" "ruby 2.0" \
 "py27" "python 2.7.5" \
 "ruby193" "ruby 1.9.3" \
 "py33" "python 3.3.2" \
+"js" "rhino" \
 "clisp24" "clisp 2.4.9" \
-"pypy1927" "pypy 1.9.0 (py2.7)" \
+"pypy21" "pypy 2.1" \
 "py26" "python 2.6.8" \
 "lua51" "lua 5.1.5" \
 3>&1 1>&2 2>&3)
@@ -20,8 +21,9 @@ case $what
  in
     py27)        bpython;;
     py26)        python2.6;;
-    py33)        /data/.envs/py33/bin/bpython;;
-    pypy1927)    /opt/pypy-1.9/bin/pypy;;
+    py33)        python3.3;;
+    py34)        ~/.pyenv/versions/3.4.0a2/bin/python;;
+    pypy21)      ~/.pyenv/versions/pypy-2.1/bin/python;;
     lua52)       lua5.2 -i;;
     lua51)       lua5.1 -i;;
     ruby193)     chruby ruby-1.9.3-p448; irb;;
