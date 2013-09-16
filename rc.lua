@@ -311,11 +311,8 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ modkey }, "/", function() awful.tag.viewonly(tags[mouse.screen][1]) end), --terminals
   awful.key({ modkey }, "u", function() awful.tag.viewonly(tags[mouse.screen][8]) end), --udev
 
-  awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end),
-
   -- volume
   awful.key({}, "XF86AudioMute", function() awful.util.spawn("amixer xprosset Master toggle") end ),
-  awful.key({}, "XF86Launch1", function() awful.util.spawn("amixer xprosset Master toggle") end ),
   awful.key({}, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer -c0 set Master 2+ unmute") end),
   awful.key({}, "XF86AudioLowerVolume", function() awful.util.spawn("amixer -c0 set Master 2- unmute") end),
   awful.key({}, "F12", function() awful.util.spawn("amixer -c0 set Master 2+ unmute") end),
@@ -335,6 +332,9 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ altkey, }, "space", function() mypromptbox[mouse.screen]:run() end), --launcher
   awful.key({}, "Print", function() awful.util.spawn("ksnapshot") end), -- screenshot
   awful.key({ ctrlkey }, "Escape", function() awful.util.spawn("ksysguard") end), -- "ktop"
+  awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end), --change kb layout
+  awful.key({ modkey }, "k", function() awful.util.spawn("xkill") end), --xkill
+	
 
   --
 --  awful.key({ modkey }, "x",
@@ -532,7 +532,7 @@ autorun_items =
 {
 	"ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
 	"terminator -x ~/bin/startup",
-	"ktorrent",
+	--"ktorrent",
 	"wicd-client -o",
 	"dropbox start",
 	"emacs",
