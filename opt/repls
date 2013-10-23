@@ -5,12 +5,13 @@ source /usr/local/share/chruby/chruby.sh
 what=$(whiptail --menu 'What REPL?' 22 58 16 \
 "coffee" "coffee" \
 "lua52" "lua 5.2.1" \
-"py34" "python 3.4.0a2" \
 "ruby20" "ruby 2.0" \
+"py33" "python 3.3.2" \
 "py27" "python 2.7.5" \
 "ruby193" "ruby 1.9.3" \
-"py33" "python 3.3.2" \
+"py34" "python 3.4.0a2" \
 "js" "rhino" \
+"scala" "scala 2.9.2" \
 "clisp24" "clisp 2.4.9" \
 "pypy21" "pypy 2.1" \
 "py26" "python 2.6.8" \
@@ -31,6 +32,7 @@ case $what
     clisp24)     clisp;;
     coffee)      coffee;;
     js)		     js;;
+	scala)		 scala;;
     *)         	 echo You did not choose any item;;
 esac
 
