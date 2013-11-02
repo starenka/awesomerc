@@ -6,6 +6,7 @@ what=$(whiptail --menu 'What REPL?' 22 58 16 \
 "coffee" "coffee" \
 "lua52" "lua 5.2.1" \
 "ruby20" "ruby 2.0" \
+"haskell" "haskell" \
 "py33" "python 3.3.2" \
 "py27" "python 2.7.5" \
 "ruby193" "ruby 1.9.3" \
@@ -33,6 +34,7 @@ case $what
     coffee)      coffee;;
     js)		     js;;
 	scala)		 scala;;
+	haskell)	 ghci;;
     *)         	 echo You did not choose any item;;
 esac
 
