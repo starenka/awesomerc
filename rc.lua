@@ -358,7 +358,8 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ modkey }, "z", function() awful.util.spawn("uxterm -e 'lua5.2 -i'") end) -- spawn term w/ lua
 )
 
-clientkeys = awful.util.table.join(awful.key({ modkey, }, "f", function(c) c.fullscreen = not c.fullscreen end),
+clientkeys = awful.util.table.join(
+  awful.key({ modkey, }, "f", function(c) c.fullscreen = not c.fullscreen end),
   awful.key({ modkey, shiftkey }, "c", function(c) c:kill() end),
   awful.key({ modkey, ctrlkey }, "space", awful.client.floating.toggle),
   awful.key({ modkey, ctrlkey }, "Return", function(c) c:swap(awful.client.getmaster()) end),
@@ -375,7 +376,18 @@ clientkeys = awful.util.table.join(awful.key({ modkey, }, "f", function(c) c.ful
     function(c)
       c.maximized_horizontal = not c.maximized_horizontal
       c.maximized_vertical = not c.maximized_vertical
-    end))
+    end),
+  awful.key({ modkey, }, ";",
+    function(c)
+      c.maximized_horizontal = true
+      c.maximized_vertical = true
+    end),
+  awful.key({ modkey, }, "'",
+    function(c)
+      c.maximized_horizontal = false
+      c.maximized_vertical = false
+    end)
+)
 
 -- Compute the maximum number of digit we need, limited to 9
 keynumber = 0
