@@ -13,6 +13,15 @@ require("awful.remote")
 
 require('blinker')
 
+-- {{{ Error handling
+-- Check if awesome encountered an error during startup and fell back to
+-- another config (This code will only ever execute for the fallback config)
+if awesome.startup_errors then
+    naughty.notify({ preset = naughty.config.presets.critical,
+                     title = "Oops, there were errors during startup!",
+                     text = awesome.startup_errors })
+end
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.getenv("HOME")))
@@ -54,9 +63,9 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-  names = { '$', 'dev', 'dev:www', '[www]', '#', 'd{-_-}b', '/tmp', 'μ' },
+  names = { '$', 'dev', 'dev:www', '[www]', '#', 'd{-_-}b', '/tmp'},
   layout = {
-    layouts[1], layouts[1], layouts[1], layouts[1], layouts[2], layouts[1], layouts[1], layouts[1]
+    layouts[1], layouts[1], layouts[1], layouts[1], layouts[2], layouts[1], layouts[1]
   }
 }
 
@@ -122,12 +131,12 @@ batterywidget = {
   timer = timer({ timeout = battery_poll_int })
 }
 batterywidget.widget.text = " ?? "
-batterywidget.timer:add_signal("timeout", 
-    function() 
+batterywidget.timer:add_signal("timeout",
+    function()
        local is_critical, blank_text, text = battery.get_info()
        batterywidget.widget.text = text
        if is_critical then blinking(batterywidget.widget, battery_poll_init, blank_text)
-       else blinkers[batterywidget.widget] = nil 
+       else blinkers[batterywidget.widget] = nil
        end
     end
 )
@@ -238,7 +247,7 @@ for s = 1, screen.count() do
       kbdcfg.widget,
       widget_sep,
       batterywidget.widget,
-      
+
       --end widgets, start tray icon
       widget_sep,
       padding_right,
@@ -309,7 +318,6 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ modkey }, "v", function() awful.tag.viewonly(tags[mouse.screen][3]) end), --dev:www
   awful.key({ modkey }, "c", function() awful.tag.viewonly(tags[mouse.screen][5]) end), --irc/im
   awful.key({ modkey }, "/", function() awful.tag.viewonly(tags[mouse.screen][1]) end), --terminals
-  awful.key({ modkey }, "u", function() awful.tag.viewonly(tags[mouse.screen][8]) end), --udev
 
   -- volume
   awful.key({}, "XF86AudioMute", function() awful.util.spawn("amixer xprosset Master toggle") end ),
@@ -334,7 +342,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ ctrlkey }, "Escape", function() awful.util.spawn("ksysguard") end), -- "ktop"
   awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end), --change kb layout
   awful.key({ modkey }, "k", function() awful.util.spawn("xkill") end), --xkill
-	
+
 
   --
 --  awful.key({ modkey }, "x",
@@ -346,7 +354,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
 --    end))
 
   awful.key({ modkey }, "a", function() awful.util.spawn("uxterm -e '~/bin/repls'") end), -- spawn term w/ REPL choices
-  awful.key({ modkey }, "x", function() awful.util.spawn("uxterm -e 'bpython'") end), -- spawn term w/ python  
+  awful.key({ modkey }, "x", function() awful.util.spawn("uxterm -e 'bpython'") end), -- spawn term w/ python
   awful.key({ modkey }, "z", function() awful.util.spawn("uxterm -e 'lua5.2 -i'") end) -- spawn term w/ lua
 )
 
@@ -444,15 +452,15 @@ awful.rules.rules = {
   -- terms
 
   -- dev
-  -- { rule = { class = "java-lang-Thread" }, properties = { tag = tags[1][2] } }, --pycharm 1.x
-  { rule = { class = "jetbrains-pycharm" }, properties = { tag = tags[1][2] } },
-  { rule = { class = "sun-awt-X11-XFramePeer" }, properties = { tag = tags[1][2] } },
+  { rule = { class = "Emacs" }, properties = { tag = tags[1][2] } },
   { rule = { class = "Gvim" }, properties = { tag = tags[1][2] } },
 
   -- dev:www
   { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] } },
   { rule = { class = "Firefox-bin" }, properties = { tag = tags[1][3] } },
   { rule = { class = "Google-chrome" }, properties = { tag = tags[1][3] }},
+  { rule = { class = "Chromium" }, properties = { tag = tags[1][3] }},
+  { rule = { class = "Midori" }, properties = { tag = tags[1][3] }},
 
   -- [www]
   { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } }, --, maximized_vertical = true, maximized_horizontal = true, },
@@ -470,6 +478,7 @@ awful.rules.rules = {
   { rule = { class = "Vlc" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Smplayer2" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Qmpdclient" }, properties = { tag = tags[1][6] } },
+  { rule = { class = "mplayer2" }, properties = { tag = tags[1][6] } },
 
   -- /tmp
   { rule = { class = "Krusader" }, properties = { tag = tags[1][7] } },
@@ -480,17 +489,13 @@ awful.rules.rules = {
   { rule = { class = "Nicotine" }, properties = { tag = tags[1][7] } },
   { rule = { class = "jd-Main" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Okular" }, properties = { tag = tags[1][7] } },
-
-  -- udev
-  { rule = { class = "Wireshark" }, properties = { tag = tags[1][8] } },
-  { rule = { class = "Kate" }, properties = { tag = tags[1][8] } },
-  { rule = { class = "Sublime_text" }, properties = { tag = tags[1][8] } },
-  { rule = { class = "Sublime" }, properties = { tag = tags[1][8] } },
-  { rule = { class = "Rubyroom" }, properties = { tag = tags[1][8] },},
-  { rule = { class = "dosbox" }, properties = { tag = tags[1][8] },},
-  { rule = { class = "Emacs" }, properties = { tag = tags[1][8] } },
-
-} 
+  { rule = { class = "Wireshark" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "Kate" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "Sublime_text" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "Sublime" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "Rubyroom" }, properties = { tag = tags[1][7] },},
+  { rule = { class = "dosbox" }, properties = { tag = tags[1][7] },},
+}
 -- }}}
 
 -- {{{ Signals
@@ -530,13 +535,13 @@ run_once = require("runonce")
 
 autorun_items =
 {
-	"ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
-	"terminator -x ~/bin/startup",
-	--"ktorrent",
-	"wicd-client -o",
-	"dropbox start",
-	"emacs",
-	--"klipper",
+    "ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
+    "terminator -x ~/bin/startup",
+    --"ktorrent",
+    "wicd-client -o",
+    "dropbox start",
+    "emacs",
+    --"klipper",
 }
 
 for index, item in ipairs(autorun_items) do
