@@ -319,6 +319,14 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ modkey }, "c", function() awful.tag.viewonly(tags[mouse.screen][5]) end), --irc/im
   awful.key({ modkey }, "/", function() awful.tag.viewonly(tags[mouse.screen][1]) end), --terminals
 
+  --resizing & move
+  awful.key({ modkey }, "Next",  function () awful.client.moveresize(  0,   0,  -5,  -5) end),
+  awful.key({ modkey }, "Prior", function () awful.client.moveresize(  0,   0,   5,   5) end),
+  awful.key({ modkey }, "Down",  function () awful.client.moveresize(  0,  10,   0,   0) end),
+  awful.key({ modkey }, "Up",    function () awful.client.moveresize(  0, -10,   0,   0) end),
+  awful.key({ modkey }, "Left",  function () awful.client.moveresize(-10,   0,   0,   0) end),
+  awful.key({ modkey }, "Right", function () awful.client.moveresize( 10,   0,   0,   0) end),
+
   -- volume
   awful.key({}, "XF86AudioMute", function() awful.util.spawn("amixer xprosset Master toggle") end ),
   awful.key({}, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer -c0 set Master 2+ unmute") end),
