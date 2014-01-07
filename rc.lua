@@ -342,7 +342,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ ctrlkey }, "Escape", function() awful.util.spawn("ksysguard") end), -- "ktop"
   awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end), --change kb layout
   awful.key({ modkey }, "k", function() awful.util.spawn("xkill") end), --xkill
-  awful.key({ modkey }, "F1", function () awful.util.spawn("xtrlock") end) --lockscreen
+  awful.key({ modkey }, "F1", function () awful.util.spawn("xtrlock") end), --lockscreen
 
   --
 --  awful.key({ modkey }, "x",
