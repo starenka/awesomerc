@@ -342,7 +342,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ ctrlkey }, "Escape", function() awful.util.spawn("ksysguard") end), -- "ktop"
   awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end), --change kb layout
   awful.key({ modkey }, "k", function() awful.util.spawn("xkill") end), --xkill
-
+  awful.key({ modkey }, "F1", function () awful.util.spawn("xtrlock") end) --lockscreen
 
   --
 --  awful.key({ modkey }, "x",
@@ -464,7 +464,7 @@ awful.rules.rules = {
   -- terms
 
   -- dev
-  { rule = { class = "Emacs" }, properties = { tag = tags[1][2] } },
+  { rule = { class = "Emacs" }, properties = { tag = tags[1][2], maximized_vertical = true, maximized_horizontal = true, size_hints_honor = false } },
   { rule = { class = "Gvim" }, properties = { tag = tags[1][2] } },
 
   -- dev:www
@@ -475,7 +475,7 @@ awful.rules.rules = {
   { rule = { class = "Midori" }, properties = { tag = tags[1][3] }},
 
   -- [www]
-  { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } }, --, maximized_vertical = true, maximized_horizontal = true, },
+  { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } },
   { rule = { class = "Opera" }, properties = { tag = tags[1][4] } },
   { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] } },
 
