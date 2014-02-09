@@ -322,10 +322,10 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   --resizing & move
   awful.key({ modkey }, "Next",  function () awful.client.moveresize(  0,   0,  -5,  -5) end),
   awful.key({ modkey }, "Prior", function () awful.client.moveresize(  0,   0,   5,   5) end),
-  awful.key({ modkey }, "Down",  function () awful.client.moveresize(  0,  10,   0,   0) end),
-  awful.key({ modkey }, "Up",    function () awful.client.moveresize(  0, -10,   0,   0) end),
-  awful.key({ modkey }, "Left",  function () awful.client.moveresize(-10,   0,   0,   0) end),
-  awful.key({ modkey }, "Right", function () awful.client.moveresize( 10,   0,   0,   0) end),
+  --awful.key({ modkey }, "Down",  function () awful.client.moveresize(  0,  10,   0,   0) end),
+  --awful.key({ modkey }, "Up",    function () awful.client.moveresize(  0, -10,   0,   0) end),
+  --awful.key({ modkey }, "Left",  function () awful.client.moveresize(-10,   0,   0,   0) end),
+  --awful.key({ modkey }, "Right", function () awful.client.moveresize( 10,   0,   0,   0) end),
 
   -- volume
   awful.key({}, "XF86AudioMute", function() awful.util.spawn("amixer xprosset Master toggle") end ),
@@ -560,7 +560,7 @@ autorun_items =
     --"ktorrent",
     "wicd-client -o",
     "dropbox start",
-    "emacs",
+    --"emacs",
     --"klipper",
 }
 
