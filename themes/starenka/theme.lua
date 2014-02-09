@@ -8,7 +8,7 @@
 
 -- {{{ Main
 theme = {}
-theme.wallpaper_cmd = { string.format("awsetbg %s/.config/awesome/themes/starenka/awesome.png", os.getenv("HOME")) }
+theme.wallpaper_cmd = { string.format("awsetbg %s/.config/awesome/themes/starenka/awesome2.png", os.getenv("HOME")) }
 -- }}}
 
 -- {{{ Styles
