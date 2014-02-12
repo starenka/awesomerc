@@ -515,6 +515,7 @@ awful.rules.rules = {
   { rule = { class = "Sublime" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Rubyroom" }, properties = { tag = tags[1][7] },},
   { rule = { class = "dosbox" }, properties = { tag = tags[1][7] },},
+  { rule = { class = "Kcachegrind" }, properties = { tag = tags[1][7] },},
 }
 -- }}}
 
