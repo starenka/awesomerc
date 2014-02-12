@@ -505,7 +505,6 @@ awful.rules.rules = {
   { rule = { class = "VirtualBox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "vox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Ktorrent" }, properties = { tag = tags[1][7] } },
-  { rule = { class = "Deluge" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Nicotine" }, properties = { tag = tags[1][7] } },
   { rule = { class = "jd-Main" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Okular" }, properties = { tag = tags[1][7] } },
@@ -513,7 +512,6 @@ awful.rules.rules = {
   { rule = { class = "Kate" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Sublime_text" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Sublime" }, properties = { tag = tags[1][7] } },
-  { rule = { class = "Rubyroom" }, properties = { tag = tags[1][7] },},
   { rule = { class = "dosbox" }, properties = { tag = tags[1][7] },},
   { rule = { class = "Kcachegrind" }, properties = { tag = tags[1][7] },},
 }
