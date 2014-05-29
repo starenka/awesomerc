@@ -72,8 +72,8 @@ theme.menu_width  = "160"
 -- {{{ Icons
 -- {{{ Taglist
 -- these are somehow stretched, turning them off (don't really need those)
---theme.taglist_squares_sel   = THEME_DIR .. "taglist/squarefz.png"
---theme.taglist_squares_unsel = THEME_DIR .. "taglist/squarez.png"
+theme.taglist_squares_sel   = THEME_DIR .. "taglist/squarefz.png"
+theme.taglist_squares_unsel = THEME_DIR .. "taglist/squarefz.png"
 --theme.taglist_squares_resize = "true"
 -- }}}
 
