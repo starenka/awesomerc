@@ -5,6 +5,7 @@ awful.rules = require("awful.rules")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
+local vicious = require("vicious")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
@@ -184,6 +185,16 @@ mytextclock = awful.widget.textclock(" %b %d, %H:%M ")
 require('awful.widget.calendar2')
 calendar2.addCalendarToWidget(mytextclock)
 
+--[[
+cpuwidget = wibox.widget.textbox()
+vicious.cache(vicious.widgets.cpu)
+vicious.register(cpuwidget, vicious.widgets.cpu, '<span font-size="small">CPU $1%</span>', 3)
+
+memwidget = wibox.widget.textbox()
+vicious.cache(vicious.widgets.mem)
+vicious.register(memwidget, vicious.widgets.mem, ' <span font-size="small">MEM $2MB</span> ', 13)
+--]]
+
 -- }}}
 
 
@@ -277,14 +288,20 @@ for s = 1, screen.count() do
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(gmailwidget)
     right_layout:add(spacer)
+
     right_layout:add(widget_sep)
     right_layout:add(batterywidget.widget)
+    --[[
+    right_layout:add(widget_sep)
+    right_layout:add(cpuwidget)
+    right_layout:add(memwidget)
+    --]]
     right_layout:add(widget_sep)
     right_layout:add(kbdcfg.widget)
+
     right_layout:add(widget_sep)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
-
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
