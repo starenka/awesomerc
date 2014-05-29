@@ -6,11 +6,6 @@ local M = { settings = { method = 'generic',
 }
 -- you can override settings in rc.lua
 
-function mins_to_hm_str(mins)
-  return math.floor(mins/60) .. ':' .. string.format('%02d', mins%60)
-end
-
-
 local backends = {
    generic = function(battery)
        local cur = io.open('/sys/class/power_supply/' .. battery .. '/energy_now'):read()
@@ -28,11 +23,10 @@ local backends = {
 
        return { rem_perc=tonumber(remaining), rem_time=nil, rem_chtime=nil, state=state, ac=ac }
    end,
-       
    smapi = function(battery)
-      local rem_perc = tonumber(io.open('/sys/devices/platform/smapi/'.. battery .. '/remaining_percent'):read())
-      local rem_time = tonumber(io.open('/sys/devices/platform/smapi/' .. battery .. '/remaining_running_time'):read())
-      local rem_chtime = tonumber(io.open('/sys/devices/platform/smapi/' .. battery .. '/remaining_charging_time'):read())
+      local rem_perc = io.open('/sys/devices/platform/smapi/'.. battery .. '/remaining_percent'):read()
+      local rem_time = io.open('/sys/devices/platform/smapi/' .. battery .. '/remaining_running_time'):read()
+      local rem_chtime = io.open('/sys/devices/platform/smapi/' .. battery .. '/remaining_charging_time'):read()
       local sta = io.open('/sys/devices/platform/smapi/' .. battery .. '/state'):read()
       local ac = io.open('/sys/devices/platform/smapi/ac_connected'):read()
 
@@ -42,37 +36,22 @@ local backends = {
       if sta:match('discharging') then state = 0
       elseif sta:match('charging') then state = 1 
       end
-      
-      rem_time = rem_time and mins_to_hm_str(rem_time) or ''
-      rem_chtime = rem_chtime and mins_to_hm_str(rem_chtime) or ''
-      
-      return { rem_perc=rem_perc, rem_time=rem_time, rem_chtime=rem_chtime, state=state, ac=ac }
+      return { rem_perc=tonumber(rem_perc), rem_time=tonumber(rem_time), rem_chtime=tonumber(rem_chtime), state=state, ac=ac }
    end,
-       
    acpi = function(battery)
-      local acpi = io.popen('acpi -b','r')
-      local status = acpi:read()
-      local rem_perc = tonumber(status:match(' (%d*\.%d+)%%'))
-      local rem_time = status:match('(%d+\:%d+)\:%d+')
-
-      state = 2
-      if status:match('Discharging') then state = 0
-      elseif status:match('Charging') then state = 1 
-      end
-      
-      ac = state == 1 and true or false
-      rem_chtime = ac and rem_time or nil
-      rem_time = not ac and rem_time or nil
-      
-      return { rem_perc=rem_perc, rem_time=rem_time, rem_chtime=rem_chtime, state=state, ac=ac }
+      --acpi -b
    end
 }   
 
-
+   
 function M.get_info()
    local spacer = ' '
    local dir = ''
    local color = M.settings.color
+
+   function mins_to_hm_str(mins)
+      return math.floor(mins/60) .. ':' .. string.format('%02d', mins%60)
+   end
 
    local stats = backends[M.settings.method](M.settings.battery)
 
@@ -89,7 +68,7 @@ function M.get_info()
       rtime = stats.rem_chtime
    end
    
-   time = rtime and (' ' .. rtime) or ''
+   time = rtime and (' ' .. mins_to_hm_str(rtime)) or ''
    --text = (stats.ac and '' or '@ ') .. dir .. stats.rem_perc .. "%"
    text = dir .. stats.rem_perc .. "%"
    return stats.rem_perc <= M.settings.critical.level and stats.state == 0, 
