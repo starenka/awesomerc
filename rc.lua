@@ -472,7 +472,7 @@ awful.rules.rules = {
   -- terms
 
   -- dev
-  { rule = { class = "Emacs" }, properties = { tag = tags[1][2], maximized_vertical = true, maximized_horizontal = true, size_hints_honor = false } },
+  { rule = { class = "Emacs" }, properties = { tag = tags[1][2], maximized_vertical = true, maximized_horizontal = true, size_hints_honor = true } },
   { rule = { class = "Gvim" }, properties = { tag = tags[1][2] } },
 
   -- dev:www
@@ -490,6 +490,7 @@ awful.rules.rules = {
   -- #
   { rule = { class = "Pidgin" }, properties = { tag = tags[1][5] } },
   { rule = { class = "Konversation" }, properties = { tag = tags[1][5] } },
+  { rule = { class = "Geary" }, properties = { tag = tags[1][5] } },
 
   -- d{-_-}b
   { rule = { class = "Clementine" }, properties = { tag = tags[1][6] } },
