@@ -127,6 +127,7 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
+-- {{ Widgets
 
 -- Keyboard layout switching
 kbdcfg = {
@@ -142,17 +143,18 @@ kbdcfg.switch = function()
   os.execute(kbdcfg.cmd .. t)
 end
 kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current] .. " ")
+
 -- Mouse bindings
 kbdcfg.widget:buttons(awful.util.table.join(awful.button({}, 1,
                              function() kbdcfg.switch() end)))
 
--- Gmail widget
+-- Gmail
 -- cat ~/.netrc: machine mail.google.com login johndoe@gmail.com password secretpass
 
 awful.widget.gmail = require('awful.widget.gmail')
 gmailwidget = awful.widget.gmail.new()
 
--- battery
+-- Battery
 battery = require('battery')
 battery_poll_int = 7 --seconds
 
@@ -175,14 +177,17 @@ batterywidget.timer:connect_signal("timeout",
 )
 batterywidget.timer:start()
 
--- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock(" %b %d, %H:%M ")
 
--- calendar
+-- Calendar
 require('awful.widget.calendar2')
 calendar2.addCalendarToWidget(mytextclock)
 
+-- }}}
+
+
+-- {{{ Wibox
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
