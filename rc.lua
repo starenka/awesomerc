@@ -625,11 +625,8 @@ autorun_items =
 {
     "ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
     "terminator -x ~/bin/startup",
-    --"ktorrent",
     "wicd-client -o",
-    "dropbox start",
     --"emacs",
-    --"klipper",
 }
 
 for index, item in ipairs(autorun_items) do
