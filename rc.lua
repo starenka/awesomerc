@@ -68,16 +68,16 @@ local layouts =
 {
   awful.layout.suit.floating,
   awful.layout.suit.tile.left,
+  --awful.layout.suit.tile,
   --awful.layout.suit.tile.bottom,
   --awful.layout.suit.tile.top,
   --awful.layout.suit.fair,
   --awful.layout.suit.fair.horizontal,
   --awful.layout.suit.spiral,
   --awful.layout.suit.spiral.dwindle,
-  --awful.layout.suit.max,
+  awful.layout.suit.max,
   awful.layout.suit.max.fullscreen,
   --awful.layout.suit.magnifier
-  awful.layout.suit.tile
 }
 -- }}}
 
@@ -94,7 +94,7 @@ end
 tags = {
   names = { '$', 'dev', 'dev:www', '[www]', '#', 'd{-_-}b', '/tmp' },
   layout = {
-    layouts[1], layouts[1], layouts[1], layouts[1], layouts[2], layouts[1], layouts[1], layouts[1]
+    layouts[3], layouts[1], layouts[1], layouts[1], layouts[2], layouts[1], layouts[1]
   }
 }
 
