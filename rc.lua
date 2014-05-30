@@ -13,10 +13,9 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 -- awesome-client
 require("awful.remote")
-
+require('blinker')
 require("debian.menu")
 
-require('blinker')
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -45,7 +44,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 --beautiful.init("@AWESOME_THEMES_PATH@/default/theme.lua")
-beautiful.init(string.format("%s/.config/awesome35/themes/starenka/theme.lua", os.getenv("HOME")))
+beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.getenv("HOME")))
 
 
 -- This is used later as the default terminal and editor to run.
