@@ -370,8 +370,6 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ modkey }, "c", function() awful.tag.viewonly(tags[mouse.screen][5]) end), --irc/im
   awful.key({ modkey }, "/", function() awful.tag.viewonly(tags[mouse.screen][1]) end), --terminals
 
-  awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end),
-
   -- volume
   awful.key({}, "XF86AudioMute", function() awful.util.spawn("amixer xprosset Master toggle") end ),
   awful.key({}, "XF86Launch1", function() awful.util.spawn("amixer xprosset Master toggle") end ),
@@ -394,6 +392,10 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ altkey, }, "space", function() mypromptbox[mouse.screen]:run() end), --launcher
   awful.key({}, "Print", function() awful.util.spawn("ksnapshot") end), -- screenshot
   awful.key({ ctrlkey }, "Escape", function() awful.util.spawn("ksysguard") end), -- "ktop"
+  awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end), --change kb layout
+  awful.key({ modkey }, "k", function() awful.util.spawn("xkill") end), --xkill
+  awful.key({}, "F1", function () awful.util.spawn("xtrlock") end), --lockscreen
+
 
   -- awful.key({ modkey }, "x",
   --            function ()
