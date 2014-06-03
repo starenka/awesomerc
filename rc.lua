@@ -188,15 +188,15 @@ mytextclock = awful.widget.textclock(" %b %d, %H:%M ")
 require('awful.widget.calendar2')
 calendar2.addCalendarToWidget(mytextclock)
 
--- --[[
 cpuwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.cpu)
-vicious.register(cpuwidget, vicious.widgets.cpu, ' <span font-size="small">CPU $1%</span>', 4)
+vicious.register(cpuwidget, vicious.widgets.cpu,
+                 function (widget, args) return (' <span font-size="small">CPU %02d%%</span>'):format(args[1]) end,
+                 4)
 
 memwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.mem)
 vicious.register(memwidget, vicious.widgets.mem, ' <span font-size="small">MEM $2MB</span> ', 13)
--- --]]
 
 -- }}}
 
