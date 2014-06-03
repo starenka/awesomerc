@@ -46,6 +46,10 @@ end
 --beautiful.init("@AWESOME_THEMES_PATH@/default/theme.lua")
 beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.getenv("HOME")))
 
+cmd_vol_mute = "amixer -q sset Master toggle"
+cmd_vol_raise = "amixer -q sset Master 2dB+"
+cmd_vol_lower = "amixer -q sset Master 2dB-"
+
 
 -- This is used later as the default terminal and editor to run.
 terminal = "terminator"
@@ -371,12 +375,12 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({ modkey }, "/", function() awful.tag.viewonly(tags[mouse.screen][1]) end), --terminals
 
   -- volume
-  awful.key({}, "XF86AudioMute", function() awful.util.spawn("amixer xprosset Master toggle") end ),
-  awful.key({}, "XF86Launch1", function() awful.util.spawn("amixer xprosset Master toggle") end ),
-  awful.key({}, "XF86AudioRaiseVolume", function() awful.util.spawn("amixer -c0 set Master 2+ unmute") end),
-  awful.key({}, "XF86AudioLowerVolume", function() awful.util.spawn("amixer -c0 set Master 2- unmute") end),
-  awful.key({}, "F12", function() awful.util.spawn("amixer -c0 set Master 2+ unmute") end),
-  awful.key({}, "F11", function() awful.util.spawn("amixer -c0 set Master 2- unmute") end),
+  awful.key({}, "XF86AudioMute", function() awful.util.spawn(cmd_vol_mute) end ),
+  awful.key({}, "XF86Launch1", function() awful.util.spawn(cmd_vol_mute) end ),
+  awful.key({}, "XF86AudioRaiseVolume", function() awful.util.spawn(cmd_vol_raise) end),
+  awful.key({}, "XF86AudioLowerVolume", function() awful.util.spawn(cmd_vol_lower) end),
+  awful.key({}, "F11", function() awful.util.spawn(cmd_vol_lower) end),
+  awful.key({}, "F12", function() awful.util.spawn(cmd_vol_raise) end),
 
   -- clementine
   awful.key({ modkey, shiftkey }, "Left", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Prev") end),
