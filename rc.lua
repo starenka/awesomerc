@@ -49,7 +49,7 @@ beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.
 cmd_vol_mute = "amixer -q sset Master toggle"
 cmd_vol_raise = "amixer -q sset Master 2dB+"
 cmd_vol_lower = "amixer -q sset Master 2dB-"
-
+ifaces = {"eth0", "wlan0"}
 
 -- This is used later as the default terminal and editor to run.
 terminal = "terminator"
@@ -188,6 +188,7 @@ mytextclock = awful.widget.textclock(" %b %d, %H:%M ")
 require('awful.widget.calendar2')
 calendar2.addCalendarToWidget(mytextclock)
 
+
 cpuwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.cpu)
 vicious.register(cpuwidget, vicious.widgets.cpu,
@@ -197,6 +198,17 @@ vicious.register(cpuwidget, vicious.widgets.cpu,
 memwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.mem)
 vicious.register(memwidget, vicious.widgets.mem, ' <span font-size="small">MEM $2MB</span> ', 13)
+
+--[[
+ifacewidget = wibox.widget.textbox()
+vicious.cache(vicious.widgets.net)
+vicious.register(ifacewidget, vicious.widgets.net,
+                 function (widget, args)
+                    up = args["{" .. ifaces[1] .. " up_kb}"] + args["{" .. ifaces[2] .. " up_kb}"]
+                    down = args["{" .. ifaces[1] .. " down_kb}"] + args["{" .. ifaces[2] .. " down_kb}"]
+                    return ('<small>IF %d/%dK</small> '):format(up, down) end,
+                 2)
+--]]
 
 -- }}}
 
@@ -294,11 +306,12 @@ for s = 1, screen.count() do
 
     right_layout:add(widget_sep)
     right_layout:add(batterywidget.widget)
-    -- --[[
+
     right_layout:add(widget_sep)
     right_layout:add(cpuwidget)
     right_layout:add(memwidget)
-    -- --]]
+    --right_layout:add(ifacewidget)
+
     right_layout:add(widget_sep)
     right_layout:add(kbdcfg.widget)
 
