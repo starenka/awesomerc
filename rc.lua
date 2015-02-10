@@ -550,6 +550,8 @@ awful.rules.rules = {
   { rule = { class = "Smplayer2" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Qmpdclient" }, properties = { tag = tags[1][6] } },
   { rule = { class = "mplayer2" }, properties = { tag = tags[1][6] } },
+  { rule = { class = "Qjackctl" }, properties = { tag = tags[1][6] } },
+  { rule = { class = "Qsynth" }, properties = { tag = tags[1][6] } },
 
   -- /tmp
   { rule = { class = "Krusader" }, properties = { tag = tags[1][7] } },
@@ -565,6 +567,7 @@ awful.rules.rules = {
   { rule = { class = "Sublime" }, properties = { tag = tags[1][7] } },
   { rule = { class = "dosbox" }, properties = { tag = tags[1][7] },},
   { rule = { class = "Kcachegrind" }, properties = { tag = tags[1][7] },},
+  { rule = { class = "Pgadmin3" }, properties = { tag = tags[1][7] },},
 }
 -- }}}
 
@@ -644,6 +647,7 @@ autorun_items =
     "ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
     "terminator -x ~/bin/startup",
     "wicd-client -o",
+    --"~/bin/notify-listener.py &|", --irssi
     --"emacs",
 }
 
