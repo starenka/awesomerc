@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-source /usr/local/share/chruby/chruby.sh
-
 what=$(whiptail --menu 'What REPL?' 22 58 16 \
 "coffee" "coffee" \
 "lua52" "lua 5.2.x" \
