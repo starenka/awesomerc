@@ -1,31 +1,41 @@
 #!/usr/bin/env bash
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+source /usr/local/share/chruby/chruby.sh
 
-what=$(whiptail --menu 'What REPL?' 23 48 12 \
-"ruby193" "ruby 1.9.3" \
-"py33" "python 3.3.0" \
-"lua52" "lua 5.2.1" \
+what=$(whiptail --menu 'What REPL?' 22 58 16 \
+"coffee" "coffee" \
+"lua52" "lua 5.2.x" \
+"haskell" "haskell" \
+"ruby21" "ruby 2.1.x" \
+"clujure" "clujure 1.5.x" \
+"perl52" "perl 5.20.x" \
+"py34" "python 3.4.x" \
+"py33" "python 3.3.x" \
+"py27" "python 2.7.x" \
+"py26" "python 2.6.x" \
+"pypy27" "pypy 2.4.0 / python 2.7.x" \
+"js" "rhino" \
+"scala" "scala 2.9.2" \
 "clisp24" "clisp 2.4.9" \
-"pypy1927" "pypy 1.9.0 (py2.7)" \
-"py27" "python 2.7.3" \
-"lua51" "lua 5.1.5" \
-"ruby192" "ruby 1.9.2" \
-"ruby20" "ruby 2.0pre" 3>&1 1>&2 2>&3)
+"lua51" "lua 5.1.x" \
+3>&1 1>&2 2>&3)
 
 case $what
  in
     py27)        bpython;;
-    py33)        /data/.envs/py33/bin/bpython;;
-    pypy1927)    /opt/pypy-1.9/bin/pypy;;
+    py26)        python2.6;;
+    py33)        python3.3;;
+    py34)        python3.4;;
+    pypy27)      pypy2.7_2.4;;
     lua52)       lua5.2 -i;;
     lua51)       lua5.1 -i;;
-    ruby192)     cd /data/.rbenvs/; rbenv local 1.9.2-p320;irb;;
-    ruby193)     cd /data/.rbenvs/; rbenv local 1.9.3-rc1;irb;;
-    ruby20)      cd /data/.rbenvs/; rbenv local 2.0.0-preview2;irb;;
+    ruby21)      irb;;
     clisp24)     clisp;;
-      *)         echo You did not choose any item;;
+    coffee)      coffee;;
+    js)          js;;
+    perl52)      perl -d -e 1;;
+    scala)       scala;;
+    haskell)     ghci;;
+    clojure)     lein repl;;
+    *)           echo You did not choose any item;;
 esac
-
-
