@@ -1,6 +1,6 @@
 -- Standard awesome library
 local gears = require("gears")
-local awful = require("awful")
+awful = require("awful") -- need to be global in order to be used by awesome-client
 awful.rules = require("awful.rules")
 require("awful.autofocus")
 -- Widget and layout library
@@ -424,7 +424,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
 
 
   awful.key({ modkey }, "a", function() awful.util.spawn("uxterm -e '~/bin/repls'") end), -- spawn term w/ REPL choices
-  awful.key({ modkey }, "x", function() awful.util.spawn("uxterm -e 'bpython'") end), -- spawn term w/ python
+  awful.key({ modkey }, "x", function() awful.util.spawn("uxterm -e 'ipython'") end), -- spawn term w/ python
   awful.key({ modkey }, "z", function() awful.util.spawn("uxterm -e 'lua5.2 -i'") end) -- spawn term w/ lua
 )
 
