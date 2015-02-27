@@ -9,7 +9,7 @@ local vicious = require("vicious")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
-local naughty = require("naughty")
+naughty = require("naughty") -- naughty as global in order to be used w/ awesome-client
 local menubar = require("menubar")
 -- awesome-client
 require("awful.remote")
