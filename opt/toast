@@ -5,16 +5,17 @@ import subprocess
 parser = argparse.ArgumentParser(description='Toasts a message at specified time')
 parser.add_argument('message', type=str, nargs='+', help='message words')
 parser.add_argument('-a', '--at', dest='timespec', nargs='+', type=str, required=True, help='posix time spec (man at))')
-parser.add_argument('-t', '--title', dest='title', default=None, help='toast title')
+parser.add_argument('-t', '--title', dest='title', nargs='*', default=None, help='toast title')
 parser.add_argument('--timeout', dest='timeout', type=int, default=0, help="timout (secs), 0 = don't hide")
 parser.add_argument('-p', '--priority', dest='preset',
                     choices=('low', 'normal', 'critical'), default='critical', help="priority")
 
 args = vars(parser.parse_args())
 args['message'] = ' '.join(args['message'])
-args['title'] = args['title'] or '-' * len(args['message'])
+args['ttitle'] = 'title=\"%s\",' % ' '.join(args['title']) if args['title'] else ''
 
-cmd = "echo 'naughty.notify({preset=naughty.config.presets.%(preset)s, text=\"%(message)s\", title=\"%(title)s\", timeout=%(timeout)d})' | awesome-client" % args
+cmd = "echo 'naughty.notify({preset=naughty.config.presets.%(preset)s, text=\"%(message)s\", %(ttitle)s timeout=%(timeout)d})' | awesome-client" % args
+
 p1 = subprocess.Popen(['echo', cmd], stdout=subprocess.PIPE)
 p2 = subprocess.Popen(['at'] + args['timespec'], stdin=p1.stdout, stdout=subprocess.PIPE)
 p1.stdout.close()
