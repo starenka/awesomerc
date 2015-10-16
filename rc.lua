@@ -540,7 +540,7 @@ awful.rules.rules = {
   -- #
   { rule = { class = "Pidgin" }, properties = { tag = tags[1][5] } },
   { rule = { class = "Konversation" }, properties = { tag = tags[1][5] } },
-  { rule = { class = "Geary" }, properties = { tag = tags[1][5] } },
+  { rule = { class = "HipChat" }, properties = { tag = tags[1][5] } },
 
   -- d{-_-}b
   { rule = { class = "Clementine" }, properties = { tag = tags[1][6] } },
@@ -550,6 +550,8 @@ awful.rules.rules = {
   { rule = { class = "Smplayer2" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Qmpdclient" }, properties = { tag = tags[1][6] } },
   { rule = { class = "mplayer2" }, properties = { tag = tags[1][6] } },
+  { rule = { class = "kaffeine" }, properties = { tag = tags[1][6] } },
+  { rule = { class = "Kaffeine" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Qjackctl" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Qsynth" }, properties = { tag = tags[1][6] } },
 
