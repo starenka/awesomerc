@@ -47,8 +47,8 @@ end
 beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.getenv("HOME")))
 
 cmd_vol_mute = "amixer -q sset Master toggle"
-cmd_vol_raise = "amixer -q sset Master 2dB+"
-cmd_vol_lower = "amixer -q sset Master 2dB-"
+cmd_vol_raise = "amixer -c0 -- sset Master playback 2dB+"
+cmd_vol_lower = "amixer -c0 -- sset Master playback 2dB-"
 ifaces = {"eth0", "wlan0"}
 
 -- This is used later as the default terminal and editor to run.
