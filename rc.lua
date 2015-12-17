@@ -14,6 +14,7 @@ local menubar = require("menubar")
 -- awesome-client
 require("awful.remote")
 require('blinker')
+require("volume")
 require("debian.menu")
 
 -- {{{ Error handling
@@ -313,6 +314,9 @@ for s = 1, screen.count() do
     --right_layout:add(ifacewidget)
 
     right_layout:add(widget_sep)
+    right_layout:add(volume_widget)
+
+    right_layout:add(widget_sep)
     right_layout:add(kbdcfg.widget)
 
     right_layout:add(widget_sep)
@@ -533,6 +537,8 @@ awful.rules.rules = {
   { rule = { class = "Midori" }, properties = { tag = tags[1][3] }},
 
   -- [www]
+  { rule = { class = "Vivaldi" }, properties = { tag = tags[1][4] } },
+  { rule = { class = "Vivaldi-beta" }, properties = { tag = tags[1][4] } },
   { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } },
   { rule = { class = "Opera" }, properties = { tag = tags[1][4] } },
   { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] } },
