@@ -200,19 +200,6 @@ memwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.mem)
 vicious.register(memwidget, vicious.widgets.mem, ' <span font-size="small">MEM $2MB</span> ', 13)
 
---[[
-ifacewidget = wibox.widget.textbox()
-vicious.cache(vicious.widgets.net)
-vicious.register(ifacewidget, vicious.widgets.net,
-                 function (widget, args)
-                    up = args["{" .. ifaces[1] .. " up_kb}"] + args["{" .. ifaces[2] .. " up_kb}"]
-                    down = args["{" .. ifaces[1] .. " down_kb}"] + args["{" .. ifaces[2] .. " down_kb}"]
-                    return ('<small>IF %d/%dK</small> '):format(up, down) end,
-                 2)
---]]
-
--- }}}
-
 
 -- {{{ Wibox
 -- Create a wibox for each screen and add it
@@ -526,12 +513,19 @@ awful.rules.rules = {
   -- terms
 
   -- dev
-  { rule = { class = "Emacs" }, properties = { tag = tags[1][2], maximized_vertical = true, maximized_horizontal = true, size_hints_honor = true } },
+  { rule = { class = "Emacs" }, properties = { tag = tags[1][2],
+                                               maximized_vertical = true,
+                                               maximized_horizontal = true,
+                                               size_hints_honor = true
+  }},
   { rule = { class = "Gvim" }, properties = { tag = tags[1][2] } },
 
   -- dev:www
   { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] } },
-  { rule = { class = "Firefox-bin" }, properties = { tag = tags[1][3] } },
+  { rule = { class = "Firefox-bin" }, properties = { tag = tags[1][3],
+                                                     maximized_vertical = true,
+                                                     maximized_horizontal = true
+  }},
   { rule = { class = "Google-chrome" }, properties = { tag = tags[1][3] }},
   { rule = { class = "Chromium" }, properties = { tag = tags[1][3] }},
   { rule = { class = "Midori" }, properties = { tag = tags[1][3] }},
@@ -540,7 +534,10 @@ awful.rules.rules = {
   { rule = { class = "Vivaldi" }, properties = { tag = tags[1][4] } },
   { rule = { class = "Vivaldi-beta" }, properties = { tag = tags[1][4] } },
   { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } },
-  { rule = { class = "Opera" }, properties = { tag = tags[1][4] } },
+  { rule = { class = "Opera" }, properties = { tag = tags[1][4],
+                                               maximized_vertical = true,
+                                               maximized_horizontal = true
+  }},
   { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] } },
 
   -- #
@@ -549,7 +546,10 @@ awful.rules.rules = {
   { rule = { class = "HipChat" }, properties = { tag = tags[1][5] } },
 
   -- d{-_-}b
-  { rule = { class = "Clementine" }, properties = { tag = tags[1][6] } },
+  { rule = { class = "Clementine" }, properties = { tag = tags[1][6],
+                                               maximized_vertical = true,
+                                               maximized_horizontal = true
+  }},
   { rule = { class = "Sonata" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Audacity" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Vlc" }, properties = { tag = tags[1][6] } },
@@ -562,7 +562,11 @@ awful.rules.rules = {
   { rule = { class = "Qsynth" }, properties = { tag = tags[1][6] } },
 
   -- /tmp
-  { rule = { class = "Krusader" }, properties = { tag = tags[1][7] } },
+  { rule = { class = "Krusader" }, properties = { tag = tags[1][7],
+                                                  maximized_vertical = true,
+                                                  maximized_horizontal = true,
+                                                  size_hints_honor = true
+  }},
   { rule = { class = "VirtualBox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "vox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Ktorrent" }, properties = { tag = tags[1][7] } },
