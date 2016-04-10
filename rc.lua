@@ -531,8 +531,7 @@ awful.rules.rules = {
   { rule = { class = "Midori" }, properties = { tag = tags[1][3] }},
 
   -- [www]
-  { rule = { class = "Vivaldi" }, properties = { tag = tags[1][4] } },
-  { rule = { class = "Vivaldi-beta" }, properties = { tag = tags[1][4] } },
+  { rule = { class = "vivaldi-stable" }, properties = { tag = tags[1][4] } },
   { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } },
   { rule = { class = "Opera" }, properties = { tag = tags[1][4],
                                                maximized_vertical = true,
@@ -544,6 +543,8 @@ awful.rules.rules = {
   { rule = { class = "Pidgin" }, properties = { tag = tags[1][5] } },
   { rule = { class = "Konversation" }, properties = { tag = tags[1][5] } },
   { rule = { class = "HipChat" }, properties = { tag = tags[1][5] } },
+  { rule = { class = "plaidchat" }, properties = { tag = tags[1][5] } },
+  { rule = { class = "Slack" }, properties = { tag = tags[1][5] } },
 
   -- d{-_-}b
   { rule = { class = "Clementine" }, properties = { tag = tags[1][6],
