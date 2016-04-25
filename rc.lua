@@ -522,7 +522,7 @@ awful.rules.rules = {
 
   -- dev:www
   { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] } },
-  { rule = { class = "Firefox-bin" }, properties = { tag = tags[1][3],
+  { rule = { class = "Firefox" }, properties = { tag = tags[1][3],
                                                      maximized_vertical = true,
                                                      maximized_horizontal = true
   }},
