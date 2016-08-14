@@ -513,36 +513,23 @@ awful.rules.rules = {
   -- terms
 
   -- dev
-  { rule = { class = "Emacs" }, properties = { tag = tags[1][2],
-                                               maximized_vertical = true,
-                                               maximized_horizontal = true,
-                                               size_hints_honor = true
+  { rule = { class = "Emacs" }, properties = { tag = tags[1][2]
+                                               --maximized_vertical = true,
+                                               --maximized_horizontal = true,
+                                               --size_hints_honor = true
   }},
-  { rule = { class = "Gvim" }, properties = { tag = tags[1][2] } },
 
   -- dev:www
   { rule = { class = "Iceweasel" }, properties = { tag = tags[1][3] } },
-  { rule = { class = "Firefox" }, properties = { tag = tags[1][3],
-                                                     maximized_vertical = true,
-                                                     maximized_horizontal = true
-  }},
+  { rule = { class = "Firefox" }, properties = { tag = tags[1][3]}},
   { rule = { class = "Google-chrome" }, properties = { tag = tags[1][3] }},
   { rule = { class = "Chromium" }, properties = { tag = tags[1][3] }},
-  { rule = { class = "Midori" }, properties = { tag = tags[1][3] }},
 
   -- [www]
   { rule = { class = "vivaldi-stable" }, properties = { tag = tags[1][4] } },
-  { rule = { class = "OperaNext" }, properties = { tag = tags[1][4] } },
-  { rule = { class = "Opera" }, properties = { tag = tags[1][4],
-                                               maximized_vertical = true,
-                                               maximized_horizontal = true
-  }},
   { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] } },
 
   -- #
-  { rule = { class = "Pidgin" }, properties = { tag = tags[1][5] } },
-  { rule = { class = "Konversation" }, properties = { tag = tags[1][5] } },
-  { rule = { class = "HipChat" }, properties = { tag = tags[1][5] } },
   { rule = { class = "plaidchat" }, properties = { tag = tags[1][5] } },
   { rule = { class = "Slack" }, properties = { tag = tags[1][5] } },
 
@@ -551,31 +538,22 @@ awful.rules.rules = {
                                                maximized_vertical = true,
                                                maximized_horizontal = true
   }},
-  { rule = { class = "Sonata" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Audacity" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Vlc" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Smplayer2" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Qmpdclient" }, properties = { tag = tags[1][6] } },
   { rule = { class = "mplayer2" }, properties = { tag = tags[1][6] } },
-  { rule = { class = "kaffeine" }, properties = { tag = tags[1][6] } },
-  { rule = { class = "Kaffeine" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Qjackctl" }, properties = { tag = tags[1][6] } },
   { rule = { class = "Qsynth" }, properties = { tag = tags[1][6] } },
 
   -- /tmp
-  { rule = { class = "Krusader" }, properties = { tag = tags[1][7],
-                                                  maximized_vertical = true,
-                                                  maximized_horizontal = true,
-                                                  size_hints_honor = true
-  }},
+  { rule = { class = "Krusader" }, properties = { tag = tags[1][7]}},
   { rule = { class = "VirtualBox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "vox" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Ktorrent" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Nicotine" }, properties = { tag = tags[1][7] } },
-  { rule = { class = "jd-Main" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Okular" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Wireshark" }, properties = { tag = tags[1][7] } },
-  { rule = { class = "Kate" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Sublime_text" }, properties = { tag = tags[1][7] } },
   { rule = { class = "Sublime" }, properties = { tag = tags[1][7] } },
   { rule = { class = "dosbox" }, properties = { tag = tags[1][7] },},
