@@ -7,11 +7,8 @@ what=$(whiptail --menu 'What REPL?' 22 58 16 \
 "ruby21" "ruby 2.1.x" \
 "clujure" "clujure 1.5.x" \
 "perl52" "perl 5.20.x" \
-"py34" "python 3.4.x" \
-"py33" "python 3.3.x" \
-"py27" "python 2.7.x" \
-"py26" "python 2.6.x" \
-"pypy27" "pypy 2.4.0 / python 2.7.x" \
+"py2" "python 2.7.x" \
+"py3" "python 3.x" \
 "js" "rhino" \
 "scala" "scala 2.9.2" \
 "clisp24" "clisp 2.4.9" \
@@ -20,11 +17,8 @@ what=$(whiptail --menu 'What REPL?' 22 58 16 \
 
 case $what
  in
-    py27)        bpython;;
-    py26)        python2.6;;
-    py33)        python3.3;;
-    py34)        python3.4;;
-    pypy27)      pypy2.7_2.4;;
+    py2)         ipython;;
+    py3)         python3;;
     lua52)       lua5.2 -i;;
     lua51)       lua5.1 -i;;
     ruby21)      irb;;
