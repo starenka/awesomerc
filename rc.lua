@@ -47,6 +47,7 @@ end
 --beautiful.init("@AWESOME_THEMES_PATH@/default/theme.lua")
 beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.getenv("HOME")))
 
+clementine_dbus = "org.mpris.MediaPlayer2.clementine /org/mpris/MediaPlayer2"
 cmd_vol_mute = "amixer -q sset Master toggle"
 cmd_vol_raise = "amixer -c0 -- sset Master playback 2dB+"
 cmd_vol_lower = "amixer -c0 -- sset Master playback 2dB-"
@@ -386,16 +387,16 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({}, "F11", function() awful.util.spawn(cmd_vol_lower) end),
   awful.key({}, "F12", function() awful.util.spawn(cmd_vol_raise) end),
 
-  -- clementine
-  awful.key({ modkey, shiftkey }, "Left", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Prev") end),
-  awful.key({ modkey, shiftkey }, "Right", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Next") end),
-  awful.key({}, "XF86AudioPrev", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Prev") end),
-  awful.key({}, "XF86AudioNext", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Next") end),
-  awful.key({}, "XF86AudioPlay", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Play") end),
-  awful.key({}, "XF86AudioStop", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Pause") end),
-  awful.key({ modkey, shiftkey }, "Up", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Play") end),
-  awful.key({ modkey, shiftkey }, "Down", function() awful.util.spawn("qdbus org.mpris.clementine /Player org.freedesktop.MediaPlayer.Pause") end),
-
+  -- clementine (qdbusviewer)
+  awful.key({ modkey, shiftkey }, "Left", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.freedesktop.MediaPlayer.Previous") end),
+  awful.key({ modkey, shiftkey }, "Right", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Next") end),
+  awful.key({ modkey, shiftkey }, "Up", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Play") end),
+  awful.key({ modkey, shiftkey }, "Down", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Pause") end),
+  awful.key({}, "XF86AudioPrev", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Previous") end),
+  awful.key({}, "XF86AudioNext", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Next") end),
+  awful.key({}, "XF86AudioPlay", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Play") end),
+  awful.key({}, "XF86AudioStop", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Pause") end),
+  
   -- misc
   awful.key({ altkey, }, "space", function() mypromptbox[mouse.screen]:run() end), --launcher
   awful.key({}, "Print", function() awful.util.spawn("ksnapshot") end), -- screenshot
