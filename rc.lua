@@ -527,7 +527,7 @@ awful.rules.rules = {
   { rule = { class = "Chromium" }, properties = { tag = tags[1][3] }},
 
   -- [www]
-  { rule = { class = "vivaldi-stable" }, properties = { tag = tags[1][4] } },
+  { rule = { class = "Vivaldi-stable" }, properties = { tag = tags[1][4] } },
   { rule = { class = "Keepassx" }, properties = { tag = tags[1][4] } },
 
   -- #
