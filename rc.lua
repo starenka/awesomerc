@@ -388,7 +388,7 @@ globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.view
   awful.key({}, "F12", function() awful.util.spawn(cmd_vol_raise) end),
 
   -- clementine (qdbusviewer)
-  awful.key({ modkey, shiftkey }, "Left", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.freedesktop.MediaPlayer.Previous") end),
+  awful.key({ modkey, shiftkey }, "Left", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Previous") end),
   awful.key({ modkey, shiftkey }, "Right", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Next") end),
   awful.key({ modkey, shiftkey }, "Up", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Play") end),
   awful.key({ modkey, shiftkey }, "Down", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
