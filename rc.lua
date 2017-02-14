@@ -160,8 +160,8 @@ kbdcfg.widget:buttons(awful.util.table.join(awful.button({}, 1,
 -- Gmail
 -- cat ~/.netrc: machine mail.google.com login johndoe@gmail.com password secretpass
 
---awful.widget.gmail = require('awful.widget.gmail')
---gmailwidget = awful.widget.gmail.new()
+-- awful.widget.gmail = require('awful.widget.gmail')
+-- gmailwidget = awful.widget.gmail.new()
 
 -- Battery
 battery = require('battery')
@@ -187,8 +187,8 @@ batterywidget.timer:connect_signal("timeout",
 batterywidget.timer:start()
 
 -- Calendar
---require('awful.widget.calendar2')
---calendar2.addCalendarToWidget(mytextclock)
+require('awful.widget.calendar2')
+calendar2.addCalendarToWidget(mytextclock)
 
 cpuwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.cpu)
@@ -298,14 +298,14 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
+            --mykeyboardlayout,
             wibox.widget.systray(),
             batterywidget.widget,
             cpuwidget,
             memwidget,
             volume_widget,
             kbdcfg.widget,
-            mytextclock,
+            mytextclock,         
             s.mylayoutbox,
         },
     }
