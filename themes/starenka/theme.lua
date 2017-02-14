@@ -81,6 +81,7 @@ theme.taglist_squares_unsel = THEME_DIR .. "taglist/squarefz.png"
 theme.awesome_icon           = THEME_DIR .. "debian-icon.png"
 theme.menu_submenu_icon      = "/usr/share/awesome/themes/default/submenu.png"
 theme.tasklist_font = "monospace 7.5"
+theme.tasklist_disable_icon = true
 
 --theme.tasklist_bg_focus = '#FFFFFF'
 --theme.tasklist_font = "Droid Sans Mono 8"
