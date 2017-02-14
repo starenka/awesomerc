@@ -329,7 +329,8 @@ root.buttons(awful.util.table.join(awful.button({}, 3, function() mymainmenu:tog
 
 
 -- {{{ Key bindings (use xev)
-globalkeys = awful.util.table.join(awful.key({ modkey, }, "Left", awful.tag.viewprev),
+globalkeys = awful.util.table.join(
+  awful.key({ modkey, }, "Left", awful.tag.viewprev),
   awful.key({ modkey, }, ",", awful.tag.viewprev),
   awful.key({ modkey, }, "Right", awful.tag.viewnext),
   awful.key({ modkey, }, ".", awful.tag.viewnext),
