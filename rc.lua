@@ -15,6 +15,7 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 
 require("awful.remote") -- awesome-client
 require("volume")
+require('blinker')
 require("debian.menu") -- Load Debian menu entries
 
 -- {{{ Error handling
