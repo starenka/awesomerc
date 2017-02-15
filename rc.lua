@@ -161,8 +161,8 @@ kbdcfg.widget:buttons(awful.util.table.join(awful.button({}, 1,
 -- Gmail
 -- cat ~/.netrc: machine mail.google.com login johndoe@gmail.com password secretpass
 
--- awful.widget.gmail = require('awful.widget.gmail')
--- gmailwidget = awful.widget.gmail.new()
+gmailwidget = wibox.widget.textbox()
+vicious.register(gmailwidget, vicious.widgets.gmail, ' <span font-weight="bold">${count}</span><span font-size="small"> unread</span> ', 60*4)
 
 -- Battery
 battery = require('battery')
@@ -299,8 +299,8 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            --mykeyboardlayout,
             wibox.widget.systray(),
+            gmailwidget,
             batterywidget.widget,
             cpuwidget,
             memwidget,

@@ -38,15 +38,15 @@ local mail = {
 
 -- {{{ Gmail widget type
 local function worker(format, warg)
-    -- Get info from the Gmail atom feed
-    local f = io.popen("curl --connect-timeout 1 -m 3 -fsn " .. helpers.shellquote(feed[1]))
+   -- Get info from the Gmail atom feed
+    local f = io.popen("curl --connect-timeout 1 -m 3 -fsn " .. helpers.shellquote(feed))
 
     -- Could be huge don't read it all at once, info we are after is at the top
     local xml = f:read(2000)
-
-    if xml ~= nil then
-        return mail
-    end
+    
+    --if xml ~= nil then
+    --    return mail
+    --end
 
     mail["{count}"] = -- Count comes before messages and matches at least 0
       tonumber(string.match(xml, "<fullcount>([%d]+)</fullcount>")) or mail["{count}"]
