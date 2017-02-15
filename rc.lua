@@ -342,7 +342,7 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey }, "/", function () awful.screen.focused().tags[1]:view_only() end, {}), --treminals
 
   -- misc
-  awful.key({ altkey, }, "space", function() mypromptbox[mouse.screen]:run() end), --launcher
+
   awful.key({}, "Print", function() awful.spawn("ksnapshot") end), -- screenshot
   awful.key({ ctrlkey }, "Escape", function() awful.spawn("ksysguard") end), -- "ktop"
   awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end), --change kb layout
