@@ -341,27 +341,35 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey }, "c", function () awful.screen.focused().tags[5]:view_only() end, {}), --irc
    awful.key({ modkey }, "/", function () awful.screen.focused().tags[1]:view_only() end, {}), --treminals
 
+  -- misc
+  awful.key({ altkey, }, "space", function() mypromptbox[mouse.screen]:run() end), --launcher
+  awful.key({}, "Print", function() awful.spawn("ksnapshot") end), -- screenshot
+  awful.key({ ctrlkey }, "Escape", function() awful.spawn("ksysguard") end), -- "ktop"
+  awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end), --change kb layout
+  awful.key({ modkey }, "k", function() awful.spawn("xkill") end), --xkill
+  awful.key({}, "F1", function () awful.spawn("xtrlock") end), --lockscreen
+   
   -- volume
-  awful.key({}, "XF86AudioMute", function() awful.util.spawn(cmd_vol_mute) end ),
-  awful.key({}, "XF86Launch1", function() awful.util.spawn(cmd_vol_mute) end ),
-  awful.key({}, "XF86AudioRaiseVolume", function() awful.util.spawn(cmd_vol_raise) end),
-  awful.key({}, "XF86AudioLowerVolume", function() awful.util.spawn(cmd_vol_lower) end),
-  awful.key({}, "F11", function() awful.util.spawn(cmd_vol_lower) end),
-  awful.key({}, "F12", function() awful.util.spawn(cmd_vol_raise) end),
+  awful.key({}, "XF86AudioMute", function() awful.spawn(cmd_vol_mute) end ),
+  awful.key({}, "XF86Launch1", function() awful.spawn(cmd_vol_mute) end ),
+  awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn(cmd_vol_raise) end),
+  awful.key({}, "XF86AudioLowerVolume", function() awful.spawn(cmd_vol_lower) end),
+  awful.key({}, "F11", function() awful.spawn(cmd_vol_lower) end),
+  awful.key({}, "F12", function() awful.spawn(cmd_vol_raise) end),
 
   -- clementine (qdbusviewer)
-  awful.key({ modkey, shiftkey }, "Left", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Previous") end),
-  awful.key({ modkey, shiftkey }, "Right", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Next") end),
-  awful.key({ modkey, shiftkey }, "Up", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Play") end),
-  awful.key({ modkey, shiftkey }, "Down", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
-  awful.key({}, "XF86AudioPrev", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Previous") end),
-  awful.key({}, "XF86AudioNext", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Next") end),
-  awful.key({}, "XF86AudioPlay", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Play") end),
-  awful.key({}, "XF86AudioStop", function() awful.util.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
+  awful.key({ modkey, shiftkey }, "Left", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Previous") end),
+  awful.key({ modkey, shiftkey }, "Right", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Next") end),
+  awful.key({ modkey, shiftkey }, "Up", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Play") end),
+  awful.key({ modkey, shiftkey }, "Down", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
+  awful.key({}, "XF86AudioPrev", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Previous") end),
+  awful.key({}, "XF86AudioNext", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Next") end),
+  awful.key({}, "XF86AudioPlay", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Play") end),
+  awful.key({}, "XF86AudioStop", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
   
-  awful.key({ modkey }, "a", function() awful.util.spawn("uxterm -e '~/bin/repls'") end), -- spawn term w/ REPL choices
-  awful.key({ modkey }, "x", function() awful.util.spawn("uxterm -e 'ipython'") end), -- spawn term w/ python
-  awful.key({ modkey }, "z", function() awful.util.spawn("uxterm -e 'lua -i'") end), -- spawn term w/ lua
+  awful.key({ modkey }, "a", function() awful.spawn("uxterm -e '~/bin/repls'") end), -- spawn term w/ REPL choices
+  awful.key({ modkey }, "x", function() awful.spawn("uxterm -e 'ipython'") end), -- spawn term w/ python
+  awful.key({ modkey }, "z", function() awful.spawn("uxterm -e 'lua -i'") end), -- spawn term w/ lua
   
    
    --[=====[
