@@ -135,9 +135,15 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock(" %b %d, %H:%M ")
+mytextclock = wibox.widget.textclock(" %b %d %H:%M ")
 
 -- {{ Widgets
+
+-- widget separator widget
+widget_sep = wibox.widget.textbox()
+widget_sep:set_text("|")
+spacer = wibox.widget.textbox()
+spacer:set_text(" ")
 
 -- Keyboard layout switching
 kbdcfg = {
@@ -162,7 +168,7 @@ kbdcfg.widget:buttons(awful.util.table.join(awful.button({}, 1,
 -- cat ~/.netrc: machine mail.google.com login johndoe@gmail.com password secretpass
 
 gmailwidget = wibox.widget.textbox()
-vicious.register(gmailwidget, vicious.widgets.gmail, ' <span font-weight="bold">${count} ✉</span><span font-size="small"> unread</span>', 60*4)
+vicious.register(gmailwidget, vicious.widgets.gmail, '<span font-weight="bold">${count} ✉</span><span font-size="small"> unread</span>', 60*4)
 
 -- Battery
 battery = require('battery')
@@ -300,12 +306,15 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
+            widget_sep,
+            spacer,
             gmailwidget,
             batterywidget.widget,
             cpuwidget,
             memwidget,
             volume_widget,
             kbdcfg.widget,
+            widget_sep,
             mytextclock,         
             s.mylayoutbox,
         },
@@ -362,11 +371,11 @@ globalkeys = awful.util.table.join(
   awful.key({ modkey, shiftkey }, "Right", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Next") end),
   awful.key({ modkey, shiftkey }, "Up", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Play") end),
   awful.key({ modkey, shiftkey }, "Down", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
-  awful.key({}, "XF86AudioPrev", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Previous") end),
-  awful.key({}, "XF86AudioNext", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Next") end),
-  awful.key({}, "XF86AudioPlay", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Play") end),
-  awful.key({}, "XF86AudioStop", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
-  
+  --awful.key({ modkey, shiftkey }, "XF86MonBrightnessDown", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
+  --awful.key({ modkey, shiftkey }, "XF86MonBrightnessUp", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
+  -- echo 50 > /sys/class/backlight/intel_backlight/brightness
+  -- echo '1' > /proc/acpi/ibm/kbdlight
+
   awful.key({ modkey }, "a", function() awful.spawn("uxterm -e '~/bin/repls'") end), -- spawn term w/ REPL choices
   awful.key({ modkey }, "x", function() awful.spawn("uxterm -e 'ipython'") end), -- spawn term w/ python
   awful.key({ modkey }, "z", function() awful.spawn("uxterm -e 'lua -i'") end), -- spawn term w/ lua
