@@ -47,7 +47,7 @@ local backends = {
       hours, mins = stats:match(', (%d%d):(%d%d)')
       rem_mins = tonumber(hours)*60+tonumber(mins)
       
-      return { rem_perc=tonumber(stats:match('(%d+)%%')), rem_time=rem_mins, rem_chtime=nil, state=state, ac=ac }
+      return { rem_perc=tonumber(stats:match('(%d+)%%')), rem_time=rem_mins, rem_chtime=rem_mins, state=state, ac=ac }
    end
 }   
 
