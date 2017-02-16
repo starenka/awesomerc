@@ -170,7 +170,7 @@ battery_poll_int = 7 --seconds
 
 -- you can override default battery settings here
 -- battery.settings={method='generic', color='#dcdccc', battery='BAT0', warning={ color='#fecf35', level=30}, critical={color='red', level=15}}
-battery.settings.method = 'smapi'
+battery.settings.method='acpi'
 batterywidget = {
   widget = wibox.widget.textbox(),
   timer = timer({ timeout = battery_poll_int })
