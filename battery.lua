@@ -39,7 +39,15 @@ local backends = {
       return { rem_perc=tonumber(rem_perc), rem_time=tonumber(rem_time), rem_chtime=tonumber(rem_chtime), state=state, ac=ac }
    end,
    acpi = function(battery)
-      --acpi -b
+      for l in io.popen('acpi -b'):lines() do stats = l end
+      if stats:match('Discharging') then state = 0 else state = 1 end
+
+      for l in io.popen('acpi -a'):lines() do ac_stats = l end
+      if ac_stats:match('off-line') then ac = false else ac = true end
+      hours, mins = stats:match(', (%d%d):(%d%d)')
+      rem_mins = tonumber(hours)*60+tonumber(mins)
+      
+      return { rem_perc=tonumber(stats:match('(%d+)%%')), rem_time=rem_mins, rem_chtime=nil, state=state, ac=ac }
    end
 }   
 
