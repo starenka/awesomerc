@@ -371,8 +371,8 @@ globalkeys = awful.util.table.join(
   awful.key({ modkey, shiftkey }, "Right", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Next") end),
   awful.key({ modkey, shiftkey }, "Up", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Play") end),
   awful.key({ modkey, shiftkey }, "Down", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
-  awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("sudo /home/starenka/bin/brightness.py down") end),
-  awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("sudo /home/starenka/bin/brightness.py up") end),
+  awful.key({}, "XF86MonBrightnessDown", function() awful.spawn(string.format("sudo %s/bin/brightness.py down", os.getenv("HOME"))) end),
+  awful.key({}, "XF86MonBrightnessUp", function() awful.spawn(string.format("sudo %s/bin/brightness.py up", os.getenv("HOME"))) end),
   
   awful.key({ modkey }, "a", function() awful.spawn("uxterm -e '~/bin/repls'") end), -- spawn term w/ REPL choices
   awful.key({ modkey }, "x", function() awful.spawn("uxterm -e 'ipython'") end), -- spawn term w/ python
