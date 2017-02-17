@@ -371,11 +371,9 @@ globalkeys = awful.util.table.join(
   awful.key({ modkey, shiftkey }, "Right", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Next") end),
   awful.key({ modkey, shiftkey }, "Up", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Play") end),
   awful.key({ modkey, shiftkey }, "Down", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
-  --awful.key({ modkey, shiftkey }, "XF86MonBrightnessDown", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
-  --awful.key({ modkey, shiftkey }, "XF86MonBrightnessUp", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
-  -- echo 50 > /sys/class/backlight/intel_backlight/brightness
-  -- echo '1' > /proc/acpi/ibm/kbdlight
-
+  awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("sudo /home/starenka/bin/brightness.py down") end),
+  awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("sudo /home/starenka/bin/brightness.py up") end),
+  
   awful.key({ modkey }, "a", function() awful.spawn("uxterm -e '~/bin/repls'") end), -- spawn term w/ REPL choices
   awful.key({ modkey }, "x", function() awful.spawn("uxterm -e 'ipython'") end), -- spawn term w/ python
   awful.key({ modkey }, "z", function() awful.spawn("uxterm -e 'lua -i'") end), -- spawn term w/ lua
