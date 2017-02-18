@@ -45,7 +45,7 @@ local backends = {
       for l in io.popen('acpi -a'):lines() do ac_stats = l end
       if ac_stats:match('off-line') then ac = false else ac = true end
       hours, mins = stats:match(', (%d%d):(%d%d)')
-      rem_mins = tonumber(hours)*60+tonumber(mins)
+      if hours then rem_mins = tonumber(hours)*60+tonumber(mins) else hours = 0 end 
       
       return { rem_perc=tonumber(stats:match('(%d+)%%')), rem_time=rem_mins, rem_chtime=rem_mins, state=state, ac=ac }
    end
