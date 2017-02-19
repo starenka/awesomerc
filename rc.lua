@@ -199,12 +199,12 @@ calendar2.addCalendarToWidget(mytextclock)
 cpuwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.cpu)
 vicious.register(cpuwidget, vicious.widgets.cpu,
-                function (widget, args) return ('<span font-size="small">CPU %02d%%</span>'):format(args[1]) end,
-                  4)
+                function (widget, args) return (' <span font-size="small">CPU %02d%%</span>'):format(args[1]) end,
+                  5)
 
 memwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.mem)
-vicious.register(memwidget, vicious.widgets.mem, ' <span font-size="small">MEM $2MB</span> ', 13)
+vicious.register(memwidget, vicious.widgets.mem, ' <span font-size="small">MEM $2MB</span> ', 7)
 
 
 -- Create a wibox for each screen and add it
