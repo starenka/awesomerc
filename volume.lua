@@ -2,6 +2,7 @@
 
 local wibox = require("wibox")
 local awful = require("awful")
+local gears = require("gears")
 
 volume_widget = wibox.widget.textbox()
 volume_widget:set_align("right")
@@ -29,6 +30,6 @@ end
 
 update_volume(volume_widget)
 
-mytimer = timer({ timeout = 0.2 })
+mytimer = gears.timer({ timeout = 0.2 })
 mytimer:connect_signal("timeout", function () update_volume(volume_widget) end)
 mytimer:start()
