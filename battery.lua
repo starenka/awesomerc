@@ -97,7 +97,7 @@ function M.get_info()
    text = dir .. stats.rem_perc .. "%"
    return stats.rem_perc <= M.settings.critical.level and stats.state == 0, 
           spacer .. '<span>' .. string.rep(' ', string.len(text)) .. '<span font-size="small">' .. string.rep(' ', string.len(time)) .. '</span></span>' .. spacer,
-          spacer .. '<span color="' .. color .. '">' .. text .. '<span font-size="small">' .. time .. ' (b' .. stats.nr.. ')'.. '</span></span>' .. spacer
+          spacer .. '<span color="' .. color .. '">' .. text .. '<span font-size="small">' .. time .. ' (b' .. stats.nr.. ')'.. '</span></span>'
 
 end
 
