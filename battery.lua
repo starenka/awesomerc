@@ -82,25 +82,23 @@ function M.get_info()
 
    local stats = backends[M.settings.method](M.settings.battery)
 
+   dir, rtime = 'x', nil
    if stats.state == 0 then
-      dir = '-'
+      dir, rtime = '-', stats.rem_time
       if stats.rem_perc <= M.settings.critical.level then
-	 color = M.settings.critical.color
+         color = M.settings.critical.color
       elseif stats.rem_perc <= M.settings.warning.level then
-	 color = M.settings.warning.color
+         color = M.settings.warning.color
       end      
-      rtime = stats.rem_time
    elseif stats.state == 1 then 
-      dir = '+'
-      rtime = stats.rem_chtime
+      dir, rtime = '+', stats.rem_chtime
    end
-   
-   time = rtime and (' ' .. mins_to_hm_str(rtime)) or ''
-   --text = (stats.ac and '' or '@ ') .. dir .. stats.rem_perc .. "%"
+      
+   if rtime then time = (' ' .. mins_to_hm_str(rtime)) else time = '' end
    text = dir .. stats.rem_perc .. "%"
    return stats.rem_perc <= M.settings.critical.level and stats.state == 0, 
           spacer .. '<span>' .. string.rep(' ', string.len(text)) .. '<span font-size="small">' .. string.rep(' ', string.len(time)) .. '</span></span>' .. spacer,
-          spacer .. '<span color="' .. color .. '">' .. text .. '<span font-size="small">' .. time .. '</span></span>' .. spacer
+          spacer .. '<span color="' .. color .. '">' .. text .. '<span font-size="small">' .. time .. ' (b' .. stats.nr.. ')'.. '</span></span>' .. spacer
 
 end
 
