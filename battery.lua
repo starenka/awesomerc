@@ -1,8 +1,8 @@
-local M = { settings = { method = 'generic', 
+local M = { settings = { method = 'acpi', 
 			 color = '#dcdccc', 
 			 battery = 'BAT0', 
-			 warning = { color = '#fecf35', level = 30 }, 
-			 critical = { color = '#ff8000', level = 15 } } 
+			 warning = { color = '#fecf35', level = 25 }, 
+			 critical = { color = '#ff8000', level = 10 } } 
 }
 -- you can override settings in rc.lua
 
