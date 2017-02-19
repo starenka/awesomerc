@@ -70,16 +70,15 @@ local backends = {
    end
 }   
 
-   
+
+function mins_to_hm_str(mins)
+   return math.floor(mins/60) .. ':' .. string.format('%02d', mins%60)
+end
+
 function M.get_info()
    local spacer = ' '
    local dir = ''
    local color = M.settings.color
-
-   function mins_to_hm_str(mins)
-      return math.floor(mins/60) .. ':' .. string.format('%02d', mins%60)
-   end
-
    local stats = backends[M.settings.method](M.settings.battery)
 
    dir, rtime = 'x', nil
