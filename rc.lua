@@ -178,7 +178,7 @@ battery_poll_int = 13 --seconds
 -- battery.settings={method='generic', color='#dcdccc', battery='BAT0', warning={ color='#fecf35', level=30}, critical={color='red', level=15}}
 batterywidget = {
   widget = wibox.widget.textbox(),
-  timer = timer({ timeout = battery_poll_int })
+  timer = gears.timer({ timeout = battery_poll_int })
 }
 batterywidget.widget:set_text(" ?? ")
 batterywidget.timer:connect_signal("timeout",
