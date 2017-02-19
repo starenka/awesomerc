@@ -62,11 +62,11 @@ local backends = {
 
       to_show = nil
       for k,v in pairs(stats) do
-         if v['rem_time'] or v['rem_chtime'] then to_show = v end
+         if v.rem_time or v.rem_chtime then to_show = v end
       end
       
-      return { rem_perc=to_show['rem_perc'], rem_time=to_show['rem_time'], nr=nr,
-               rem_chtime=to_show['rem_chtime'], state=to_show['state'], ac=ac }
+      return { rem_perc=to_show.rem_perc, rem_time=to_show.rem_time, nr=to_show.nr,
+               rem_chtime=to_show.rem_chtime, state=to_show.state, ac=ac }      
    end
 }   
 
@@ -92,7 +92,7 @@ function M.get_info()
    elseif stats.state == 1 then 
       dir, rtime = '+', stats.rem_chtime
    end
-      
+
    if rtime then time = (' ' .. mins_to_hm_str(rtime)) else time = '' end
    text = dir .. stats.rem_perc .. "%"
    return stats.rem_perc <= M.settings.critical.level and stats.state == 0, 
