@@ -15,24 +15,24 @@ theme.fg_focus  = "#F0DFAF"
 theme.fg_focus  = "#fecf35"
 --theme.fg_urgent = "#CC9393"
 theme.fg_urgent = "#FFFFFF"
-theme.bg_normal = "#3F3F3F"
+theme.bg_normal = "#232323"
 theme.bg_focus  = "#1E2320"
-theme.bg_focus = "#3F3F3F"
---theme.bg_urgent = "#3F3F3F"
+theme.bg_focus = "#232323"
+--theme.bg_urgent = "#232323"
 theme.bg_urgent = "#FF6600"
 
 -- }}}
 
 -- {{{ Borders
 theme.border_width  = "1"
-theme.border_normal = "#3F3F3F"
+theme.border_normal = "#232323"
 theme.border_focus  = "#6F6F6F"
 theme.border_marked = "#CC9393"
 -- }}}
 
 -- {{{ Titlebars
-theme.titlebar_bg_focus  = "#3F3F3F"
-theme.titlebar_bg_normal = "#3F3F3F"
+theme.titlebar_bg_focus  = "#232323"
+theme.titlebar_bg_normal = "#232323"
 -- }}}
 
 -- There are other variable sets
@@ -53,7 +53,7 @@ theme.titlebar_bg_normal = "#3F3F3F"
 --theme.fg_center_widget = "#88A175"
 --theme.fg_end_widget    = "#FF5656"
 --theme.bg_widget        = "#494B4F"
---theme.border_widget    = "#3F3F3F"
+--theme.border_widget    = "#232323"
 -- }}}
 
 -- {{{ Mouse finder
@@ -104,7 +104,7 @@ theme.layout_magnifier  = THEME_DIR .. "layouts/magnifier.png"
 theme.layout_floating   = THEME_DIR .. "layouts/floating.png"
 -- }}}
 
-theme.wallpaper = THEME_DIR .. "awesome2.png"
+theme.wallpaper = THEME_DIR .. "rat.jpg"
 
 -- {{{ Titlebar
 theme.titlebar_close_button_focus  = THEME_DIR .. "titlebar/close_focus.png"
