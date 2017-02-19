@@ -58,7 +58,7 @@ local backends = {
       end
          
       ac_stats = io.popen('acpi -a'):read()
-      if ac_stats:match('off-line') then ac = false else ac = true end
+      if ac_stats:match('off') then ac = false else ac = true end
 
       to_show = nil
       for k,v in pairs(stats) do
