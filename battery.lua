@@ -42,7 +42,7 @@ local backends = {
       
       stats = {}
       for l in io.popen('acpi -b'):lines() do
-         name = tonumber(l:match('Battery (%d)'))
+         nr = tonumber(l:match('Battery (%d)'))
 
          if l:match('Charging') then state = 1
          elseif l:match('Discharging') then state = 0
@@ -53,8 +53,8 @@ local backends = {
          if hours then rem_mins = tonumber(hours)*60+tonumber(mins) else rem_mins = 0 end
          if state == 1 then rem_chmins = rem_mins else rem_chmins = 0 end
 
-         stats[name]= {rem_perc=tonumber(l:match('(%d+)%%')),
-                       rem_time=rem_mins, rem_chtime=rem_chmins, state=state}
+         stats[nr]= { nr=nr, rem_perc=tonumber(l:match('(%d+)%%')),
+                      rem_time=rem_mins, rem_chtime=rem_chmins, state=state}
       end
          
       ac_stats = io.popen('acpi -a'):read()
@@ -65,7 +65,7 @@ local backends = {
          if v['rem_time'] or v['rem_chtime'] then to_show = v end
       end
       
-      return { rem_perc=to_show['rem_perc'], rem_time=to_show['rem_time'],
+      return { rem_perc=to_show['rem_perc'], rem_time=to_show['rem_time'], nr=nr,
                rem_chtime=to_show['rem_chtime'], state=to_show['state'], ac=ac }
    end
 }   
