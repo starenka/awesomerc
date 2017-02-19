@@ -199,7 +199,7 @@ calendar2.addCalendarToWidget(mytextclock)
 cpuwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.cpu)
 vicious.register(cpuwidget, vicious.widgets.cpu,
-                function (widget, args) return (' <span font-size="small">CPU %02d%%</span>'):format(args[1]) end,
+                function (widget, args) return ('<span font-size="small">CPU %02d%%</span>'):format(args[1]) end,
                   4)
 
 memwidget = wibox.widget.textbox()
