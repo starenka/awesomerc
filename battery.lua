@@ -61,7 +61,7 @@ local backends = {
       ac_stats = io.popen('acpi -a'):read()
       if ac_stats:match('off') then ac = false else ac = true end
 
-      to_show = stats[nrs[1]]
+      to_show = stats[nrs[#nrs]]
       for k,v in pairs(stats) do
          if v.rem_time > 0 or v.rem_chtime > 0 then to_show = v end
       end
