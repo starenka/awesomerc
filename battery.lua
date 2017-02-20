@@ -82,7 +82,7 @@ function M.get_info()
    local color = M.settings.color
    local stats = backends[M.settings.method](M.settings.battery)
 
-   dir, rtime = 'x', nil
+   dir, rtime = '', nil
    if stats.state == 0 then
       dir, rtime = '-', stats.rem_time
       if stats.rem_perc <= M.settings.critical.level then
