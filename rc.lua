@@ -193,8 +193,8 @@ batterywidget.timer:connect_signal("timeout",
 batterywidget.timer:start()
 
 -- Calendar
-require('awful.widget.calendar2')
-calendar2.addCalendarToWidget(mytextclock)
+local calendar = require("calendar")
+calendar({}):attach(mytextclock)
 
 cpuwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.cpu)
