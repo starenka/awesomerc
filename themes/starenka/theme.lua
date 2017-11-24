@@ -7,7 +7,9 @@ theme = {}
 local THEME_DIR = string.format("%s/.config/awesome/themes/starenka/", os.getenv("HOME"))
 
 -- {{{ Styles
-theme.font      = "monospace 8"
+theme.font      = "andale mono 8.5"
+--theme.font      = "dejavu sans mono 8"
+--theme.font      = "monospace 8"
 
 -- {{{ Colors
 theme.fg_normal = "#DCDCCC"
@@ -104,7 +106,7 @@ theme.layout_magnifier  = THEME_DIR .. "layouts/magnifier.png"
 theme.layout_floating   = THEME_DIR .. "layouts/floating.png"
 -- }}}
 
-theme.wallpaper = THEME_DIR .. "rat.jpg"
+theme.wallpaper = THEME_DIR .. "awesome2.png"
 
 -- {{{ Titlebar
 theme.titlebar_close_button_focus  = THEME_DIR .. "titlebar/close_focus.png"
