@@ -650,6 +650,7 @@ awful.rules.rules = {
 
     -- [www]
     { rule = { class = "Vivaldi-stable" }, properties = { screen = 1, tag = tags[4] } },
+    { rule = { class = "Vivaldi-snapshot" }, properties = { screen = 1, tag = tags[4] } },
     { rule = { class = "Keepassx" }, properties = { screen = 1, tag = tags[4] } },
 
     -- #
