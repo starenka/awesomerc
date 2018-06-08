@@ -15,8 +15,10 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 
 require("awful.remote") -- awesome-client
 require("volume")
-require('blinker')
+require("blinker")
 require("debian.menu") -- Load Debian menu entries
+--local freedesktop = require("freedesktop")
+--myosmenu = freedesktop.menu.build()
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
