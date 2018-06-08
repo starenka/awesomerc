@@ -660,7 +660,11 @@ awful.rules.rules = {
     { rule = { class = "Clementine" }, properties = { screen = 1, tag = tags[6],
                                                maximized_vertical = true,
                                                maximized_horizontal = true
+    }},    { rule = { class = "Spotify" }, properties = { screen = 1, tag = tags[6],
+                                               maximized_vertical = true,
+                                               maximized_horizontal = true
     }},
+    
     { rule = { class = "Audacity" }, properties = { screen = 1, tag = tags[6] } },
     { rule = { class = "Vlc" }, properties = { screen = 1, tag = tags[6] } },
     { rule = { class = "Smplayer2" }, properties = { screen = 1, tag = tags[6] } },
