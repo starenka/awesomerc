@@ -51,7 +51,7 @@ end
 beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.getenv("HOME")))
 
 clementine_dbus = "org.mpris.MediaPlayer2.clementine /org/mpris/MediaPlayer2"
-cmd_vol_mute = "amixer -q sset Master toggle"
+cmd_vol_mute = "amixer -q -D pulse set Master 1+ toggle"
 cmd_vol_raise = "amixer -c0 -- sset Master playback 2dB+"
 cmd_vol_lower = "amixer -c0 -- sset Master playback 2dB-"
 ifaces = {"eth0", "wlan0"}
