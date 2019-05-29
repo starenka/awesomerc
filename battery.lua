@@ -41,7 +41,8 @@ local backends = {
    acpi = function(battery)
       
       stats, nrs = {}, {}
-      for l in io.popen('acpi -b'):lines() do
+      bat_info = io.popen('acpi -b')
+      for l in bat_info:lines() do
          nr = tonumber(l:match('Battery (%d)'))
          table.insert(nrs, nr)
          
@@ -57,14 +58,16 @@ local backends = {
          stats[nr]= { nr=nr, rem_perc=tonumber(l:match('(%d+)%%')),
                       rem_time=rem_mins, rem_chtime=rem_chmins, state=state}
       end
-         
-      ac_stats = io.popen('acpi -a'):read()
-      if ac_stats:match('off') then ac = false else ac = true end
+      bat_info:close()
+
+      ac_stats = io.popen('acpi -a')
+      if ac_stats:read():match('off') then ac = false else ac = true end
 
       to_show = stats[nrs[#nrs]]
       for k,v in pairs(stats) do
          if v.rem_time > 0 or v.rem_chtime > 0 then to_show = v end
       end
+      ac_stats:close()
       
       return { rem_perc=to_show.rem_perc, rem_time=to_show.rem_time, nr=to_show.nr,
                rem_chtime=to_show.rem_chtime, state=to_show.state, ac=ac }      
