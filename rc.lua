@@ -49,6 +49,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 -- beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
 beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.getenv("HOME")))
+beautiful.notification_icon_size = 40
 
 clementine_dbus = "org.mpris.MediaPlayer2.clementine /org/mpris/MediaPlayer2"
 cmd_vol_mute = "amixer -q -D pulse set Master 1+ toggle"
