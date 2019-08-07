@@ -646,8 +646,7 @@ awful.rules.rules = {
     }},
 
     -- dev:www
-    { rule = { class = "Iceweasel" }, properties = { screen = 1, tag = tags[3] } },
-    { rule = { class = "Firefox" }, properties = { screen = 1, tag = tags[3]}},
+    { rule = { class = "firefox" }, properties = { screen = 1, tag = tags[3]}},
     { rule = { class = "Google-chrome" }, properties = { screen = 1, tag = tags[3] }},
     { rule = { class = "Chromium" }, properties = { screen = 1, tag = tags[3] }},
 
@@ -663,11 +662,9 @@ awful.rules.rules = {
     { rule = { class = "Clementine" }, properties = { screen = 1, tag = tags[6],
                                                maximized_vertical = true,
                                                maximized_horizontal = true
-    }},    { rule = { class = "spotify" }, properties = { screen = 1, tag = tags[6],
-                                               maximized_vertical = true,
-                                               maximized_horizontal = true
     }},
-    
+    { rule = { class = "Spotify" }, properties = { screen = 1, tag = tags[6]}},
+    { rule = { class = "Rhythmbox" }, properties = { screen = 1, tag = tags[6]}},    
     { rule = { class = "Audacity" }, properties = { screen = 1, tag = tags[6] } },
     { rule = { class = "Vlc" }, properties = { screen = 1, tag = tags[6] } },
     { rule = { class = "Smplayer2" }, properties = { screen = 1, tag = tags[6] } },
