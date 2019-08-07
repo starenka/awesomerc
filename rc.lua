@@ -51,7 +51,14 @@ end
 beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.getenv("HOME")))
 beautiful.notification_icon_size = 40
 
-clementine_dbus = "org.mpris.MediaPlayer2.clementine /org/mpris/MediaPlayer2"
+player = 'clementine'
+player = 'rhythmbox'
+player = 'spotify'
+cmd_player_playpause = string.format("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.%s /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause", player)
+cmd_player_next = string.format("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.%s /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next", player)
+cmd_player_prev = string.format("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.%s /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous", player)
+cmd_player_stop = string.format("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.%s /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop", player)
+
 cmd_vol_mute = "amixer -q -D pulse set Master 1+ toggle"
 cmd_vol_raise = "amixer -c0 -- sset Master playback 2dB+"
 cmd_vol_lower = "amixer -c0 -- sset Master playback 2dB-"
@@ -369,10 +376,10 @@ globalkeys = awful.util.table.join(
   awful.key({}, "F12", function() awful.spawn(cmd_vol_raise) end),
 
   -- clementine (qdbusviewer)
-  awful.key({ modkey, shiftkey }, "Left", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Previous") end),
-  awful.key({ modkey, shiftkey }, "Right", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Next") end),
-  awful.key({ modkey, shiftkey }, "Up", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.Play") end),
-  awful.key({ modkey, shiftkey }, "Down", function() awful.spawn("qdbus " .. clementine_dbus .. " org.mpris.MediaPlayer2.Player.PlayPause") end),
+  awful.key({ modkey, shiftkey }, "Left", function() awful.spawn(cmd_player_prev) end),
+  awful.key({ modkey, shiftkey }, "Right", function() awful.spawn(cmd_player_next) end),
+  awful.key({ modkey, shiftkey }, "Up", function() awful.spawn(cmd_player_stop) end),
+  awful.key({ modkey, shiftkey }, "Down", function() awful.spawn(cmd_player_playpause) end),
   awful.key({}, "XF86MonBrightnessDown", function() awful.spawn(string.format("sudo %s/bin/brightness.py down", os.getenv("HOME"))) end),
   awful.key({}, "XF86MonBrightnessUp", function() awful.spawn(string.format("sudo %s/bin/brightness.py up", os.getenv("HOME"))) end),
   
