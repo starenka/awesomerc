@@ -638,7 +638,7 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
-    -- default apps -> tags, use xprop | grep WM_CLAS to determine window props
+    -- default apps -> tags, use xprop | grep WM_CLAS to determine window props (second item)
     -- terms
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -693,6 +693,8 @@ awful.rules.rules = {
     { rule = { class = "dosbox" }, properties = { screen = 1, tag = tags[7] },},
     { rule = { class = "Kcachegrind" }, properties = { screen = 1, tag = tags[7] },},
     { rule = { class = "Pgadmin3" }, properties = { screen = 1, tag = tags[7] },},
+    { rule = { class = "Blueman-manager" }, properties = { screen = 1, tag = tags[7] },},
+    { rule = { class = "Pavucontrol" }, properties = { screen = 1, tag = tags[7] },},
     
 }
 -- }}}
