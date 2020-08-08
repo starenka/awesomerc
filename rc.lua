@@ -51,13 +51,15 @@ end
 beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.getenv("HOME")))
 beautiful.notification_icon_size = 40
 
-player = 'clementine'
-player = 'rhythmbox'
 player = 'spotify'
-cmd_player_playpause = string.format("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.%s /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause", player)
-cmd_player_next = string.format("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.%s /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next", player)
-cmd_player_prev = string.format("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.%s /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous", player)
-cmd_player_stop = string.format("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.%s /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop", player)
+player = 'cantata'
+
+cmd_player_playpause = string.format("playerctl -p %s play-pause", player)
+cmd_player_next = string.format("playerctl -p %s next", player)
+cmd_player_prev = string.format("playerctl -p %s previous", player)
+cmd_player_stop = string.format("playerctl -p %s stop", player)
+cmd_player_volup = string.format("playerctl -p %s volume '0.05+'", player)
+cmd_player_voldown = string.format("playerctl -p %s volume '0.05-'", player)
 
 cmd_vol_mute = "amixer -q -D pulse set Master 1+ toggle"
 cmd_vol_raise = "amixer -c0 -- sset Master playback 2dB+"
@@ -374,6 +376,8 @@ globalkeys = awful.util.table.join(
   awful.key({}, "XF86AudioLowerVolume", function() awful.spawn(cmd_vol_lower) end),
   awful.key({}, "F11", function() awful.spawn(cmd_vol_lower) end),
   awful.key({}, "F12", function() awful.spawn(cmd_vol_raise) end),
+  awful.key({ shiftkey }, "F11", function() awful.spawn(cmd_player_voldown) end),
+  awful.key({ shiftkey }, "F12", function() awful.spawn(cmd_player_volup) end),
 
   -- clementine (qdbusviewer)
   awful.key({ modkey, shiftkey }, "Left", function() awful.spawn(cmd_player_prev) end),
@@ -670,6 +674,7 @@ awful.rules.rules = {
                                                maximized_vertical = true,
                                                maximized_horizontal = true
     }},
+    { rule = { class = "cantata" }, properties = { screen = 1, tag = tags[6]}},
     { rule = { class = "Spotify" }, properties = { screen = 1, tag = tags[6]}},
     { rule = { class = "Rhythmbox" }, properties = { screen = 1, tag = tags[6]}},    
     { rule = { class = "Audacity" }, properties = { screen = 1, tag = tags[6] } },
