@@ -780,7 +780,8 @@ run_once = require("runonce")
 autorun_items =
 {
     "ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
-    "terminator -x ~/bin/startup",
+    --"terminator -x ~/bin/startup",
+    "kitty --start-as maximized ~/bin/startup",
     "wicd-client -o",
     --"~/bin/notify-listener.py &|", --irssi
     --"emacs",
