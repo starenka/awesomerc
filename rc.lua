@@ -363,7 +363,7 @@ globalkeys = awful.util.table.join(
 
   -- misc
 
-  awful.key({}, "Print", function() awful.spawn("ksnapshot") end), -- screenshot
+  awful.key({}, "Print", function() awful.spawn("spectacle") end), -- screenshot
   awful.key({ ctrlkey }, "Escape", function() awful.spawn("ksysguard") end), -- "ktop"
   awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end), --change kb layout
   awful.key({ modkey }, "k", function() awful.spawn("xkill") end), --xkill
