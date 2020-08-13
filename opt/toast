@@ -1,22 +1,29 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
+
 import argparse
 import subprocess
 
-parser = argparse.ArgumentParser(description='Toasts a message at specified time')
+parser = argparse.ArgumentParser(description='Toasts a naughty message')
 parser.add_argument('message', type=str, nargs='+', help='message words')
-parser.add_argument('-a', '--at', dest='timespec', nargs='+', type=str, required=True, help='posix time spec (man at))')
-parser.add_argument('-t', '--title', dest='title', nargs='*', default=None, help='toast title')
-parser.add_argument('--timeout', dest='timeout', type=int, default=0, help="timout (secs), 0 = don't hide")
-parser.add_argument('-p', '--priority', dest='preset',
-                    choices=('low', 'normal', 'critical'), default='critical', help="priority")
+parser.add_argument('-t', '--title', nargs='*', help='title')
+parser.add_argument('--timeout', type=int, default=0, help="timout (secs), 0 = don't hide")
+parser.add_argument('-p', '--preset', choices=('low', 'normal', 'critical'), default='normal', help="preset")
+parser.add_argument('--fg', help='fg color')
+parser.add_argument('--bg', help='bg color')
 
 args = vars(parser.parse_args())
-args['message'] = ' '.join(args['message'])
-args['ttitle'] = 'title=\"%s\",' % ' '.join(args['title']) if args['title'] else ''
+payload = ['text="%s"' % ' '.join(args.pop('message')),
+           'timeout=%d' % args['timeout'],
+           'preset=naughty.config.presets.%s' % args['preset']]
 
-cmd = "echo 'naughty.notify({preset=naughty.config.presets.%(preset)s, text=\"%(message)s\", %(ttitle)s timeout=%(timeout)d})' | awesome-client" % args
+if args['title']:
+    payload.append('title="%s"' % ' '.join(args['title']))
+if args['fg']:
+    payload.append('fg="%s"' % ' '.join(args['fg']))
+if args['bg']:
+    payload.append('bg="%s"' % ' '.join(args['bg']))
 
-p1 = subprocess.Popen(['echo', cmd], stdout=subprocess.PIPE)
-p2 = subprocess.Popen(['at'] + args['timespec'], stdin=p1.stdout, stdout=subprocess.PIPE)
-p1.stdout.close()
-print p2.communicate()[0]
+cmd = "echo 'local naughty=require(\"naughty\"); naughty.notify({%s})' | awesome-client" % ','.join(payload)
+
+ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+ps.communicate()[0]
