@@ -388,10 +388,8 @@ globalkeys = awful.util.table.join(
   awful.key({}, "XF86MonBrightnessDown", function() awful.spawn(string.format("sudo %s/bin/brightness.py down", os.getenv("HOME"))) end),
   awful.key({}, "XF86MonBrightnessUp", function() awful.spawn(string.format("sudo %s/bin/brightness.py up", os.getenv("HOME"))) end),
   
-  --awful.key({ modkey }, "a", function() awful.spawn("uxterm -e '~/bin/repls'") end), -- spawn term w/ REPL choices
-  awful.key({ modkey }, "x", function() awful.spawn("uxterm -e 'ipython'") end), -- spawn term w/ python
-  awful.key({ modkey }, "z", function() awful.spawn("uxterm -e 'lua -i'") end), -- spawn term w/ lua
-  
+  awful.key({ modkey, shiftkey }, "x", function() awful.spawn("uxterm -e /home/starenka/.local/bin/ipython") end), -- spawn term w/ python
+  awful.key({ modkey, shiftkey }, "z", function() awful.spawn("uxterm -e 'lua -i'") end), -- spawn term w/ lua  
    
    --[=====[
    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
