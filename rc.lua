@@ -60,6 +60,7 @@ cmd_player_prev = string.format("playerctl -p %s previous", player)
 cmd_player_stop = string.format("playerctl -p %s stop", player)
 cmd_player_volup = string.format("playerctl -p %s volume '0.05+'", player)
 cmd_player_voldown = string.format("playerctl -p %s volume '0.05-'", player)
+cmd_player_current = string.format("playerctl -p metadata -f '{{title}} - {{artist}}'", player)
 
 cmd_vol_mute = "amixer -q -D pulse set Master 1+ toggle"
 cmd_vol_raise = "amixer -c0 -- sset Master playback 2dB+"
