@@ -656,7 +656,7 @@ awful.rules.rules = {
     }},
 
     -- dev:www
-    { rule = { class = "firefox" }, properties = { screen = 1, tag = tags[3]}},
+    { rule = { class = "Firefox" }, properties = { screen = 1, tag = tags[3]}},
     { rule = { class = "Google-chrome" }, properties = { screen = 1, tag = tags[3] }},
     { rule = { class = "Chromium" }, properties = { screen = 1, tag = tags[3] }},
 
