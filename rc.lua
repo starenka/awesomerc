@@ -313,11 +313,13 @@ awful.screen.connect_for_each_screen(function(s)
             mylauncher,
             s.mypromptbox,
             s.mytaglist,
+            widget_sep,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
+            spacer,
             widget_sep,
             spacer,
             --gmailwidget,
@@ -365,7 +367,7 @@ globalkeys = awful.util.table.join(
   -- misc
 
   awful.key({}, "Print", function() awful.spawn("spectacle") end), -- screenshot
-  awful.key({ ctrlkey }, "Escape", function() awful.spawn("ksysguard") end), -- "ktop"
+  awful.key({ ctrlkey }, "Escape", function() awful.spawn("gnome-system-monitor") end), -- "ktop"
   awful.key({ ctrlkey, altkey }, "k", function() kbdcfg.switch() end), --change kb layout
   awful.key({ modkey }, "k", function() awful.spawn("xkill") end), --xkill
   awful.key({}, "F1", function () awful.spawn("xtrlock") end), --lockscreen
