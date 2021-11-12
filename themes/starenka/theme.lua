@@ -8,9 +8,9 @@ local THEME_DIR = string.format("%s/.config/awesome/themes/starenka/", os.getenv
 
 -- {{{ Styles
 --theme.font      = "andale mono 8.5"
---theme.font      = "dejavu sans mono 8"
---theme.font      = "monospace 7.3"
-theme.font      = "monospace 8.5"
+--theme.font      = "dejavu sans mono 9"
+theme.font      = "monospace 7.5"
+theme.font      = "hack 8.2"
 
 -- {{{ Colors
 theme.fg_normal = "#DCDCCC"
@@ -83,7 +83,7 @@ theme.taglist_squares_unsel = THEME_DIR .. "taglist/squarefz.png"
 -- {{{ Misc
 theme.awesome_icon           = THEME_DIR .. "debian-icon.png"
 theme.menu_submenu_icon      = "/usr/share/awesome/themes/default/submenu.png"
-theme.tasklist_font = "monospace 7.5"
+theme.tasklist_font = "hack 8.5"
 theme.tasklist_disable_icon = true
 
 --theme.tasklist_bg_focus = '#FFFFFF'
