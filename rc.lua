@@ -179,9 +179,10 @@ kbdcfg.widget:buttons(awful.util.table.join(awful.button({}, 1,
 
 -- Gmail
 -- cat ~/.netrc: machine mail.google.com login johndoe@gmail.com password secretpass
+-- https://support.google.com/accounts/answer/185833?hl=en
 
---gmailwidget = wibox.widget.textbox()
---vicious.register(gmailwidget, vicious.widgets.gmail, '<span font-weight="bold">${count} ✉</span><span font-size="small"> unread</span>', 60*4)
+-- gmailwidget = wibox.widget.textbox()
+-- vicious.register(gmailwidget, vicious.widgets.gmail, '${count}<span font-size="small"> unread</span>', 60*4)
 
 -- Battery
 battery = require('battery')
