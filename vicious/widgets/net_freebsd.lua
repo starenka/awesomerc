@@ -1,10 +1,32 @@
+-- network status and usage widget type for FreeBSD
+-- Copyright (C) 2017,2019  mutlusun <mutlusun@github.com>
+-- Copyright (C) 2019  Nguyễn Gia Phong <vn.mcsinyx@gmail.com>
+--
+-- This file is part of Vicious.
+--
+-- Vicious is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as
+-- published by the Free Software Foundation, either version 2 of the
+-- License, or (at your option) any later version.
+--
+-- Vicious is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Vicious.  If not, see <https://www.gnu.org/licenses/>.
+
 -- {{{ Grab environment
 local tonumber = tonumber
 local os = { time = os.time }
-local setmetatable = setmetatable
+local string = {
+    match = string.match,
+    gmatch = string.gmatch
+}
+
 local helpers = require("vicious.helpers")
-local io = { popen = io.popen }
-local string = { match = string.match }
+local spawn = require("vicious.spawn")
 -- }}}
 
 
@@ -21,27 +43,24 @@ local unit = { ["b"] = 1, ["kb"] = 1024,
 }
 
 -- {{{ Net widget type
-local function worker(format, warg)
-    if not warg then return end
+local function parse(stdout, stderr, exitreason, exitcode)
 
     local args = {}
     local buffer = nil
-    local f = io.popen("netstat -n -b -I " .. helpers.shellquote(warg))
     local now = os.time()
-    
-    for line in f:lines() do
+
+    for line in string.gmatch(stdout, "[^\n]+") do
         if not (line:find("<Link") or line:find("Name")) then -- skipping missleading lines
             local split = { line:match(("([^%s]*)%s*"):rep(12)) }
 
             if buffer == nil then
                 buffer = { tonumber(split[8]), tonumber(split[11]) } -- recv (field 8) and send (field 11)
             else
-                buffer = { buffer[1] + tonumber(split[8]), buffer[2] + tonumber(split[11]) }
+                buffer = { buffer[1] + tonumber(split[8]),
+                           buffer[2] + tonumber(split[11]) }
             end
         end
     end
-
-    f:close()
 
     if buffer == nil then
         args["{carrier}"] = 0
@@ -67,7 +86,7 @@ local function worker(format, warg)
             helpers.uformat(args, "down", down, unit)
             helpers.uformat(args, "up",   up,   unit)
         end
-        
+
         nets["time"] = now
 
         -- Store totals
@@ -78,6 +97,12 @@ local function worker(format, warg)
     return args
 
 end
+
+function net_freebsd.async(format, warg, callback)
+    if not warg then return callback{} end
+    spawn.easy_async("netstat -n -b -I " .. helpers.shellquote(warg),
+                     function (...) callback(parse(...)) end)
+end
 -- }}}
 
-return setmetatable(net_freebsd, { __call = function(_, ...) return worker(...) end })
+return helpers.setasyncall(net_freebsd)

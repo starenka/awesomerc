@@ -1,43 +1,54 @@
----------------------------------------------------
--- Licensed under the GNU General Public License v2
---  * (c) 2010, Adrian C. <anrxc@sysphere.org>
---  * (c) Maildir Biff Widget, Fredrik Ax
----------------------------------------------------
+-- widget type providing number of new and unread Maildir messages
+-- Copyright (C) 2010  Adrian C. <anrxc@sysphere.org>
+-- Copyright (C) 2010  Fredrik Ax
+-- Copyright (C) 2017  mutlusun <mutlusun@github.com>
+-- Copyright (C) 2019  Nguyễn Gia Phong <vn.mcsinyx@gmail.com>
+--
+-- This file is part of Vicious.
+--
+-- Vicious is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as
+-- published by the Free Software Foundation, either version 2 of the
+-- License, or (at your option) any later version.
+--
+-- Vicious is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Vicious.  If not, see <https://www.gnu.org/licenses/>.
 
 -- {{{ Grab environment
-local io = { popen = io.popen }
-local setmetatable = setmetatable
-local helpers = require("vicious.helpers")
+local type = type
+
+local helpers = require"vicious.helpers"
+local spawn = require"vicious.spawn"
 -- }}}
 
-
--- Mdir: provides the number of new and unread messages in Maildir structures/dirs
 -- vicious.widgets.mdir
 local mdir_all = {}
 
-
 -- {{{ Maildir widget type
-local function worker(format, warg)
-    if not warg then return end
-
-    -- Initialize counters
-    local count = { new = 0, cur = 0 }
-
-    for i=1, #warg do
-        quoted_path = helpers.shellquote(warg[i])
-        -- Recursively find new messages
-        local f = io.popen("find "..quoted_path.." -type f -wholename '*/new/*'")
-        for line in f:lines() do count.new = count.new + 1 end
-        f:close()
-
-        -- Recursively find "old" messages lacking the Seen flag
-        local f = io.popen("find "..quoted_path.." -type f -regex '.*/cur/.*2,[^S]*$'")
-        for line in f:lines() do count.cur = count.cur + 1 end
-        f:close()
+function mdir_all.async(format, warg, callback)
+    if type(warg) ~= "table" then return callback{} end
+    local starting_points = ""
+    for _,dir in ipairs(warg) do
+        starting_points = starting_points .. " " .. helpers.shellquote(dir)
     end
+    if starting_points == "" then return callback{ 0, 0 } end
 
-    return {count.new, count.cur}
+    local new, cur = 0, 0
+    spawn.with_line_callback(
+        "find" .. starting_points .. " -type f -regex '.*/cur/.*2,[^S]*$'",
+        { stdout = function (filename) cur = cur + 1 end,
+          output_done = function ()
+              spawn.with_line_callback(
+                  "find" .. starting_points .. " -type f -path '*/new/*'",
+                  { stdout = function (filename) new = new + 1 end,
+                    output_done = function () callback{ new, cur } end })
+          end })
 end
 -- }}}
 
-return setmetatable(mdir_all, { __call = function(_, ...) return worker(...) end })
+return helpers.setasyncall(mdir_all)

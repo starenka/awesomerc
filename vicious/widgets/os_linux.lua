@@ -1,30 +1,35 @@
----------------------------------------------------
--- Licensed under the GNU General Public License v2
---  * (c) 2010, Adrian C. <anrxc@sysphere.org>
----------------------------------------------------
+-- operating system widget type for GNU/Linux
+-- Copyright (C) 2010  Adrian C. <anrxc@sysphere.org>
+-- Copyright (C) 2019  Nguyễn Gia Phong <vn.mcsinyx@gmail.com>
+-- Copyright (C) 2019  mutlusun <mutlusun@users.noreply.github.com>
+--
+-- This file is part of Vicious.
+--
+-- Vicious is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as
+-- published by the Free Software Foundation, either version 2 of the
+-- License, or (at your option) any later version.
+--
+-- Vicious is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with Vicious.  If not, see <https://www.gnu.org/licenses/>.
 
 -- {{{ Grab environment
 local pairs = pairs
 local tonumber = tonumber
-local io = { popen = io.popen }
 local math = { ceil = math.ceil }
 local los = { getenv = os.getenv }
-local setmetatable = setmetatable
-local helpers = require("vicious.helpers")
-local string = {
-    gsub = string.gsub,
-    match = string.match
-}
+local string = { gsub = string.gsub }
+
+local helpers = require"vicious.helpers"
 -- }}}
 
-
--- OS: provides operating system information
--- vicious.widgets.os
-local os_all = {}
-
-
 -- {{{ Operating system widget type
-local function worker(format)
+return helpers.setcall(function ()
     local system = {
         ["ostype"]    = "N/A",
         ["hostname"]  = "N/A",
@@ -36,20 +41,10 @@ local function worker(format)
 
     -- Linux manual page: uname(2)
     local kernel = helpers.pathtotable("/proc/sys/kernel")
-    for k, v in pairs(system) do
+    for k, _ in pairs(system) do
         if kernel[k] then
             system[k] = string.gsub(kernel[k], "[%s]*$", "")
         end
-    end
-
-    -- BSD manual page: uname(1)
-    if system["ostype"] == "N/A" then
-        local f = io.popen("uname -snr")
-        local uname = f:read("*line")
-        f:close()
-
-        system["ostype"], system["hostname"], system["osrelease"] =
-            string.match(uname, "([%w]+)[%s]([%w%p]+)[%s]([%w%p]+)")
     end
 
     -- Linux manual page: random(4)
@@ -67,7 +62,5 @@ local function worker(format)
 
     return {system["ostype"], system["osrelease"], system["username"],
             system["hostname"], system["entropy"], system["entropy_p"]}
-end
+end)
 -- }}}
-
-return setmetatable(os_all, { __call = function(_, ...) return worker(...) end })
