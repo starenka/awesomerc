@@ -62,10 +62,9 @@ cmd_player_volup = string.format("playerctl -p %s volume '0.05+'", player)
 cmd_player_voldown = string.format("playerctl -p %s volume '0.05-'", player)
 cmd_player_current = string.format("playerctl -p metadata -f '{{title}} - {{artist}}'", player)
 
-cmd_vol_mute = "amixer -q -D pulse set Master 1+ toggle"
-cmd_vol_raise = "amixer -c0 -- sset Master playback 2dB+"
-cmd_vol_lower = "amixer -c0 -- sset Master playback 2dB-"
-ifaces = {"eth0", "wlan0"}
+cmd_vol_mute = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+cmd_vol_raise = "pactl -- set-sink-volume @DEFAULT_SINK@ +2dB"
+cmd_vol_lower = "pactl -- set-sink-volume @DEFAULT_SINK@ -2dB"
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
