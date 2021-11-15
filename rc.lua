@@ -627,6 +627,7 @@ awful.rules.rules = {
     { rule = { class = "Pgadmin3" }, properties = { screen = 1, tag = tags[7] },},
     { rule = { class = "Blueman-manager" }, properties = { screen = 1, tag = tags[7] },},
     { rule = { class = "Pavucontrol" }, properties = { screen = 1, tag = tags[7] },},
+    { rule = { class = "org.remmina.Remmina" }, properties = { screen = 1, tag = tags[7] },},
     
 }
 -- }}}
