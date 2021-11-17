@@ -612,7 +612,7 @@ awful.rules.rules = {
     { rule = { class = "Qsynth" }, properties = { screen = 1, tag = tags[6] } },
 
     -- /tmp
-    { rule = { class = "Krusader" }, properties = { screen = 1, tag = tags[7]}},
+    { rule = { class = "krusader" }, properties = { screen = 1, tag = tags[7]}},
     { rule = { class = "VirtualBox" }, properties = { screen = 1, tag = tags[7] } },
     { rule = { class = "vox" }, properties = { screen = 1, tag = tags[7] } },
     { rule = { class = "Ktorrent" }, properties = { screen = 1, tag = tags[7] } },
