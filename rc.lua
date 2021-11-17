@@ -709,14 +709,14 @@ autorun_items =
     "ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
     "kitty --start-as maximized ~/bin/startup",
     "nm-applet",
+    "blueman-applet",
     "/usr/bin/redshift -l 50.0880:14.4208",
     "~/.dropbox-dist/dropboxd",
     "~/bin/nicotine",
     "slack",
     "cantata",
     "emacs",
-    "vivaldi"
-    --"blueman-applet"
+    "vivaldi",
     --"pavucontrol"
 }
 
