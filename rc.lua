@@ -350,9 +350,9 @@ globalkeys = awful.util.table.join(
    --           {description="show help", group="awesome"}),
 
    awful.key({ modkey, }, "Left", awful.tag.viewprev),
-   awful.key({ modkey, }, ",", awful.tag.viewprev),
+   --awful.key({ modkey, }, ",", awful.tag.viewprev),
    awful.key({ modkey, }, "Right", awful.tag.viewnext),
-   awful.key({ modkey, }, ".", awful.tag.viewnext),
+   --awful.key({ modkey, }, ".", awful.tag.viewnext),
    awful.key({ modkey, altkey }, "space", awful.tag.history.restore),
    awful.key({ modkey, }, "Up", awful.tag.history.restore),
    awful.key({ modkey, }, "Down", awful.tag.history.restore),
