@@ -491,198 +491,40 @@ globalkeys =
     awful.key({modkey, altkey}, "space", awful.tag.history.restore),
     awful.key({modkey}, "Up", awful.tag.history.restore),
     awful.key({modkey}, "Down", awful.tag.history.restore),
+
     -- shortcut for tags
-    awful.key(
-        {modkey},
-        "d",
-        function()
-            awful.screen.focused().tags[2]:view_only()
-        end,
-        {}
-    ), --dev
-    awful.key(
-        {modkey},
-        "b",
-        function()
-            awful.screen.focused().tags[4]:view_only()
-        end,
-        {}
-    ), --[www]
-    awful.key(
-        {modkey},
-        "v",
-        function()
-            awful.screen.focused().tags[3]:view_only()
-        end,
-        {}
-    ), --dev:www
-    awful.key(
-        {modkey},
-        "c",
-        function()
-            awful.screen.focused().tags[5]:view_only()
-        end,
-        {}
-    ), --irc
-    awful.key(
-        {modkey},
-        "/",
-        function()
-            awful.screen.focused().tags[1]:view_only()
-        end,
-        {}
-    ), --treminals
+    awful.key({modkey}, "d", function() awful.screen.focused().tags[2]:view_only() end, {}), --dev
+    awful.key({modkey}, "b", function() awful.screen.focused().tags[4]:view_only() end, {}), --[www]
+    awful.key({modkey}, "v", function() awful.screen.focused().tags[3]:view_only() end, {}), --dev:www
+    awful.key({modkey}, "c", function() awful.screen.focused().tags[5]:view_only() end, {}), --irc
+    awful.key({modkey}, "/", function() awful.screen.focused().tags[1]:view_only() end, {}), --terminals
+
     -- misc
-    awful.key(
-        {},
-        "Print",
-        function()
-            awful.spawn("spectacle")
-        end
-    ), -- screenshot
-    awful.key(
-        {ctrlkey},
-        "Escape",
-        function()
-            awful.spawn("gnome-system-monitor")
-        end
-    ), -- "ktop"
-    awful.key(
-        {ctrlkey, altkey},
-        "k",
-        function()
-            kbdcfg.switch()
-        end
-    ), --change kb layout
-    awful.key(
-        {modkey},
-        "k",
-        function()
-            awful.spawn("xkill")
-        end
-    ), --xkill
-    awful.key(
-        {},
-        "F1",
-        function()
-            awful.spawn("xtrlock")
-        end
-    ), --lockscreen
-    awful.key(
-        {modkey, shiftkey},
-        "x",
-        function()
-            awful.spawn("uxterm -e /home/starenka/.local/bin/ipython")
-        end
-    ), -- spawn term w/ python
-    awful.key(
-        {modkey, shiftkey},
-        "z",
-        function()
-            awful.spawn("uxterm -e 'lua -i'")
-        end
-    ), -- spawn term w/ lua
-    -- volume
-    awful.key(
-        {},
-        "XF86AudioMute",
-        function()
-            awful.spawn(cmd_vol_mute)
-        end
-    ),
-    awful.key(
-        {},
-        "XF86Launch1",
-        function()
-            awful.spawn(cmd_vol_mute)
-        end
-    ),
-    awful.key(
-        {},
-        "XF86AudioRaiseVolume",
-        function()
-            awful.spawn(cmd_vol_raise)
-        end
-    ),
-    awful.key(
-        {},
-        "XF86AudioLowerVolume",
-        function()
-            awful.spawn(cmd_vol_lower)
-        end
-    ),
-    awful.key(
-        {},
-        "F11",
-        function()
-            awful.spawn(cmd_vol_lower)
-        end
-    ),
-    awful.key(
-        {},
-        "F12",
-        function()
-            awful.spawn(cmd_vol_raise)
-        end
-    ),
-    awful.key(
-        {shiftkey},
-        "F11",
-        function()
-            awful.spawn(cmd_player_voldown)
-        end
-    ),
-    awful.key(
-        {shiftkey},
-        "F12",
-        function()
-            awful.spawn(cmd_player_volup)
-        end
-    ),
-    -- brightness
-    awful.key(
-        {},
-        "XF86MonBrightnessDown",
-        function()
-            awful.spawn("/home/starenka/bin/brightness d")
-        end
-    ),
-    awful.key(
-        {},
-        "XF86MonBrightnessUp",
-        function()
-            awful.spawn("/home/starenka/bin/brightness u")
-        end
-    ),
-    -- audioplayer
-    awful.key(
-        {modkey, shiftkey},
-        "Left",
-        function()
-            awful.spawn(cmd_player_prev)
-        end
-    ),
-    awful.key(
-        {modkey, shiftkey},
-        "Right",
-        function()
-            awful.spawn(cmd_player_next)
-        end
-    ),
-    awful.key(
-        {modkey, shiftkey},
-        "Up",
-        function()
-            awful.spawn(cmd_player_stop)
-        end
-    ),
-    awful.key(
-        {modkey, shiftkey},
-        "Down",
-        function()
-            awful.spawn(cmd_player_playpause)
-        end
-    ),
+    awful.key({}, "Print", function() awful.spawn("spectacle") end), -- screenshot
+    awful.key({ctrlkey}, "Escape", function() awful.spawn("gnome-system-monitor") end), -- "ktop"
+    awful.key({ctrlkey, altkey}, "k", function() kbdcfg.switch() end), -- change kb layout
+    awful.key({modkey}, "k", function() awful.spawn("xkill") end), -- xkill
+    awful.key({}, "F1", function() awful.spawn("xtrlock") end), -- lockscreen
+    awful.key({modkey, shiftkey}, "x", function() awful.spawn("uxterm -e /home/starenka/.local/bin/ipython") end), -- term w/ python
+    awful.key({modkey, shiftkey}, "z", function() awful.spawn("uxterm -e 'lua -i'") end), --term w/ lua
+    awful.key({}, "XF86AudioMute", function() awful.spawn(cmd_vol_mute) end), -- volume
+    awful.key({}, "XF86Launch1", function() awful.spawn(cmd_vol_mute) end),
+    awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn(cmd_vol_raise) end),
+    awful.key({}, "XF86AudioLowerVolume", function() awful.spawn(cmd_vol_lower) end),
+    awful.key({}, "F11", function() awful.spawn(cmd_vol_lower) end),
+    awful.key({}, "F12", function() awful.spawn(cmd_vol_raise) end),
+    awful.key({shiftkey}, "F11", function() awful.spawn(cmd_player_voldown) end),
+    awful.key({shiftkey}, "F12", function() awful.spawn(cmd_player_volup) end), -- brightness
+    awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("/home/starenka/bin/brightness d") end),
+    awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("/home/starenka/bin/brightness u") end), -- audioplayer
+
+    
+    awful.key({modkey, shiftkey}, "Left", function() awful.spawn(cmd_player_prev) end),
+    awful.key({modkey, shiftkey}, "Right", function() awful.spawn(cmd_player_next) end),
+    awful.key({modkey, shiftkey}, "Up", function() awful.spawn(cmd_player_stop) end),
+    awful.key({modkey, shiftkey},"Down", function() awful.spawn(cmd_player_playpause) end ),
+
+    
     awful.key(
         {modkey},
         "Tab",
@@ -695,7 +537,7 @@ globalkeys =
         {description = "go back", group = "client"}
     ),
     -- }}}
-
+ 
     -- Standard program
     awful.key(
         {modkey},
