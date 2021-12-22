@@ -523,7 +523,7 @@ globalkeys =
     awful.key({modkey, shiftkey}, "Right", function() awful.spawn(cmd_player_next) end),
     awful.key({modkey, shiftkey}, "Up", function() awful.spawn(cmd_player_stop) end),
     awful.key({modkey, shiftkey},"Down", function() awful.spawn(cmd_player_playpause) end ),
-    
+
      -- brightness
     awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("/home/starenka/bin/brightness d") end),  -- brightness
     awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("/home/starenka/bin/brightness u") end),
@@ -545,7 +545,7 @@ globalkeys =
         {description = "go back", group = "client"}
     ),
     -- }}}
- 
+
     -- Standard program
     awful.key(
         {modkey},
@@ -930,7 +930,7 @@ client.connect_signal(
     "mouse::enter",
     function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier and awful.client.focus.filter(c) then
-            client.focus = c
+           client.focus = c
         end
     end
 )
@@ -968,6 +968,6 @@ autorun_items = {
     --"pavucontrol"
 }
 
-for index, item in ipairs(autorun_items) do
+for _, item in ipairs(autorun_items) do
     run_once.run(item)
 end
