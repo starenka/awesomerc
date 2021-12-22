@@ -507,24 +507,32 @@ globalkeys =
     awful.key({}, "F1", function() awful.spawn("xtrlock") end), -- lockscreen
     awful.key({modkey, shiftkey}, "x", function() awful.spawn("uxterm -e /home/starenka/.local/bin/ipython") end), -- term w/ python
     awful.key({modkey, shiftkey}, "z", function() awful.spawn("uxterm -e 'lua -i'") end), --term w/ lua
-    awful.key({}, "XF86AudioMute", function() awful.spawn(cmd_vol_mute) end), -- volume
+
+    -- volume
+    awful.key({}, "XF86AudioMute", function() awful.spawn(cmd_vol_mute) end),
     awful.key({}, "XF86Launch1", function() awful.spawn(cmd_vol_mute) end),
     awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn(cmd_vol_raise) end),
     awful.key({}, "XF86AudioLowerVolume", function() awful.spawn(cmd_vol_lower) end),
     awful.key({}, "F11", function() awful.spawn(cmd_vol_lower) end),
     awful.key({}, "F12", function() awful.spawn(cmd_vol_raise) end),
     awful.key({shiftkey}, "F11", function() awful.spawn(cmd_player_voldown) end),
-    awful.key({shiftkey}, "F12", function() awful.spawn(cmd_player_volup) end), -- brightness
-    awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("/home/starenka/bin/brightness d") end),
-    awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("/home/starenka/bin/brightness u") end), -- audioplayer
+    awful.key({shiftkey}, "F12", function() awful.spawn(cmd_player_volup) end),
 
-    
+    -- audioplayer
     awful.key({modkey, shiftkey}, "Left", function() awful.spawn(cmd_player_prev) end),
     awful.key({modkey, shiftkey}, "Right", function() awful.spawn(cmd_player_next) end),
     awful.key({modkey, shiftkey}, "Up", function() awful.spawn(cmd_player_stop) end),
     awful.key({modkey, shiftkey},"Down", function() awful.spawn(cmd_player_playpause) end ),
-
     
+     -- brightness
+    awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("/home/starenka/bin/brightness d") end),  -- brightness
+    awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("/home/starenka/bin/brightness u") end),
+
+    -- monitors
+    awful.key({modkey}, "F11", function() awful.spawn(cmd_disp_external_off) end),
+    awful.key({modkey, shiftkey}, "F11", function() awful.spawn(cmd_disp_builtin_on) end),
+    awful.key({modkey}, "F12", function() awful.spawn(cmd_disp_external_on) end),
+
     awful.key(
         {modkey},
         "Tab",
