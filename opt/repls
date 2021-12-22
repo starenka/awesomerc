@@ -1,33 +1,21 @@
 #!/usr/bin/env bash
 
 what=$(whiptail --menu 'What REPL?' 22 58 16 \
-"coffee" "coffee" \
-"lua52" "lua 5.2.x" \
+"lua" "lua" \
 "haskell" "haskell" \
-"ruby21" "ruby 2.1.x" \
-"clujure" "clujure 1.5.x" \
-"perl52" "perl 5.20.x" \
-"py2" "python 2.7.x" \
-"py3" "python 3.x" \
-"js" "rhino" \
-"scala" "scala 2.9.2" \
-"clisp24" "clisp 2.4.9" \
-"lua51" "lua 5.1.x" \
+"ruby" "ruby" \
+"perl" "perl" \
+"python" "python" \
+"js" "js" \
 3>&1 1>&2 2>&3)
 
 case $what
  in
-    py2)         ipython;;
-    py3)         python3;;
-    lua52)       lua5.2 -i;;
-    lua51)       lua5.1 -i;;
-    ruby21)      irb;;
-    clisp24)     clisp;;
-    coffee)      coffee;;
-    js)          js;;
-    perl52)      perl -d -e 1;;
-    scala)       scala;;
+    python)      ipython;;
+    lua)         lua -i;;
+    ruby)        irb;;
+    js)          node;;
+    perl)        perl -d -e 1;;
     haskell)     ghci;;
-    clojure)     lein repl;;
     *)           echo You did not choose any item;;
 esac
