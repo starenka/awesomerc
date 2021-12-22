@@ -51,7 +51,9 @@ end
 beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.getenv("HOME")))
 beautiful.notification_icon_size = 40
 
-player = 'spotify'
+HOME = os.getenv("HOME")
+
+--player = 'spotify'
 player = 'cantata'
 
 cmd_player_playpause = string.format("playerctl -p %s play-pause", player)
@@ -62,9 +64,18 @@ cmd_player_volup = string.format("playerctl -p %s volume '0.05+'", player)
 cmd_player_voldown = string.format("playerctl -p %s volume '0.05-'", player)
 cmd_player_current = string.format("playerctl -p metadata -f '{{title}} - {{artist}}'", player)
 
-cmd_vol_mute = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
-cmd_vol_raise = "pactl -- set-sink-volume @DEFAULT_SINK@ +2dB"
-cmd_vol_lower = "pactl -- set-sink-volume @DEFAULT_SINK@ -2dB"
+--cmd_vol_mute = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+cmd_vol_mute = string.format("%s/bin/volume mute", HOME)
+--cmd_vol_raise = "pactl -- set-sink-volume @DEFAULT_SINK@ +2dB"
+cmd_vol_raise = string.format("%s/bin/volume up", HOME)
+--cmd_vol_lower = "pactl -- set-sink-volume @DEFAULT_SINK@ -2dB"
+cmd_vol_lower = string.format("%s/bin/volume down", HOME)
+
+cmd_disp_external_on = string.format("%s/bin/monitor don", HOME)
+cmd_disp_external_off = string.format("%s/bin/monitor doff", HOME)
+cmd_disp_builtin_on = string.format("%s/bin/monitor integrated", HOME)
+cmd_disp_brightness_down = string.format("%s/bin/brightness down", HOME)
+cmd_disp_brightness_up = string.format("%s/bin/brightness up", HOME)
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
