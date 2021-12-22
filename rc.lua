@@ -813,18 +813,11 @@ awful.rules.rules = {
     -- #
     {rule = {class = "Slack"}, properties = {screen = 1, tag = tags[5]}},
     -- d{-_-}b
-    {
-        rule = {class = "Clementine"},
-        properties = {
-            screen = 1,
-            tag = tags[6],
-            maximized_vertical = true,
-            maximized_horizontal = true
-        }
-    },
+    {rule = {class = "Clementine"} ,properties = { screen = 1, tag = tags[6],
+                                                   maximized_vertical = true,
+                                                   maximized_horizontal = true}},
     {rule = {class = "cantata"}, properties = {screen = 1, tag = tags[6]}},
     {rule = {class = "Spotify"}, properties = {screen = 1, tag = tags[6]}},
-    {rule = {class = "Rhythmbox"}, properties = {screen = 1, tag = tags[6]}},
     {rule = {class = "Audacity"}, properties = {screen = 1, tag = tags[6]}},
     {rule = {class = "Vlc"}, properties = {screen = 1, tag = tags[6]}},
     {rule = {class = "Smplayer2"}, properties = {screen = 1, tag = tags[6]}},
@@ -836,7 +829,7 @@ awful.rules.rules = {
     {rule = {class = "krusader"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "VirtualBox"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "vox"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Ktorrent"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "Transmission-gtk"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Nicotine"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Okular"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Wireshark"}, properties = {screen = 1, tag = tags[7]}},
@@ -844,7 +837,6 @@ awful.rules.rules = {
     {rule = {class = "Sublime"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "dosbox"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Kcachegrind"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Pgadmin3"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Blueman-manager"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Pavucontrol"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "org.remmina.Remmina"}, properties = {screen = 1, tag = tags[7]}}
