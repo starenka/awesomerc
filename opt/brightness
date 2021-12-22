@@ -1,1 +1,24 @@
-/home/starenka/bin/brightness
+#!/bin/bash
+
+#apt install brightnessctl
+
+brightness-up () {
+    if [ "$(brightnessctl g)" -le "$(brightnessctl m)" ]; then
+        brightnessctl -q s 3%+
+    fi
+}
+
+brightness-down () {
+    if [ "$(brightnessctl g)" -ge "1000" ]; then
+        brightnessctl -q s 3%-
+    else
+        brightnessctl -q s 100
+    fi
+}
+
+case $1 in
+    up) brightness-up exit;;
+    u) brightness-up; exit;;
+    down) brightness-down; exit;;
+    d) brightness-down; exit;;
+esac

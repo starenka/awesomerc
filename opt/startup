@@ -1,1 +1,23 @@
-/home/starenka/bin/startup
+#!/bin/bash
+
+echo '' > ~/.xsession-errors 
+
+xmodmap -e "keycode 107 = Menu"
+# caps -> ctrl
+setxkbmap us -option caps:ctrl_modifier
+
+#turnoff screensaver & dpms
+xset -dpms s off
+xset s off
+xset s noblank
+#keyb repeat
+xset r rate 350 55
+
+# see grep autorun ~/.config/awesome/rc.lua -A10
+cowsay 'ssh passphrase:'
+ssh-agent; ssh-add ~/.ssh/id_rsa ~/.ssh/id_rsa2 ~/.ssh/id_dsa
+
+cowsay 'root passwd:'
+
+cd /tmp
+su -

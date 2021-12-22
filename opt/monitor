@@ -1,1 +1,35 @@
-/home/starenka/bin/monitor
+#!/bin/bash
+
+BUILTIN_RES='auto'
+BUILTIN_RES='1920x1200'
+BUILTIN_RES='1440x900'
+
+get-ext-dev () {
+    xrandr | egrep '(^DP|HDMI).* connected' | cut -d' ' -f1
+}
+
+get-builtin-dev () {
+    xrandr | egrep '(^eDP).* connected' | cut -d' ' -f1
+}
+
+builtin-on () {
+    xrandr --output $(get-builtin-dev) --mode $BUILTIN_RES
+}
+
+ext-on () {
+    [[ ! -z "$(get-ext-dev)" ]] && xrandr --output $(get-builtin-dev) --mode $BULTIN_RES --output $(get-ext-dev) --off
+}
+
+ext-off () {
+    builtin-on && xrandr --output $(get_ext-dev) --off
+    echo 'awesome.restart()' | awesome-client
+}
+
+case $1 in
+    external) ext-on; exit;;
+    e) ext-on; exit;;
+    don) ext-on exit;;
+    doff) ext-off exit;;
+    integrated) builtin-on; exit;;
+    i) builtin-on; exit;;
+esac

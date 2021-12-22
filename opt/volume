@@ -1,1 +1,28 @@
-/home/starenka/bin/volume
+#!/bin/bash
+
+get-volume () {
+    pactl get-sink-volume $(pactl get-default-sink) | head -n1 | cut -d / -f2 | xargs | sed 's/%//'
+}
+
+volume-up () {
+    [ "$(get-volume)" -lt "110" ] && pactl -- set-sink-volume @DEFAULT_SINK@ +2dB
+}
+
+
+volume-down () {
+    [ "$(get-volume)" -gt "0" ] && pactl -- set-sink-volume @DEFAULT_SINK@ -2dB
+}
+
+mute () {
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+}
+
+
+case $1 in
+    up) volume-up exit;;
+    u) volume-up exit;;
+    down) volume-down exit;;
+    d) volume-down exit;;
+    mute) mute exit;;
+    m) mute exit;;
+esac
