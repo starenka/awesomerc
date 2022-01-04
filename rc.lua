@@ -834,12 +834,12 @@ awful.rules.rules = {
     {rule = {class = "Okular"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Wireshark"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Sublime_text"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Sublime"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "dosbox"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Kcachegrind"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Blueman-manager"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Pavucontrol"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "org.remmina.Remmina"}, properties = {screen = 1, tag = tags[7]}}
+    {rule = {class = "org.remmina.Remmina"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "Steam"}, properties = {screen = 1, tag = tags[7]}},
 }
 -- }}}
 
