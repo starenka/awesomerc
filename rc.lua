@@ -840,6 +840,8 @@ awful.rules.rules = {
     {rule = {class = "Pavucontrol"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "org.remmina.Remmina"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Steam"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "Elasticvue"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "jadx-gui-JadxGUI"}, properties = {screen = 1, tag = tags[7]}},
 }
 -- }}}
 
