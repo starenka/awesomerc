@@ -15,7 +15,7 @@ xset r rate 350 55
 
 # see grep autorun ~/.config/awesome/rc.lua -A10
 cowsay 'ssh passphrase:'
-ssh-agent; ssh-add ~/.ssh/id_rsa ~/.ssh/id_rsa2 ~/.ssh/id_dsa
+ssh-agent; ssh-add ~/.ssh/id_rsa ~/.ssh/id_rsa2 ~/.ssh/id_dsa ~/.ssh/ghcli
 
 cowsay 'root passwd:'
 
