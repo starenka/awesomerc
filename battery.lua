@@ -1,8 +1,8 @@
-local M = { settings = { method = 'acpi', 
-			 color = '#dcdccc', 
-			 battery = 'BAT0', 
-			 warning = { color = '#fecf35', level = 25 }, 
-			 critical = { color = '#ff8000', level = 10 } } 
+local M = { settings = { method = 'acpi',
+			 color = '#dcdccc',
+			 battery = 'BAT0',
+			 warning = { color = '#fecf35', level = 25 },
+			 critical = { color = '#ff8000', level = 10 } }
 }
 -- you can override settings in rc.lua
 
@@ -18,7 +18,7 @@ local backends = {
 
        state = 2
        if sta:match('Discharging') then state = 0
-       elseif sta:match('Charging') then state = 1 
+       elseif sta:match('Charging') then state = 1
        end
 
        return { rem_perc=tonumber(remaining), rem_time=nil, rem_chtime=nil, state=state, ac=ac }
@@ -39,13 +39,13 @@ local backends = {
       return { rem_perc=tonumber(rem_perc), rem_time=tonumber(rem_time), rem_chtime=tonumber(rem_chtime), state=state, ac=ac }
    end,
    acpi = function(battery)
-      
+
       stats, nrs = {}, {}
       bat_info = io.popen('acpi -b')
       for l in bat_info:lines() do
          nr = tonumber(l:match('Battery (%d)'))
          table.insert(nrs, nr)
-         
+
          if l:match('Charging') then state = 1
          elseif l:match('Discharging') then state = 0
          else state = 2
@@ -68,11 +68,11 @@ local backends = {
          if v.rem_time > 0 or v.rem_chtime > 0 then to_show = v end
       end
       ac_stats:close()
-      
+
       return { rem_perc=to_show.rem_perc, rem_time=to_show.rem_time, nr=to_show.nr,
                rem_chtime=to_show.rem_chtime, state=to_show.state, ac=ac }      
    end
-}   
+}
 
 
 function mins_to_hm_str(mins)
@@ -92,7 +92,7 @@ function M.get_info()
          color = M.settings.critical.color
       elseif stats.rem_perc <= M.settings.warning.level then
          color = M.settings.warning.color
-      end      
+      end
    elseif stats.state == 1 then 
       dir, rtime = '+', stats.rem_chtime
    end
