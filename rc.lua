@@ -73,8 +73,10 @@ cmd_player_playpause = string.format("playerctl -p %s play-pause", player)
 cmd_player_next = string.format("playerctl -p %s next", player)
 cmd_player_prev = string.format("playerctl -p %s previous", player)
 cmd_player_stop = string.format("playerctl -p %s stop", player)
-cmd_player_volup = string.format("playerctl -p %s volume '0.05+'", player)
-cmd_player_voldown = string.format("playerctl -p %s volume '0.05-'", player)
+--cmd_player_volup = string.format("playerctl -p %s volume '0.05+'", player)
+cmd_player_volup = string.format("%s/bin/volume player-up", HOME)
+--cmd_player_voldown = string.format("playerctl -p %s volume '0.05-'", player)
+cmd_player_voldown = string.format("%s/bin/volume player-down", HOME)
 cmd_player_current = string.format("playerctl -p metadata -f '{{title}} - {{artist}}'", player)
 
 --cmd_vol_mute = "pactl set-sink-mute @DEFAULT_SINK@ toggle"

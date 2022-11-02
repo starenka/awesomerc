@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PLAYER=cantata
+
 get-volume () {
     pactl get-sink-volume $(pactl get-default-sink) | head -n1 | cut -d / -f2 | xargs | sed 's/%//'
 }
@@ -17,6 +19,14 @@ mute () {
     pactl set-sink-mute @DEFAULT_SINK@ toggle
 }
 
+volume-up-player () {
+    playerctl -p $PLAYER volume '0.05+'
+}
+
+volume-down-player () {
+    playerctl -p $PLAYER volume '0.05-'
+}
+
 
 case $1 in
     up) volume-up exit;;
@@ -25,4 +35,6 @@ case $1 in
     d) volume-down exit;;
     mute) mute exit;;
     m) mute exit;;
+    player-up) volume-up-player exit;;
+    player-down) volume-down-player exit;;
 esac
