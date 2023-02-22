@@ -87,7 +87,7 @@ theme.taglist_squares_unsel = THEME_DIR .. "taglist/squarefz.png"
 -- {{{ Misc
 theme.awesome_icon           = THEME_DIR .. "debian-icon.png"
 theme.menu_submenu_icon      = "/usr/share/awesome/themes/default/submenu.png"
-theme.tasklist_font = "hack 8.2"
+theme.tasklist_font = "hack 8"
 theme.tasklist_disable_icon = true
 
 --theme.tasklist_bg_focus = '#FFFFFF'
