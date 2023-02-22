@@ -337,7 +337,7 @@ awful.screen.connect_for_each_screen(
             {
                 -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
-                wibox.widget.systray(),
+                wibox.container.margin(wibox.widget.systray(), 1, 1, 2, 2),
                 spacer,
                 widget_sep,
                 spacer,
