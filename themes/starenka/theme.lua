@@ -1,5 +1,8 @@
 --  strenka's theme based on "Zenburn" awesome theme  --
 
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
+
 -- {{{ Main
 theme = {}
 -- }}}
@@ -135,5 +138,7 @@ theme.titlebar_maximized_button_focus_inactive  = THEME_DIR .. "titlebar/maximiz
 theme.titlebar_maximized_button_normal_inactive = THEME_DIR .. "titlebar/maximized_normal_inactive.png"
 -- }}}
 -- }}}
+
+theme.systray_icon_spacing = dpi(1)
 
 return theme
