@@ -139,6 +139,6 @@ theme.titlebar_maximized_button_normal_inactive = THEME_DIR .. "titlebar/maximiz
 -- }}}
 -- }}}
 
-theme.systray_icon_spacing = dpi(1)
+theme.systray_icon_spacing = dpi(2)
 
 return theme
