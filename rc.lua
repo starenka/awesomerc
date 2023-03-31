@@ -773,13 +773,14 @@ autorun_items = {
     "nm-applet",
     "kitty --start-as maximized ~/bin/startup",
     --"blueman-applet",
-    "/usr/bin/redshift -l 50.0880:14.4208",
+    "~/bin/monitor doff",
+    "~/bin/redshift",
     "~/.dropbox-dist/dropboxd",
     "~/bin/nicotine",
     "slack",
     "cantata",
     "emacs",
-    "vivaldi"
+    "vivaldi",
     --"pavucontrol"
 }
 

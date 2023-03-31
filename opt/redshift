@@ -1,0 +1,2 @@
+#!/bin/bash
+nohup /usr/bin/redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq -r '"\(.location.lat):\(.location.lng)"' || echo '50.1113:14.4063') &>/dev/null
