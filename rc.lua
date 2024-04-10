@@ -614,13 +614,13 @@ awful.rules.rules = {
     },
     -- Add titlebars to normal clients and dialogs
     {rule_any = {type = {"normal", "dialog"}},
-     properties = {titlebars_enabled = false}
+     properties = {titlebars_enabled = false} -- disable window decorators
     },
     -- default apps -> tags, use xprop | grep WM_CLAS to determine window props (second item)
     -- terms
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
+    -- { rule = { class = "firefox" },
     --   properties = { screen = 1, tag = "2" } },
 
     -- dev
@@ -634,7 +634,7 @@ awful.rules.rules = {
      }
     },
     -- dev:www
-    {rule = {class = "Firefox"}, properties = {screen = 1, tag = tags[3]}},
+    {rule = {class = "firefox"}, properties = {screen = 1, tag = tags[3]}},
     {rule = {class = "Google-chrome"}, properties = {screen = 1, tag = tags[3]}},
     {rule = {class = "Chromium"}, properties = {screen = 1, tag = tags[3]}},
     -- [www]
