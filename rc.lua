@@ -303,7 +303,7 @@ awful.screen.connect_for_each_screen(
         -- Wallpaper
         set_wallpaper(s)
         -- Create a promptbox for each screen
-        s.mypromptbox = awful.widget.prompt()
+        s.mypromptbox = awful.widget.prompt({with_shell=true})
         -- Each screen has its own tag table.
         awful.tag(tags, s, awful.layout.layouts[1])
         -- Create an imagebox widget which will contains an icon indicating which layout we're using.
@@ -678,7 +678,8 @@ awful.rules.rules = {
     {rule = {class = "org.remmina.Remmina"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "steam"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Elasticvue"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "jadx-gui-JadxGUI"}, properties = {screen = 1, tag = tags[7]}}
+    {rule = {class = "jadx-gui-JadxGUI"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "filezilla"}, properties = {screen = 1, tag = tags[7]}}
 }
 -- }}}
 
