@@ -2,22 +2,38 @@
 
 PLAYER=cantata
 
+
+_get_sink_nfo () {
+    sink=$(pactl info | grep 'Default Sink:' | cut -d: -f2 | xargs)
+    echo "$(pactl list sinks | awk -v sink="$sink" '$0 ~ sink {flag=1} flag; /Volume:/ && flag {exit}')"
+}
+
 get-volume () {
-    pactl get-sink-volume $(pactl get-default-sink) | head -n1 | cut -d / -f2 | xargs | sed 's/%//'
+    nfo=$(_get_sink_nfo)
+    volume=$(echo "$nfo" | grep 'Volume' | cut -d '/' -f 4 | sed 's/ //g; s/%$//')
+    muted=$(echo "$nfo" | grep -oP 'Mute: \K\w+')
+    [[ $muted == yes ]] && echo "${volume}M" || echo "${volume}%"
+}
+
+
+_get-volume () {
+    volume=$(get-volume)
+    echo "${volume%?}"
 }
 
 volume-up () {
-    [ "$(get-volume)" -lt "110" ] && pactl -- set-sink-volume @DEFAULT_SINK@ +2dB
+    [ "$(_get-volume)" -lt 110 ] && pactl -- set-sink-volume @DEFAULT_SINK@ +2dB
 }
 
 
 volume-down () {
-    [ "$(get-volume)" -gt "0" ] && pactl -- set-sink-volume @DEFAULT_SINK@ -2dB
+    pactl -- set-sink-volume @DEFAULT_SINK@ -2dB
 }
 
 mute () {
     pactl set-sink-mute @DEFAULT_SINK@ toggle
 }
+
 
 volume-up-player () {
     playerctl -p $PLAYER volume '0.05+'
@@ -29,12 +45,10 @@ volume-down-player () {
 
 
 case $1 in
-    up) volume-up exit;;
-    u) volume-up exit;;
-    down) volume-down exit;;
-    d) volume-down exit;;
-    mute) mute exit;;
-    m) mute exit;;
+    l | level) get-volume exit;;
+    u | up) volume-up exit;;
+    d | down) volume-down exit;;
+    m | mute) mute exit;;
     player-up) volume-up-player exit;;
     player-down) volume-down-player exit;;
 esac
