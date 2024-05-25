@@ -57,30 +57,34 @@ end
 -- }}}
 
 -- {{{ Variable definitions
+HOME = os.getenv("HOME")
+function home(path)
+   return string.format("%s/%s", HOME, path)
+end
+
 -- Themes define colours, icons, font and wallpapers.
 -- beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
-beautiful.init(string.format("%s/.config/awesome/themes/starenka/theme.lua", os.getenv("HOME")))
+beautiful.init(home(".config/awesome/themes/starenka/theme.lua"))
 beautiful.notification_icon_size = 40
 
-HOME = os.getenv("HOME")
 
-cmd_player_playpause = string.format("%s/bin/player playpause", HOME)
-cmd_player_next = string.format("%s/bin/player next", HOME)
-cmd_player_prev = string.format("%s/bin/player prev", HOME)
-cmd_player_stop = string.format("%s/bin/player stop", HOME)
-cmd_player_volup = string.format("%s/bin/player volume-up", HOME)
-cmd_player_voldown = string.format("%s/bin/player volume-down", HOME)
-cmd_player_current = string.format("%s/bin/player current", HOME)
+cmd_player_playpause = home("bin/player playpause")
+cmd_player_next = home("bin/player next")
+cmd_player_prev = home("bin/player prev")
+cmd_player_stop = home("bin/player stop")
+cmd_player_volup = home("bin/player volume-up")
+cmd_player_voldown = home("bin/player volume-down")
+cmd_player_current = home("bin/player current")
 
-cmd_vol_mute = string.format("%s/bin/volume mute", HOME)
-cmd_vol_raise = string.format("%s/bin/volume up", HOME)
-cmd_vol_lower = string.format("%s/bin/volume down", HOME)
+cmd_vol_mute = home("bin/volume mute")
+cmd_vol_raise = home("bin/volume up")
+cmd_vol_lower = home("bin/volume down")
 
-cmd_disp_external_on = string.format("%s/bin/monitor don", HOME)
-cmd_disp_external_off = string.format("%s/bin/monitor doff", HOME)
-cmd_disp_builtin_on = string.format("%s/bin/monitor integrated", HOME)
-cmd_disp_brightness_down = string.format("%s/bin/brightness down", HOME)
-cmd_disp_brightness_up = string.format("%s/bin/brightness up", HOME)
+cmd_disp_external_on = home("bin/monitor don")
+cmd_disp_external_off = home("bin/monitor doff")
+cmd_disp_builtin_on = home("bin/monitor integrated")
+cmd_disp_brightness_down = home("bin/brightness down")
+cmd_disp_brightness_up = home("bin/brightness up")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
@@ -406,8 +410,8 @@ globalkeys =
     awful.key({modkey, shiftkey}, "Right", function() awful.spawn(cmd_player_next) end ),
     awful.key({modkey, shiftkey}, "Up", function() awful.spawn(cmd_player_stop) end ),
     awful.key({modkey, shiftkey}, "Down", function() awful.spawn(cmd_player_playpause) end ), -- brightness
-    awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("/home/starenka/bin/brightness d") end ), -- brightness
-    awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("/home/starenka/bin/brightness u") end ), -- monitors
+    awful.key({}, "XF86MonBrightnessDown", function() awful.spawn(home("bin/brightness d")) end ), -- brightness
+    awful.key({}, "XF86MonBrightnessUp", function() awful.spawn(home("bin/brightness u")) end ), -- monitors
     awful.key({modkey}, "F11", function() awful.spawn(cmd_disp_external_off) end ),
     awful.key({modkey, shiftkey}, "F11", function() awful.spawn(cmd_disp_builtin_on) end ),
     awful.key({modkey}, "F12", function() awful.spawn(cmd_disp_external_on) end ),
@@ -772,7 +776,7 @@ run_once = require("runonce")
 autorun_items = {
     "ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
     "nm-applet",
-    "kitty --start-as maximized ~/bin/startup",
+    "kitty --start-as maximized $HOME/bin/startup",
     --"blueman-applet",
     "~/bin/monitor doff",
     "~/bin/redshift",
