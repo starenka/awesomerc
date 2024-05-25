@@ -6,12 +6,11 @@ local gears = require("gears")
 volume_widget = wibox.widget.textbox()
 volume_widget:set_align("right")
 
-HOME = os.getenv("HOME")
 function update_volume(widget)
-   local fd = io.popen(string.format("%s/bin/volume level", HOME))
+   local fd = io.popen(string.format("%s/bin/volume level", os.getenv("HOME")))
    local status = fd:read("*all")
    fd:close()
-   
+
    widget:set_markup(' <span font-size="small">VOL ' .. status .. '</span> ')
 end
 
