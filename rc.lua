@@ -207,7 +207,7 @@ kbdcfg.widget:buttons(awful.util.table.join(awful.button({}, 1, function() kbdcf
 
 -- Battery
 battery = require("battery")
-battery_poll_int = 13 --seconds
+battery_poll_int = 5 --seconds
 
 -- you can override default battery settings here
 -- battery.settings={method='generic', color='#dcdccc', battery='BAT0', warning={ color='#fecf35', level=30}, critical={color='red', level=15}}
@@ -619,6 +619,7 @@ awful.rules.rules = {
     -- Add titlebars to normal clients and dialogs
     {rule_any = {type = {"normal", "dialog"}},
      properties = {titlebars_enabled = false} -- disable window decorators
+     --,properties = {titlebars_enabled = true} -- enable window decorators
     },
     -- default apps -> tags, use xprop | grep WM_CLAS to determine window props (second item)
     -- terms
@@ -683,7 +684,8 @@ awful.rules.rules = {
     {rule = {class = "steam"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Elasticvue"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "jadx-gui-JadxGUI"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "filezilla"}, properties = {screen = 1, tag = tags[7]}}
+    {rule = {class = "filezilla"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "Unciv"}, properties = {screen = 1, tag = tags[7]}}
 }
 -- }}}
 
