@@ -685,7 +685,8 @@ awful.rules.rules = {
     {rule = {class = "Elasticvue"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "jadx-gui-JadxGUI"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "filezilla"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Unciv"}, properties = {screen = 1, tag = tags[7]}}
+    {rule = {class = "Unciv"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "krdc"}, properties = {screen = 1, tag = tags[7]}}
 }
 -- }}}
 
