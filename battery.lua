@@ -23,6 +23,7 @@ local backends = {
 
        return { rem_perc=tonumber(remaining), rem_time=nil, rem_chtime=nil, state=state, ac=ac }
    end,
+   
    smapi = function(battery)
       local rem_perc = io.open('/sys/devices/platform/smapi/'.. battery .. '/remaining_percent'):read()
       local rem_time = io.open('/sys/devices/platform/smapi/' .. battery .. '/remaining_running_time'):read()
@@ -38,8 +39,8 @@ local backends = {
       end
       return { rem_perc=tonumber(rem_perc), rem_time=tonumber(rem_time), rem_chtime=tonumber(rem_chtime), state=state, ac=ac }
    end,
+   
    acpi = function(battery)
-
       stats, nrs = {}, {}
       bat_info = io.popen('acpi -b')
       for l in bat_info:lines() do
