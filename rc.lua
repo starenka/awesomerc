@@ -632,10 +632,10 @@ awful.rules.rules = {
     {rule = {class = "Emacs"},
      properties = {
         screen = 1,
-        tag = tags[2]
-        --maximized_vertical = true,
-        --maximized_horizontal = true,
-        --size_hints_honor = true
+        tag = tags[2],
+        maximized_vertical = true,
+        maximized_horizontal = true,
+        size_hints_honor = true
      }
     },
     -- dev:www
