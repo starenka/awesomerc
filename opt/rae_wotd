@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+import base64
+import datetime
+import json
+import re
+import urllib.request
+from pathlib import Path
+
+
+def get_wotd():
+    auth = base64.b64encode(b'p682JghS3:aGfUdCiE434').decode('utf-8')
+    headers = {
+        'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 9; Xperia Z1 Compact Build/PQ3A.190605.003)',
+        'Authorization': f'Basic {auth}'
+    }
+
+    cache_dir = Path.home() / '.cache' / 'rae_wotd'
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    out = cache_dir / f'wotd-{datetime.datetime.now().strftime("%Y-%m-%d")}.html'
+
+    if out.exists():
+        return out
+
+    req = urllib.request.Request('https://dle.rae.es/data/wotd?callback=json', headers=headers)
+    resp = urllib.request.urlopen(req)
+    word_id = json.loads(re.search('({.*?})', resp.read().decode('utf-8')).group())['id']
+
+    req_detail = urllib.request.Request(f'https://dle.rae.es/data/fetch?id={word_id}', headers=headers)
+    resp_detail = urllib.request.urlopen(req_detail)
+
+    with open(out, 'wb') as f:
+        f.write(resp_detail.read())
+
+    return out
+
+if __name__ == '__main__':
+    print(get_wotd())
