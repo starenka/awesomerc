@@ -633,9 +633,9 @@ awful.rules.rules = {
      properties = {
         screen = 1,
         tag = tags[2],
-        maximized_vertical = true,
-        maximized_horizontal = true,
         size_hints_honor = true
+        --maximized_vertical = true,
+        --maximized_horizontal = true
      }
     },
     -- dev:www
