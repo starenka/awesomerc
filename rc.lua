@@ -690,6 +690,7 @@ awful.rules.rules = {
     {rule = {class = "Unciv"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Civ5XP"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "TuxPaint.TuxPaint"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "DBeaver"}, properties = {screen = 1, tag = tags[7]}},
 
 }
 -- }}}
