@@ -3,32 +3,44 @@
 BUILTIN_RES='1920x1200' #native, but too small
 BUILTIN_RES='1680x1050'
 
+declare -A WIFI_RES=(
+    ["e4guests"]="1680x1050"
+)
+
+get_external_res() {
+    local CURRENT_SSID
+    CURRENT_SSID=$(nmcli -t -f type,name connection show --active | grep -i wireless | cut -d':' -f2)
+    echo "${WIFI_RES[$CURRENT_SSID]:-'auto'}"
+}
+
+EXTERNAL_RES=$(get_external_res)
+
 reload-awesome () {
     echo 'awesome.restart()' | awesome-client
 }
 
 get-ext-dev () {
-    xrandr | egrep '(^DP|HDMI).* connected' | cut -d' ' -f1
+    xrandr | grep -E '(^DP|HDMI).* connected' | cut -d' ' -f1
 }
 
 get-builtin-dev () {
-    xrandr | egrep '(^eDP).* connected' | cut -d' ' -f1
+    xrandr | grep -E '(^eDP).* connected' | cut -d' ' -f1
 }
 
 builtin-on () {
-    xrandr --output $(get-builtin-dev) --mode $BUILTIN_RES
+    xrandr --output "$(get-builtin-dev)" --mode $BUILTIN_RES
 }
 
 builtin-off () {
-    xrandr --output $(get-builtin-dev) --off
+    xrandr --output "$(get-builtin-dev)" --off
 }
 
 external-on () {
-    xrandr --output $(get-ext-dev) --auto
+    xrandr --output "$(get-ext-dev)" --"$EXTERNAL_RES"
 }
 
 external-off () {
-    xrandr --output $(get-ext-dev) --off
+    xrandr --output "$(get-ext-dev)" --off
 }
 
 external-on-builtin-off () {
