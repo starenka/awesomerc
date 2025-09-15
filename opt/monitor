@@ -10,7 +10,7 @@ declare -A WIFI_RES=(
 get_external_res() {
     local CURRENT_SSID
     CURRENT_SSID=$(nmcli -t -f type,name connection show --active | grep -i wireless | cut -d':' -f2)
-    echo "${WIFI_RES[$CURRENT_SSID]:-'auto'}"
+    echo "${WIFI_RES[$CURRENT_SSID]:-auto}"
 }
 
 EXTERNAL_RES=$(get_external_res)
