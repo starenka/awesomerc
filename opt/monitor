@@ -4,7 +4,7 @@ BUILTIN_RES='1920x1200' #native, but too small
 BUILTIN_RES='1680x1050'
 
 declare -A WIFI_RES=(
-    ["e4guests"]="1680x1050"
+    ["KOKOT"]="1680x1050"
 )
 
 get_external_res() {
