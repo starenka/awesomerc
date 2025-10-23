@@ -658,7 +658,7 @@ awful.rules.rules = {
             maximized_horizontal = true
         }
     },
-    {rule = {class = "cantata"}, properties = {screen = 1, tag = tags[6]}},
+    {rule = {class = "Cantata"}, properties = {screen = 1, tag = tags[6]}},
     {rule = {class = "Spotify"}, properties = {screen = 1, tag = tags[6]}},
     {rule = {class = "Audacity"}, properties = {screen = 1, tag = tags[6]}},
     {rule = {class = "Vlc"}, properties = {screen = 1, tag = tags[6]}},
