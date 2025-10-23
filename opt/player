@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PLAYER=cantata
+PLAYER=dog.unix.cantata.Cantata
 
 _stop () {
     playerctl -p $PLAYER stop
