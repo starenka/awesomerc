@@ -682,10 +682,10 @@ awful.rules.rules = {
     {rule = {class = "Pavucontrol"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "org.remmina.Remmina"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Elasticvue"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "MQTTX"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "jadx-gui-JadxGUI"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "filezilla"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "krdc"}, properties = {screen = 1, tag = tags[7]}},
-
     {rule = {class = "steam"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Unciv"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Civ5XP"}, properties = {screen = 1, tag = tags[7]}},
