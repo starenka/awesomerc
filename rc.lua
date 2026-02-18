@@ -68,6 +68,15 @@ beautiful.init(home(".config/awesome/themes/starenka/theme.lua"))
 beautiful.notification_icon_size = 40
 
 
+function launcher()
+  awful.util.spawn("rofi -modi drun -show drun -show-icons -no-click-to-exit", false)
+end
+
+function launcher()
+   awful.screen.focused().mypromptbox:run()
+end
+
+
 cmd_player_playpause = home("bin/player playpause")
 cmd_player_next = home("bin/player next")
 cmd_player_prev = home("bin/player prev")
@@ -441,9 +450,9 @@ globalkeys =
     -- Prompt
     awful.key({altkey}, "space",
         function()
-            awful.screen.focused().mypromptbox:run()
+           launcher()
         end,
-        {description = "run prompt", group = "launcher"}
+       {description = "run prompt", group = "launcher"}
     )
 )
 
