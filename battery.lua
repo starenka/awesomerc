@@ -25,8 +25,12 @@ local backends = {
    end,
 
    acpi = function()
-      local stats, nrs = {}, {}
       local bat_info = io.popen('acpi -b')
+      if not bat_info then
+         return { rem_perc=0, rem_time=0, rem_chtime=0, state=2, ac=false, nr=0 }
+      end
+
+      local stats, nrs = {}, {}
       for l in bat_info:lines() do
          local nr = tonumber(l:match('Battery (%d)'))
          table.insert(nrs, nr)
@@ -48,6 +52,9 @@ local backends = {
       bat_info:close()
 
       local ac_stats = io.popen('acpi -a')
+      if not ac_stats then
+         return { rem_perc=0, rem_time=0, rem_chtime=0, state=2, ac=false, nr=0 }
+      end
       if ac_stats:read():match('off') then ac = false else ac = true end
 
       local to_show = stats[nrs[#nrs]]
