@@ -642,9 +642,12 @@ awful.rules.rules = {
      properties = {
         screen = 1,
         tag = tags[2],
-        size_hints_honor = true
-        --maximized_vertical = true,
-        --maximized_horizontal = true
+        -- Emacs advertises size hints based on character cells. Honoring them
+        -- can leave a small unused border even when Emacs asks to maximize, so
+        -- force a real WM maximize and ignore the hints for this client.
+        size_hints_honor = false,
+        maximized_vertical = true,
+        maximized_horizontal = true
      }
     },
     -- dev:www
