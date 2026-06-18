@@ -703,7 +703,9 @@ awful.rules.rules = {
     {rule = {class = "Civ5XP"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "TuxPaint.TuxPaint"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "DBeaver"}, properties = {screen = 1, tag = tags[7]}},
-
+    {rule = {class = "PrusaSlicer"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "transmission-gtk"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "Tor Browser"}, properties = {screen = 1, tag = tags[7]}},
 }
 -- }}}
 
