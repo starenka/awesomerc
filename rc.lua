@@ -62,14 +62,16 @@ end
 beautiful.init(home(".config/awesome/themes/starenka/theme.lua"))
 beautiful.notification_icon_size = 40
 
--- fancy launcher
-function launcher()
-  awful.spawn("rofi -modi drun -show drun -show-icons -no-click-to-exit")
-end
-
+-- stock launcher
 function launcher()
    awful.screen.focused().mypromptbox:run()
 end
+
+-- fancy launcher
+function launcher()
+  awful.spawn("rofi -modi drun -show drun -show-icons -no-click-to-exit -theme " .. home(".config/awesome/themes/starenka/rofi.rasi"))
+end
+
 
 
 cmd_player_playpause = home("bin/player playpause")

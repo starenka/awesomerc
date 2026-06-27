@@ -1,0 +1,76 @@
+* {
+    bg:       #232323;
+    fg:       #DCDCCC;
+    accent:   #fecf35;
+    urgent:   #FF6600;
+    border:   #6F6F6F;
+    font:     "Hack 9";
+}
+
+window {
+    background-color: @bg;
+    border:           1px;
+    border-color:     @border;
+    padding:          4px;
+    width:            30%;
+}
+
+mainbox {
+    background-color: transparent;
+    spacing:          0;
+}
+
+inputbar {
+    background-color: @bg;
+    text-color:       @fg;
+    padding:          6px;
+    border:           0 0 1px 0;
+    border-color:     @border;
+    children:         [entry];
+}
+
+prompt {
+    background-color: transparent;
+    text-color:       @accent;
+    padding:          0 4px 0 0;
+}
+
+entry {
+    background-color: transparent;
+    text-color:       @fg;
+    cursor:           text;
+}
+
+listview {
+    background-color: transparent;
+    padding:          4px 0;
+    lines:            10;
+    scrollbar:        false;
+}
+
+element {
+    background-color: transparent;
+    text-color:       @fg;
+    padding:          4px 6px;
+    spacing:          6px;
+    orientation:      horizontal;
+}
+
+element selected {
+    background-color: @accent;
+    text-color:       @bg;
+}
+
+element urgent {
+    text-color: @urgent;
+}
+
+element-icon {
+    size: 16px;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:   0.5;
+}
