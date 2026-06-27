@@ -2,18 +2,22 @@ local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
 
-volume_widget = wibox.widget.textbox()
-volume_widget:set_align("right")
+local M = {}
 
-function update_volume(widget)
+M.widget = wibox.widget.textbox()
+M.widget:set_align("right")
+
+function M.update()
    awful.spawn.easy_async(string.format("%s/bin/volume level", os.getenv("HOME")),
       function(stdout)
-         widget:set_markup(' <span font-size="small">VOL ' .. stdout .. '</span> ')
+         M.widget:set_markup(' <span font-size="small">VOL ' .. stdout .. '</span> ')
       end)
 end
 
-update_volume(volume_widget)
+M.update()
 
-mytimer = gears.timer({ timeout = 2 })
-mytimer:connect_signal("timeout", function() update_volume(volume_widget) end)
-mytimer:start()
+local timer = gears.timer({ timeout = 2 })
+timer:connect_signal("timeout", M.update)
+timer:start()
+
+return M
