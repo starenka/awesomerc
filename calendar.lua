@@ -87,7 +87,7 @@ function calendar:page(month, year)
 
     -- print empty space before first day
     page = page .. "\n" .. format_date(self.week_col, tA)
-    for column = 1, colA do
+    for _ = 1, colA do
         page = page .. self.empty_sep
     end
 
@@ -108,7 +108,7 @@ function calendar:page(month, year)
         column = column + 1
     end
 
-    for column = column, 6 do
+    for _ = column, 6 do
         page = page .. self.empty_sep
     end
 

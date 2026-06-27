@@ -13,7 +13,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 
 require("awful.remote") -- awesome-client
 local volume = require("volume")
-local blinker = require("blinker")
+require("blinker")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -177,7 +177,7 @@ local function widget_sep() local w = wibox.widget.textbox(); w:set_text("|"); r
 local function spacer()     local w = wibox.widget.textbox(); w:set_text(" "); return w end
 
 -- Keyboard layout switching
-kbdcfg = {
+local kbdcfg = {
     cmd = "setxkbmap",
     layout = {"us", "cz -variant qwerty"},
     current = 1,
@@ -381,12 +381,12 @@ globalkeys =
     awful.key({modkey, shiftkey}, "x", function() awful.spawn("uxterm -e /home/starenka/.local/bin/ipython") end ), -- term w/ python
     awful.key({modkey, shiftkey}, "z", function() awful.spawn("uxterm -e 'lua -i'") end ), --term w/ lua
     -- volume
-    awful.key({}, "XF86AudioMute", function() awful.spawn.easy_async(cmd_vol_mute, function() volume.update() end) end ),
-    awful.key({}, "XF86Launch1", function() awful.spawn.easy_async(cmd_vol_mute, function() volume.update() end) end ),
-    awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn.easy_async(cmd_vol_raise, function() volume.update() end) end ),
-    awful.key({}, "XF86AudioLowerVolume", function() awful.spawn.easy_async(cmd_vol_lower, function() volume.update() end) end ),
-    awful.key({}, "F11", function() awful.spawn.easy_async(cmd_vol_lower, function() volume.update() end) end ),
-    awful.key({}, "F12", function() awful.spawn.easy_async(cmd_vol_raise, function() volume.update() end) end ),
+    awful.key({}, "XF86AudioMute",        function() awful.spawn.easy_async(cmd_vol_mute,  volume.update) end),
+    awful.key({}, "XF86Launch1",          function() awful.spawn.easy_async(cmd_vol_mute,  volume.update) end),
+    awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn.easy_async(cmd_vol_raise, volume.update) end),
+    awful.key({}, "XF86AudioLowerVolume", function() awful.spawn.easy_async(cmd_vol_lower, volume.update) end),
+    awful.key({}, "F11",                  function() awful.spawn.easy_async(cmd_vol_lower, volume.update) end),
+    awful.key({}, "F12",                  function() awful.spawn.easy_async(cmd_vol_raise, volume.update) end),
     awful.key({shiftkey}, "F11", function() awful.spawn(cmd_player_voldown) end ),
     awful.key({shiftkey}, "F12", function() awful.spawn(cmd_player_volup) end ),
     -- audioplayer
