@@ -1,10 +1,10 @@
 local awful = require("awful")
+local beautiful = require("beautiful")
 
 local M = { settings = { method = 'acpi',
-             color = '#dcdccc',
              battery = 'BAT0',
-             warning = { color = '#fecf35', level = 25 },
-             critical = { color = '#ff8000', level = 10 } }
+             warning = { level = 25 },
+             critical = { level = 10 } }
 }
 -- you can override settings in rc.lua
 
@@ -14,15 +14,15 @@ end
 
 local function make_text(stats, settings)
    local spacer = ' '
-   local color = settings.color
+   local color = beautiful.fg_normal
    local dir, rtime = '', nil
 
    if stats.state == 0 then
       dir, rtime = '-', stats.rem_time
       if stats.rem_perc <= settings.critical.level then
-         color = settings.critical.color
+         color = beautiful.widget_critical
       elseif stats.rem_perc <= settings.warning.level then
-         color = settings.warning.color
+         color = beautiful.widget_warning
       end
    elseif stats.state == 1 then
       dir, rtime = '+', stats.rem_chtime
