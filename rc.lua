@@ -645,7 +645,7 @@ awful.rules.rules = {
     {rule = {class = "krusader"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "VirtualBox"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "vox"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Transmission-gtk"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "[Tt]ransmission-gtk"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Nicotine"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Okular"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Wireshark"}, properties = {screen = 1, tag = tags[7]}},
@@ -665,7 +665,6 @@ awful.rules.rules = {
     {rule = {class = "TuxPaint"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "DBeaver"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "PrusaSlicer"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "transmission-gtk"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Tor Browser"}, properties = {screen = 1, tag = tags[7]}},
 }
 -- }}}
