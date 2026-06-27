@@ -230,7 +230,7 @@ batterywidget.timer:connect_signal("timeout",
                                       local is_critical, blank_text, text = battery.get_info()
                                       batterywidget.widget:set_markup(text)
                                       if is_critical then
-                                         blinking(batterywidget.widget, battery_poll_init, blank_text)
+                                         blinking(batterywidget.widget, 1, blank_text)
                                       else
                                          blinkers[batterywidget.widget] = nil
                                       end
