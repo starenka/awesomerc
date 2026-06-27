@@ -14,9 +14,6 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.remote") -- awesome-client
 local volume = require("volume")
 local blinker = require("blinker")
-require("debian.menu") -- Load Debian menu entries
---local freedesktop = require("freedesktop")
---myosmenu = freedesktop.menu.build()
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -159,7 +156,6 @@ myawesomemenu = {
 mymainmenu = awful.menu({
       items = {
          {"awesome", myawesomemenu, beautiful.awesome_icon},
-         {"Debian", debian.menu.Debian_menu.Debian},
          {"open terminal", terminal}
 }})
 
