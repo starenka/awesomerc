@@ -607,12 +607,12 @@ awful.rules.rules = {
     },
     -- default apps -> tags, use xprop | grep WM_CLAS to determine window props (second item)
     -- terms
-    {rule = {class = "kitty"}, properties = {screen = 1, tag = tags[1]}},
+    {rule = {class = "kitty"}, properties = {screen = screen.primary, tag = tags[1]}},
 
     -- dev
     {rule = {class = "Emacs"},
      properties = {
-        screen = 1,
+        screen = screen.primary,
         tag = tags[2],
         -- Emacs advertises size hints based on character cells. Honoring them
         -- can leave a small unused border even when Emacs asks to maximize, so
@@ -627,16 +627,16 @@ awful.rules.rules = {
         "firefox",
         "Google-chrome",
         "Chromium",
-    }}, properties = {screen = 1, tag = tags[3]}},
+    }}, properties = {screen = screen.primary, tag = tags[3]}},
     -- [www]
     {rule_any = {class = {
         "[Vv]ivaldi",
         "KeePassXC",
-    }}, properties = {screen = 1, tag = tags[4]}},
+    }}, properties = {screen = screen.primary, tag = tags[4]}},
     -- #
     {rule_any = {class = {
         "[sS]lack",
-    }}, properties = {screen = 1, tag = tags[5]}},
+    }}, properties = {screen = screen.primary, tag = tags[5]}},
     -- d{-_-}b
     {rule_any = {class = {
         "Cantata",
@@ -645,7 +645,7 @@ awful.rules.rules = {
         "Vlc",
         "Qjackctl",
         "Qsynth",
-    }}, properties = {screen = 1, tag = tags[6]}},
+    }}, properties = {screen = screen.primary, tag = tags[6]}},
     -- /tmp
     {rule_any = {class = {
         "krusader",
@@ -671,7 +671,7 @@ awful.rules.rules = {
         "DBeaver",
         "PrusaSlicer",
         "Tor Browser",
-    }}, properties = {screen = 1, tag = tags[7]}},
+    }}, properties = {screen = screen.primary, tag = tags[7]}},
 }
 -- }}}
 
