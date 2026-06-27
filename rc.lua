@@ -194,7 +194,7 @@ kbdcfg.switch = function()
     kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
     local t = " " .. kbdcfg.layout[kbdcfg.current] .. " "
     kbdcfg.widget:set_text(t:gsub("%s%-variant%s", ":"))
-    os.execute(kbdcfg.cmd .. t)
+    awful.spawn(kbdcfg.cmd .. t)
 end
 kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current] .. " ")
 
