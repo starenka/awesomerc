@@ -207,13 +207,6 @@ kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current] .. " ")
 -- Mouse bindings
 kbdcfg.widget:buttons(awful.util.table.join(awful.button({}, 1, function() kbdcfg.switch() end)))
 
--- Gmail
--- cat ~/.netrc: machine mail.google.com login johndoe@gmail.com password secretpass
--- https://support.google.com/accounts/answer/185833?hl=en
-
--- gmailwidget = wibox.widget.textbox()
--- vicious.register(gmailwidget, vicious.widgets.gmail, '${count}<span font-size="small"> unread</span>', 60*4)
-
 -- Battery
 battery = require("battery")
 
