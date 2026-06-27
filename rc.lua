@@ -406,12 +406,12 @@ globalkeys =
     awful.key({modkey, shiftkey}, "x", function() awful.spawn("uxterm -e /home/starenka/.local/bin/ipython") end ), -- term w/ python
     awful.key({modkey, shiftkey}, "z", function() awful.spawn("uxterm -e 'lua -i'") end ), --term w/ lua
     -- volume
-    awful.key({}, "XF86AudioMute", function() awful.spawn(cmd_vol_mute) end ),
-    awful.key({}, "XF86Launch1", function() awful.spawn(cmd_vol_mute) end ),
-    awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn(cmd_vol_raise) end ),
-    awful.key({}, "XF86AudioLowerVolume", function() awful.spawn(cmd_vol_lower) end ),
-    awful.key({}, "F11", function() awful.spawn(cmd_vol_lower) end ),
-    awful.key({}, "F12", function() awful.spawn(cmd_vol_raise) end ),
+    awful.key({}, "XF86AudioMute", function() awful.spawn.easy_async(cmd_vol_mute, function() update_volume(volume_widget) end) end ),
+    awful.key({}, "XF86Launch1", function() awful.spawn.easy_async(cmd_vol_mute, function() update_volume(volume_widget) end) end ),
+    awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn.easy_async(cmd_vol_raise, function() update_volume(volume_widget) end) end ),
+    awful.key({}, "XF86AudioLowerVolume", function() awful.spawn.easy_async(cmd_vol_lower, function() update_volume(volume_widget) end) end ),
+    awful.key({}, "F11", function() awful.spawn.easy_async(cmd_vol_lower, function() update_volume(volume_widget) end) end ),
+    awful.key({}, "F12", function() awful.spawn.easy_async(cmd_vol_raise, function() update_volume(volume_widget) end) end ),
     awful.key({shiftkey}, "F11", function() awful.spawn(cmd_player_voldown) end ),
     awful.key({shiftkey}, "F12", function() awful.spawn(cmd_player_volup) end ),
     -- audioplayer
