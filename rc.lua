@@ -180,10 +180,8 @@ mytextclock = wibox.widget.textclock(" %b %d %H:%M ")
 -- {{ Widgets
 
 -- widget separator widget
-widget_sep = wibox.widget.textbox()
-widget_sep:set_text("|")
-spacer = wibox.widget.textbox()
-spacer:set_text(" ")
+local function widget_sep() local w = wibox.widget.textbox(); w:set_text("|"); return w end
+local function spacer()     local w = wibox.widget.textbox(); w:set_text(" "); return w end
 
 -- Keyboard layout switching
 kbdcfg = {
@@ -322,23 +320,23 @@ awful.screen.connect_for_each_screen(
                 mylauncher,
                 s.mypromptbox,
                 s.mytaglist,
-                widget_sep
+                widget_sep()
             },
             s.mytasklist, -- Middle widget
             {
                 -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
                 wibox.container.margin(wibox.widget.systray(), 1, 1, 2, 2),
-                spacer,
-                widget_sep,
-                spacer,
+                spacer(),
+                widget_sep(),
+                spacer(),
                 --gmailwidget,
                 batterywidget.widget,
                 cpuwidget,
                 memwidget,
                 volume_widget,
                 kbdcfg.widget,
-                widget_sep,
+                widget_sep(),
                 mytextclock,
                 s.mylayoutbox
             }
