@@ -4,7 +4,7 @@ awful = require("awful") -- need to be global in order to be used by awesome-cli
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
-local vicious = require("vicious")
+local vicious = require("vicious") -- apt install awesome-extra
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
