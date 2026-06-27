@@ -1,7 +1,6 @@
 -- Standard awesome library
 local gears = require("gears")
 awful = require("awful") -- need to be global in order to be used by awesome-client
-awful.rules = require("awful.rules")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
@@ -11,7 +10,7 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup").widget
+local hotkeys_popup = require("awful.hotkeys_popup")
 
 require("awful.remote") -- awesome-client
 require("volume")
@@ -69,7 +68,7 @@ beautiful.notification_icon_size = 40
 
 
 function launcher()
-  awful.util.spawn("rofi -modi drun -show drun -show-icons -no-click-to-exit", false)
+  awful.spawn("rofi -modi drun -show drun -show-icons -no-click-to-exit")
 end
 
 function launcher()
@@ -205,7 +204,7 @@ end
 kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current] .. " ")
 
 -- Mouse bindings
-kbdcfg.widget:buttons(awful.util.table.join(awful.button({}, 1, function() kbdcfg.switch() end)))
+kbdcfg.widget:buttons(gears.table.join(awful.button({}, 1, function() kbdcfg.switch() end)))
 
 -- Battery
 battery = require("battery")
@@ -238,7 +237,7 @@ vicious.cache(vicious.widgets.mem)
 vicious.register(memwidget, vicious.widgets.mem, ' <span font-size="small">MEM $2MB</span> ', 7)
 
 -- Create a wibox for each screen and add it
-local taglist_buttons = awful.util.table.join(
+local taglist_buttons = gears.table.join(
    awful.button({}, 1, function(t) t:view_only() end),
    awful.button({modkey}, 1,
       function(t)
@@ -254,7 +253,7 @@ local taglist_buttons = awful.util.table.join(
    awful.button({}, 5, function(t) awful.tag.viewprev(t.screen) end)
 )
 
-local tasklist_buttons = awful.util.table.join(
+local tasklist_buttons = gears.table.join(
     awful.button({}, 1,
         function(c)
             if c == client.focus then
@@ -304,7 +303,7 @@ awful.screen.connect_for_each_screen(
         -- Create an imagebox widget which will contains an icon indicating which layout we're using.
         -- We need one layoutbox per screen.
         s.mylayoutbox = awful.widget.layoutbox(s)
-        s.mylayoutbox:buttons(awful.util.table.join(
+        s.mylayoutbox:buttons(gears.table.join(
                 awful.button({}, 1, function() awful.layout.inc(1) end),
                 awful.button({}, 3, function() awful.layout.inc(-1) end),
                 awful.button({}, 4, function() awful.layout.inc(1) end),
@@ -353,7 +352,7 @@ awful.screen.connect_for_each_screen(
 
 -- {{{ Mouse bindings
 root.buttons(
-    awful.util.table.join(
+    gears.table.join(
         awful.button({}, 3, function() mymainmenu:toggle() end),
         awful.button({}, 4, awful.tag.viewnext),
         awful.button({}, 5, awful.tag.viewprev)
@@ -363,7 +362,7 @@ root.buttons(
 
 -- {{{ Key bindings
 globalkeys =
-    awful.util.table.join(
+    gears.table.join(
     --awful.key({ modkey, }, "s", hotkeys_popup.show_help,
     --           {description="show help", group="awesome"}),
     awful.key({modkey}, "Left", awful.tag.viewprev),
@@ -439,7 +438,7 @@ globalkeys =
 )
 
 clientkeys =
-    awful.util.table.join(
+    gears.table.join(
     awful.key({modkey}, "f",
         function(c)
             c.fullscreen = not c.fullscreen
@@ -497,7 +496,7 @@ clientkeys =
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, 9 do
     globalkeys =
-        awful.util.table.join(
+        gears.table.join(
         globalkeys,
         -- View tag only.
         awful.key(
@@ -557,7 +556,7 @@ for i = 1, 9 do
 end
 
 clientbuttons =
-    awful.util.table.join(
+    gears.table.join(
       awful.button( {}, 1,
          function(c)
             client.focus = c
@@ -698,7 +697,7 @@ client.connect_signal(
     "request::titlebars",
     function(c)
         -- buttons for the titlebar
-        local buttons = awful.util.table.join(
+        local buttons = gears.table.join(
             awful.button({}, 1,
                 function()
                     client.focus = c

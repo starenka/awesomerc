@@ -1,6 +1,7 @@
 -- @author Peter J. Kranz (Absurd-Mind, peter@myref.net)
 -- Any questions, criticism or praise just drop me an email
 local awful = require("awful")
+local gears = require("gears")
 
 local M = {}
 
@@ -55,7 +56,7 @@ end
 
 local function getPidFile()
     local host = io.lines("/proc/sys/kernel/hostname")()
-    return awful.util.getdir("cache") .. "/awesome." .. host .. ".pid"
+    return gears.filesystem.get_cache_dir() .. "awesome." .. host .. ".pid"
 end
 
 -- run Once per real awesome start (config reload works)
@@ -63,7 +64,7 @@ end
 function M.run(shellCommand)
     -- check and Execute
     if shallExecute(M.oldPid, M.currentPid) then
-        awful.util.spawn_with_shell(shellCommand)
+        awful.spawn.with_shell(shellCommand)
     end
 end
 
