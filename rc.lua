@@ -731,7 +731,7 @@ client.connect_signal(
                 awful.titlebar.widget.stickybutton(c),
                 awful.titlebar.widget.ontopbutton(c),
                 awful.titlebar.widget.closebutton(c),
-                layout = wibox.layout.fixed.horizontal()
+                layout = wibox.layout.fixed.horizontal
             },
             layout = wibox.layout.align.horizontal
         }
