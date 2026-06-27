@@ -1,101 +1,118 @@
+local awful = require("awful")
+
 local M = { settings = { method = 'acpi',
-			 color = '#dcdccc',
-			 battery = 'BAT0',
-			 warning = { color = '#fecf35', level = 25 },
-			 critical = { color = '#ff8000', level = 10 } }
+             color = '#dcdccc',
+             battery = 'BAT0',
+             warning = { color = '#fecf35', level = 25 },
+             critical = { color = '#ff8000', level = 10 } }
 }
 -- you can override settings in rc.lua
 
-local backends = {
-   generic = function(battery)
-       local cur = io.open('/sys/class/power_supply/' .. battery .. '/energy_now'):read()
-       local cap = io.open('/sys/class/power_supply/' .. battery .. '/energy_full'):read()
-       local sta = io.open('/sys/class/power_supply/' .. battery .. '/status'):read()
-       local ac = io.open('/sys/class/power_supply/AC/online'):read()
-
-       local remaining = math.floor(cur * 100 / cap)
-       ac = ac:match('1')
-
-       local state = 2
-       if sta:match('Discharging') then state = 0
-       elseif sta:match('Charging') then state = 1
-       end
-
-       return { rem_perc=tonumber(remaining), rem_time=nil, rem_chtime=nil, state=state, ac=ac }
-   end,
-
-   acpi = function()
-      local bat_info = io.popen('acpi -b')
-      if not bat_info then
-         return { rem_perc=0, rem_time=0, rem_chtime=0, state=2, ac=false, nr=0 }
-      end
-
-      local stats, nrs = {}, {}
-      for l in bat_info:lines() do
-         local nr = tonumber(l:match('Battery (%d)'))
-         table.insert(nrs, nr)
-
-         local state
-         if l:match('Charging') then state = 1
-         elseif l:match('Discharging') then state = 0
-         else state = 2
-         end
-
-         local hours, mins = l:match(', (%d%d):(%d%d)')
-         local rem_mins, rem_chmins = 0, 0
-         if hours then rem_mins = tonumber(hours)*60+tonumber(mins) else rem_mins = 0 end
-         if state == 1 then rem_chmins = rem_mins else rem_chmins = 0 end
-
-         stats[nr]= { nr=nr, rem_perc=tonumber(l:match('(%d+)%%')),
-                      rem_time=rem_mins, rem_chtime=rem_chmins, state=state}
-      end
-      bat_info:close()
-
-      local ac_stats = io.popen('acpi -a')
-      if not ac_stats then
-         return { rem_perc=0, rem_time=0, rem_chtime=0, state=2, ac=false, nr=0 }
-      end
-      if ac_stats:read():match('off') then ac = false else ac = true end
-
-      local to_show = stats[nrs[#nrs]]
-      for _,v in pairs(stats) do
-         if v.rem_time > 0 or v.rem_chtime > 0 then to_show = v end
-      end
-      ac_stats:close()
-
-      return { rem_perc=to_show.rem_perc, rem_time=to_show.rem_time, nr=to_show.nr,
-               rem_chtime=to_show.rem_chtime, state=to_show.state, ac=ac }
-   end
-}
-
-
-function mins_to_hm_str(mins)
+local function mins_to_hm_str(mins)
    return math.floor(mins/60) .. ':' .. string.format('%02d', mins%60)
 end
 
-function M.get_info()
+local function make_text(stats, settings)
    local spacer = ' '
-   local color = M.settings.color
-   local stats = backends[M.settings.method](M.settings.battery)
-
+   local color = settings.color
    local dir, rtime = '', nil
+
    if stats.state == 0 then
       dir, rtime = '-', stats.rem_time
-      if stats.rem_perc <= M.settings.critical.level then
-         color = M.settings.critical.color
-      elseif stats.rem_perc <= M.settings.warning.level then
-         color = M.settings.warning.color
+      if stats.rem_perc <= settings.critical.level then
+         color = settings.critical.color
+      elseif stats.rem_perc <= settings.warning.level then
+         color = settings.warning.color
       end
-   elseif stats.state == 1 then 
+   elseif stats.state == 1 then
       dir, rtime = '+', stats.rem_chtime
    end
 
-   if rtime then time = (' ' .. mins_to_hm_str(rtime)) else time = '' end
+   local time = rtime and (' ' .. mins_to_hm_str(rtime)) or ''
    local text = dir .. stats.rem_perc .. "%"
-   return stats.rem_perc <= M.settings.critical.level and stats.state == 0, 
-          spacer .. '<span>' .. string.rep(' ', string.len(text)) .. '<span font-size="small">' .. string.rep(' ', string.len(time)) .. '</span></span>' .. spacer,
-          spacer .. '<span color="' .. color .. '">' .. text .. '<span font-size="small">' .. time .. ' (b' .. stats.nr.. ')'.. '</span></span>'
+   local is_critical = stats.rem_perc <= settings.critical.level and stats.state == 0
+   local blank = spacer .. '<span>' .. string.rep(' ', #text) ..
+                 '<span font-size="small">' .. string.rep(' ', #time) .. '</span></span>' .. spacer
+   local markup = spacer .. '<span color="' .. color .. '">' .. text ..
+                  '<span font-size="small">' .. time .. ' (b' .. stats.nr .. ')</span></span>'
+   return is_critical, blank, markup
+end
 
+local backends = {
+   generic = function(battery, callback)
+      local cur = io.open('/sys/class/power_supply/' .. battery .. '/energy_now')
+      local cap = io.open('/sys/class/power_supply/' .. battery .. '/energy_full')
+      local sta = io.open('/sys/class/power_supply/' .. battery .. '/status')
+      local acf = io.open('/sys/class/power_supply/AC/online')
+      if not (cur and cap and sta and acf) then
+         callback({ rem_perc=0, rem_time=0, rem_chtime=0, state=2, ac=false, nr=0 })
+         return
+      end
+      local cur_v = cur:read(); cur:close()
+      local cap_v = cap:read(); cap:close()
+      local sta_v = sta:read(); sta:close()
+      local ac_v  = acf:read(); acf:close()
+
+      local remaining = math.floor(tonumber(cur_v) * 100 / tonumber(cap_v))
+      local state = 2
+      if sta_v:match('Discharging') then state = 0
+      elseif sta_v:match('Charging') then state = 1
+      end
+      callback({ rem_perc=remaining, rem_time=nil, rem_chtime=nil,
+                 state=state, ac=ac_v:match('1') ~= nil, nr=0 })
+   end,
+
+   acpi = function(_, callback)
+      awful.spawn.easy_async("acpi -b", function(bat_out)
+         awful.spawn.easy_async("acpi -a", function(ac_out)
+            local stats, nrs = {}, {}
+            for l in bat_out:gmatch("[^\n]+") do
+               local nr = tonumber(l:match('Battery (%d)'))
+               if nr then
+                  table.insert(nrs, nr)
+                  local state = 2
+                  if l:match('Charging') then state = 1
+                  elseif l:match('Discharging') then state = 0
+                  end
+                  local hours, mins = l:match(', (%d%d):(%d%d)')
+                  local rem_mins = hours and (tonumber(hours)*60 + tonumber(mins)) or 0
+                  stats[nr] = { nr=nr, rem_perc=tonumber(l:match('(%d+)%%')),
+                                rem_time=rem_mins,
+                                rem_chtime=state == 1 and rem_mins or 0,
+                                state=state }
+               end
+            end
+            if #nrs == 0 then
+               callback({ rem_perc=0, rem_time=0, rem_chtime=0, state=2, ac=false, nr=0 })
+               return
+            end
+            local to_show = stats[nrs[#nrs]]
+            for _, v in pairs(stats) do
+               if v.rem_time > 0 or v.rem_chtime > 0 then to_show = v end
+            end
+            to_show.ac = not ac_out:match('off')
+            callback(to_show)
+         end)
+      end)
+   end
+}
+
+function M.get_info(callback)
+   backends[M.settings.method](M.settings.battery, function(stats)
+      callback(make_text(stats, M.settings))
+   end)
+end
+
+-- depends on blinking() and blinkers{} globals from blinker.lua (required before this in rc.lua)
+function M.update(widget)
+   M.get_info(function(is_critical, blank_text, text)
+      widget:set_markup(text)
+      if is_critical then
+         blinking(widget, 1, blank_text)
+      else
+         blinkers[widget] = nil
+      end
+   end)
 end
 
 return M

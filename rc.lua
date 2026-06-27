@@ -216,26 +216,15 @@ kbdcfg.widget:buttons(awful.util.table.join(awful.button({}, 1, function() kbdcf
 
 -- Battery
 battery = require("battery")
-battery_poll_int = 5 --seconds
 
 -- you can override default battery settings here
 -- battery.settings={method='generic', color='#dcdccc', battery='BAT0', warning={ color='#fecf35', level=30}, critical={color='red', level=15}}
 batterywidget = {
     widget = wibox.widget.textbox(),
-    timer = gears.timer({timeout = battery_poll_int})
+    timer = gears.timer({timeout = 5})
 }
 batterywidget.widget:set_text(" ?? ")
-batterywidget.timer:connect_signal("timeout",
-                                   function()
-                                      local is_critical, blank_text, text = battery.get_info()
-                                      batterywidget.widget:set_markup(text)
-                                      if is_critical then
-                                         blinking(batterywidget.widget, 1, blank_text)
-                                      else
-                                         blinkers[batterywidget.widget] = nil
-                                      end
-                                   end
-)
+batterywidget.timer:connect_signal("timeout", function() battery.update(batterywidget.widget) end)
 batterywidget.timer:start()
 
 -- Calendar
