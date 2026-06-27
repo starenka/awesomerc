@@ -208,8 +208,18 @@ batterywidget.timer:connect_signal("timeout", function() battery.update(batteryw
 batterywidget.timer:start()
 
 -- Calendar
-local calendar = require("calendar")
-calendar({}):attach(mytextclock)
+local cal = awful.widget.calendar_popup.month()
+cal:attach(mytextclock, "tr")
+mytextclock:buttons(gears.table.join(
+    awful.button({},        1, function() cal:call_calendar(1)   end),
+    awful.button({},        3, function() cal:call_calendar(-1)  end),
+    awful.button({},        4, function() cal:call_calendar(-1)  end),
+    awful.button({},        5, function() cal:call_calendar(1)   end),
+    awful.button({"Shift"}, 1, function() cal:call_calendar(-12) end),
+    awful.button({"Shift"}, 3, function() cal:call_calendar(12)  end),
+    awful.button({"Shift"}, 4, function() cal:call_calendar(-12) end),
+    awful.button({"Shift"}, 5, function() cal:call_calendar(12)  end)
+))
 
 cpuwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.cpu)
