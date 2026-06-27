@@ -607,10 +607,7 @@ awful.rules.rules = {
     },
     -- default apps -> tags, use xprop | grep WM_CLAS to determine window props (second item)
     -- terms
-
-    -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "firefox" },
-    --   properties = { screen = 1, tag = "2" } },
+    {rule = {class = "kitty"}, properties = {screen = 1, tag = tags[1]}},
 
     -- dev
     {rule = {class = "Emacs"},
@@ -626,46 +623,55 @@ awful.rules.rules = {
      }
     },
     -- dev:www
-    {rule = {class = "firefox"}, properties = {screen = 1, tag = tags[3]}},
-    {rule = {class = "Google-chrome"}, properties = {screen = 1, tag = tags[3]}},
-    {rule = {class = "Chromium"}, properties = {screen = 1, tag = tags[3]}},
+    {rule_any = {class = {
+        "firefox",
+        "Google-chrome",
+        "Chromium",
+    }}, properties = {screen = 1, tag = tags[3]}},
     -- [www]
-    {rule = {class = "[Vv]ivaldi"}, properties = {screen = 1, tag = tags[4]}},
-    {rule = {class = "KeePassXC"}, properties = {screen = 1, tag = tags[4]}},
+    {rule_any = {class = {
+        "[Vv]ivaldi",
+        "KeePassXC",
+    }}, properties = {screen = 1, tag = tags[4]}},
     -- #
-    {rule = {class = "[sS]lack"}, properties = {screen = 1, tag = tags[5]}},
+    {rule_any = {class = {
+        "[sS]lack",
+    }}, properties = {screen = 1, tag = tags[5]}},
     -- d{-_-}b
-    {rule = {class = "Cantata"}, properties = {screen = 1, tag = tags[6]}},
-    {rule = {class = "Spotify"}, properties = {screen = 1, tag = tags[6]}},
-    {rule = {class = "Audacity"}, properties = {screen = 1, tag = tags[6]}},
-    {rule = {class = "Vlc"}, properties = {screen = 1, tag = tags[6]}},
-    {rule = {class = "Qjackctl"}, properties = {screen = 1, tag = tags[6]}},
-    {rule = {class = "Qsynth"}, properties = {screen = 1, tag = tags[6]}},
+    {rule_any = {class = {
+        "Cantata",
+        "Spotify",
+        "Audacity",
+        "Vlc",
+        "Qjackctl",
+        "Qsynth",
+    }}, properties = {screen = 1, tag = tags[6]}},
     -- /tmp
-    {rule = {class = "krusader"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "VirtualBox"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "vox"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "[Tt]ransmission-gtk"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Nicotine"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Okular"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Wireshark"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Sublime_text"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "dosbox"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Kcachegrind"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Blueman-manager"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Pavucontrol"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Elasticvue"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "MQTTX"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "jadx-gui-JadxGUI"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "filezilla"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "krdc"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "steam"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Unciv"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Civ5XP"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "TuxPaint"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "DBeaver"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "PrusaSlicer"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "Tor Browser"}, properties = {screen = 1, tag = tags[7]}},
+    {rule_any = {class = {
+        "krusader",
+        "VirtualBox",
+        "vox",
+        "[Tt]ransmission-gtk",
+        "Nicotine",
+        "Okular",
+        "Wireshark",
+        "dosbox",
+        "Kcachegrind",
+        "Blueman-manager",
+        "Pavucontrol",
+        "Elasticvue",
+        "MQTTX",
+        "jadx-gui-JadxGUI",
+        "filezilla",
+        "krdc",
+        "[Ss]team",
+        "Unciv",
+        "Civ5XP",
+        "TuxPaint",
+        "DBeaver",
+        "PrusaSlicer",
+        "Tor Browser",
+    }}, properties = {screen = 1, tag = tags[7]}},
 }
 -- }}}
 
