@@ -1,76 +1,43 @@
--- @author Peter J. Kranz (Absurd-Mind, peter@myref.net)
--- Any questions, criticism or praise just drop me an email
 local awful = require("awful")
 local gears = require("gears")
 
 local M = {}
 
--- get the current Pid of awesome
-local function getCurrentPid()
-    -- get awesome pid from pgrep
-    local fpid = io.popen("pgrep -u " .. os.getenv("USER") .. " -o awesome")
-    local pid = fpid:read("*n")
-    fpid:close()
-
-    -- sanity check
-    if pid == nil then
-        return -1
-    end
-
-    return pid
-end
-
-local function getOldPid(filename)
-    -- open file
-    local pidFile = io.open(filename)
-    if pidFile == nil then
-        return -1
-    end
-
-    -- read number
-    local pid = pidFile:read("*n")
-    pidFile:close()
-
-    -- sanity check
-    if pid <= 0 then
-        return -1
-    end
-
-    return pid;
-end
-
-local function writePid(filename, pid)
-    local pidFile = io.open(filename, "w+")
-    pidFile:write(pid)
-    pidFile:close()
-end
-
-local function shallExecute(oldPid, newPid)
-    -- simple check if equivalent
-    if oldPid == newPid then
-        return false
-    end
-
-    return true
-end
-
-local function getPidFile()
+local function pid_file()
     local host = io.lines("/proc/sys/kernel/hostname")()
     return gears.filesystem.get_cache_dir() .. "awesome." .. host .. ".pid"
 end
 
--- run Once per real awesome start (config reload works)
--- does not cover "pkill awesome && awesome"
-function M.run(shellCommand)
-    -- check and Execute
-    if shallExecute(M.oldPid, M.currentPid) then
-        awful.spawn.with_shell(shellCommand)
-    end
+local function read_pid(path)
+    local f = io.open(path)
+    if not f then return nil end
+    local pid = f:read("*n")
+    f:close()
+    return pid
 end
 
-M.pidFile = getPidFile()
-M.oldPid = getOldPid(M.pidFile)
-M.currentPid = getCurrentPid()
-writePid(M.pidFile, M.currentPid)
+local function write_pid(path, pid)
+    local f = io.open(path, "w+")
+    f:write(pid)
+    f:close()
+end
+
+local function current_pid()
+    local f = io.popen("pgrep -u " .. os.getenv("USER") .. " -o awesome")
+    local pid = f:read("*n")
+    f:close()
+    return pid
+end
+
+local path = pid_file()
+local old_pid = read_pid(path)
+local cur_pid = current_pid()
+write_pid(path, cur_pid)
+
+function M.run(cmd)
+    if old_pid ~= cur_pid then
+        awful.spawn.with_shell(cmd)
+    end
+end
 
 return M
