@@ -1,3 +1,5 @@
+local gears = require("gears")
+
 blinkers = {}
 function blinking(tb,iv,empty)
     if (tb==nil) then 
@@ -17,11 +19,11 @@ function blinking(tb,iv,empty)
             return
         end
         blinkers[tb]= {}
-        blinkers[tb].timer = timer({timeout=fiv})
+        blinkers[tb].timer = gears.timer({timeout=fiv})
         blinkers[tb].text = tb.text
         blinkers[tb].empty = 0
 
-        blinkers[tb].timer:add_signal("timeout", function ()
+        blinkers[tb].timer:connect_signal("timeout", function ()
             if (blinkers[tb].empty==1) then
                 tb.text = blinkers[tb].text
                 blinkers[tb].empty=0
