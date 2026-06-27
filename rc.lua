@@ -655,28 +655,15 @@ awful.rules.rules = {
     {rule = {class = "Google-chrome"}, properties = {screen = 1, tag = tags[3]}},
     {rule = {class = "Chromium"}, properties = {screen = 1, tag = tags[3]}},
     -- [www]
-    {rule = {class = "Vivaldi-stable"}, properties = {screen = 1, tag = tags[4]}},
-    {rule = {class = "Vivaldi-snapshot"}, properties = {screen = 1, tag = tags[4]}},
+    {rule = {class = "[Vv]ivaldi"}, properties = {screen = 1, tag = tags[4]}},
     {rule = {class = "KeePassXC"}, properties = {screen = 1, tag = tags[4]}},
     -- #
-    {rule = {class = "Slack"}, properties = {screen = 1, tag = tags[5]}},
+    {rule = {class = "[sS]lack"}, properties = {screen = 1, tag = tags[5]}},
     -- d{-_-}b
-    {
-        rule = {class = "Clementine"},
-        properties = {
-            screen = 1,
-            tag = tags[6],
-            maximized_vertical = true,
-            maximized_horizontal = true
-        }
-    },
     {rule = {class = "Cantata"}, properties = {screen = 1, tag = tags[6]}},
     {rule = {class = "Spotify"}, properties = {screen = 1, tag = tags[6]}},
     {rule = {class = "Audacity"}, properties = {screen = 1, tag = tags[6]}},
     {rule = {class = "Vlc"}, properties = {screen = 1, tag = tags[6]}},
-    {rule = {class = "Smplayer2"}, properties = {screen = 1, tag = tags[6]}},
-    {rule = {class = "Qmpdclient"}, properties = {screen = 1, tag = tags[6]}},
-    {rule = {class = "mplayer2"}, properties = {screen = 1, tag = tags[6]}},
     {rule = {class = "Qjackctl"}, properties = {screen = 1, tag = tags[6]}},
     {rule = {class = "Qsynth"}, properties = {screen = 1, tag = tags[6]}},
     -- /tmp
@@ -692,7 +679,6 @@ awful.rules.rules = {
     {rule = {class = "Kcachegrind"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Blueman-manager"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Pavucontrol"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "org.remmina.Remmina"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Elasticvue"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "MQTTX"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "jadx-gui-JadxGUI"}, properties = {screen = 1, tag = tags[7]}},
@@ -701,7 +687,7 @@ awful.rules.rules = {
     {rule = {class = "steam"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Unciv"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "Civ5XP"}, properties = {screen = 1, tag = tags[7]}},
-    {rule = {class = "TuxPaint.TuxPaint"}, properties = {screen = 1, tag = tags[7]}},
+    {rule = {class = "TuxPaint"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "DBeaver"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "PrusaSlicer"}, properties = {screen = 1, tag = tags[7]}},
     {rule = {class = "transmission-gtk"}, properties = {screen = 1, tag = tags[7]}},
