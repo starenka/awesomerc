@@ -1,39 +1,42 @@
 local gears = require("gears")
 
-blinkers = {}
-function blinking(tb,iv,empty)
-    if (tb==nil) then 
+local M = {}
+M.blinkers = {}
+
+function M.blinking(tb, iv, empty)
+    if tb == nil then
         return
     end
     empty = empty or ''
     local fiv = iv or 1
 
-    if blinkers[tb] then
-        if blinkers[tb].timer.started then
-            blinkers[tb].timer:stop()
+    if M.blinkers[tb] then
+        if M.blinkers[tb].timer.started then
+            M.blinkers[tb].timer:stop()
         else
-            blinkers[tb].timer:start()
+            M.blinkers[tb].timer:start()
         end
     else
-        if (tb.text == nil) then
+        if tb.text == nil then
             return
         end
-        blinkers[tb]= {}
-        blinkers[tb].timer = gears.timer({timeout=fiv})
-        blinkers[tb].text = tb.text
-        blinkers[tb].empty = 0
+        M.blinkers[tb] = {}
+        M.blinkers[tb].timer = gears.timer({timeout=fiv})
+        M.blinkers[tb].text = tb.text
+        M.blinkers[tb].empty = 0
 
-        blinkers[tb].timer:connect_signal("timeout", function ()
-            if (blinkers[tb].empty==1) then
-                tb.text = blinkers[tb].text
-                blinkers[tb].empty=0
+        M.blinkers[tb].timer:connect_signal("timeout", function()
+            if M.blinkers[tb].empty == 1 then
+                tb.text = M.blinkers[tb].text
+                M.blinkers[tb].empty = 0
             else
-                blinkers[tb].empty=1
+                M.blinkers[tb].empty = 1
                 tb.text = empty
             end
         end)
 
-        blinkers[tb].timer:start()
-
+        M.blinkers[tb].timer:start()
     end
 end
+
+return M

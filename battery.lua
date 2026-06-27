@@ -1,5 +1,6 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
+local blinker = require("blinker")
 
 local M = { settings = { method = 'acpi',
              battery = 'BAT0',
@@ -103,14 +104,13 @@ function M.get_info(callback)
    end)
 end
 
--- depends on blinking() and blinkers{} globals from blinker.lua (required before this in rc.lua)
 function M.update(widget)
    M.get_info(function(is_critical, blank_text, text)
       widget:set_markup(text)
       if is_critical then
-         blinking(widget, 1, blank_text)
+         blinker.blinking(widget, 1, blank_text)
       else
-         blinkers[widget] = nil
+         blinker.blinkers[widget] = nil
       end
    end)
 end
