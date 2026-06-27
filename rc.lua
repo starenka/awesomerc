@@ -365,7 +365,7 @@ globalkeys =
     --awful.key({ modkey, }, ".", awful.tag.viewnext),
     awful.key({modkey, altkey}, "space", awful.tag.history.restore),
     awful.key({modkey}, "Up", awful.tag.history.restore),
-    awful.key({modkey}, "Down", awful.tag.history.restore),
+    awful.key({modkey}, "Down", awful.tag.history.restore), -- both Up and Down do the same
     -- shortcut for tags
     awful.key({modkey}, "d", function() awful.screen.focused().tags[2]:view_only() end, {}), --dev
     awful.key({modkey}, "b", function() awful.screen.focused().tags[4]:view_only() end, {}), --[www]
