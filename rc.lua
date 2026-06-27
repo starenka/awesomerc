@@ -226,7 +226,14 @@ vicious.register(cpuwidget,
 
 memwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.mem)
-vicious.register(memwidget, vicious.widgets.mem, ' <span font-size="small">MEM $2MB</span> ', 7)
+vicious.register(memwidget, vicious.widgets.mem,
+   function(widget, args)
+      local color = beautiful.fg_normal
+      if args[1] >= 85 then color = beautiful.widget_critical
+      elseif args[1] >= 65 then color = beautiful.widget_warning
+      end
+      return (' <span font-size="small" color="%s">MEM %dMB</span> '):format(color, args[2])
+   end, 7)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
