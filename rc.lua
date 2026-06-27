@@ -330,7 +330,6 @@ awful.screen.connect_for_each_screen(
                 spacer(),
                 widget_sep(),
                 spacer(),
-                --gmailwidget,
                 batterywidget.widget,
                 cpuwidget,
                 memwidget,
