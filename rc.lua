@@ -66,7 +66,7 @@ end
 beautiful.init(home(".config/awesome/themes/starenka/theme.lua"))
 beautiful.notification_icon_size = 40
 
-
+-- fancy launcher
 function launcher()
   awful.spawn("rofi -modi drun -show drun -show-icons -no-click-to-exit")
 end
@@ -172,9 +172,6 @@ mylauncher = awful.widget.launcher({
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
-
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
