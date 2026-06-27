@@ -61,6 +61,8 @@ theme.titlebar_bg_normal = "#232323"
 --theme.fg_end_widget    = "#FF5656"
 --theme.bg_widget        = "#494B4F"
 --theme.border_widget    = "#232323"
+theme.widget_warning  = "#fecf35"
+theme.widget_critical = "#ff8000"
 -- }}}
 
 -- {{{ Mouse finder
