@@ -4,8 +4,8 @@ local blinker = require("blinker")
 
 local M = { settings = { method = 'acpi',
              battery = 'BAT0',
-             warning = { level = 25 },
-             critical = { level = 10 } }
+             warning = { level = 30 },
+             critical = { level = 15 } }
 }
 -- you can override settings in rc.lua
 
