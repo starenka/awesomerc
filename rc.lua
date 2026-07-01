@@ -779,12 +779,12 @@ autorun_items = {
     "kitty --start-as maximized $HOME/bin/startup",
     --"blueman-applet",
     "~/bin/monitor doff",
-    "~/bin/redshift",
+    "redshift",
     "~/.dropbox-dist/dropboxd",
     "~/bin/nicotine",
     "slack",
     "cantata",
-    "emacs",
+    "emacsclient -t",
     "vivaldi",
     --"pavucontrol"
 }
