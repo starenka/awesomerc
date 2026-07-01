@@ -6,4 +6,4 @@ My config files & scripts for [Awesome](http://awesome.naquadah.org/)
 
 Here's a screenshot of current setup, if you care:
 
-![screenshot](/awesome4.png?raw=true "My current setup")
+![screenshot](/awesome4.png "My current setup")
