@@ -205,7 +205,7 @@ batterywidget = {
     widget = wibox.widget.textbox(),
     timer = gears.timer({timeout = 5})
 }
-batterywidget.widget:set_text(" ?? ")
+batterywidget.widget:set_text(" […] ")
 batterywidget.timer:connect_signal("timeout", function() battery.update(batterywidget.widget) end)
 batterywidget.timer:start()
 

@@ -18,21 +18,26 @@ local function make_text(stats, settings)
    local color = beautiful.fg_normal
    local dir, rtime = '', nil
 
+   local sign = ''
    if stats.state == 0 then
-      dir, rtime = '-', stats.rem_time
-      if stats.rem_perc <= settings.critical.level then
-         color = beautiful.widget_critical
-      elseif stats.rem_perc <= settings.warning.level then
-         color = beautiful.widget_warning
-      end
+      sign, rtime = '-', stats.rem_time
    elseif stats.state == 1 then
-      dir, rtime = '+', stats.rem_chtime
+      sign, rtime = '+', stats.rem_chtime
+   end
+   -- lightning whenever plugged in, then a space, then +/- next to the number
+   dir = (stats.ac and '↯ ' or '') .. sign
+
+   -- colour/blink on low charge regardless of charging state
+   if stats.rem_perc <= settings.critical.level then
+      color = beautiful.widget_critical
+   elseif stats.rem_perc <= settings.warning.level then
+      color = beautiful.widget_warning
    end
 
    local time = rtime and (' ' .. mins_to_hm_str(rtime)) or ''
    local text = dir .. stats.rem_perc .. "%"
    local tail = '<span font-size="small">' .. time .. ' (b' .. stats.nr .. ')</span>'
-   local is_critical = stats.rem_perc <= settings.critical.level and stats.state == 0
+   local is_critical = stats.rem_perc <= settings.critical.level
    -- off-frame: same content, fully transparent, so the width stays identical
    local blank = spacer .. '<span alpha="1">' .. text .. tail .. '</span>'
    local markup = spacer .. '<span color="' .. color .. '">' .. text .. tail .. '</span>'
