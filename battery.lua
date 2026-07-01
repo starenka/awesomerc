@@ -31,11 +31,11 @@ local function make_text(stats, settings)
 
    local time = rtime and (' ' .. mins_to_hm_str(rtime)) or ''
    local text = dir .. stats.rem_perc .. "%"
+   local tail = '<span font-size="small">' .. time .. ' (b' .. stats.nr .. ')</span>'
    local is_critical = stats.rem_perc <= settings.critical.level and stats.state == 0
-   local blank = spacer .. '<span>' .. string.rep(' ', #text) ..
-                 '<span font-size="small">' .. string.rep(' ', #time) .. '</span></span>' .. spacer
-   local markup = spacer .. '<span color="' .. color .. '">' .. text ..
-                  '<span font-size="small">' .. time .. ' (b' .. stats.nr .. ')</span></span>'
+   -- off-frame: same content, fully transparent, so the width stays identical
+   local blank = spacer .. '<span alpha="1">' .. text .. tail .. '</span>'
+   local markup = spacer .. '<span color="' .. color .. '">' .. text .. tail .. '</span>'
    return is_critical, blank, markup
 end
 
@@ -108,9 +108,9 @@ function M.update(widget)
    M.get_info(function(is_critical, blank_text, text)
       widget:set_markup(text)
       if is_critical then
-         blinker.blinking(widget, 1, blank_text)
+         blinker.blinking(widget, 0.4, text, blank_text)
       else
-         blinker.blinkers[widget] = nil
+         blinker.stop(widget)
       end
    end)
 end
