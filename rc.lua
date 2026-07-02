@@ -52,8 +52,8 @@ end
 -- }}}
 
 -- {{{ Variable definitions
-HOME = os.getenv("HOME")
-function home(path)
+local HOME = os.getenv("HOME")
+local function home(path)
    return string.format("%s/%s", HOME, path)
 end
 
@@ -63,51 +63,49 @@ beautiful.init(home(".config/awesome/themes/starenka/theme.lua"))
 beautiful.notification_icon_size = 40
 
 -- stock launcher
-function launcher()
-   awful.screen.focused().mypromptbox:run()
-end
+-- local launcher = function()
+--    awful.screen.focused().mypromptbox:run()
+-- end
 
 -- fancy launcher
-function launcher()
+local launcher = function()
   awful.spawn("rofi -modi drun -show drun -show-icons -no-click-to-exit -theme " .. home(".config/awesome/themes/starenka/rofi.rasi"))
 end
 
 
 
-cmd_player_playpause = home("bin/player playpause")
-cmd_player_next = home("bin/player next")
-cmd_player_prev = home("bin/player prev")
-cmd_player_stop = home("bin/player stop")
-cmd_player_volup = home("bin/player volume-up")
-cmd_player_voldown = home("bin/player volume-down")
-cmd_player_current = home("bin/player current")
+local cmd_player_playpause = home("bin/player playpause")
+local cmd_player_next = home("bin/player next")
+local cmd_player_prev = home("bin/player prev")
+local cmd_player_stop = home("bin/player stop")
+local cmd_player_volup = home("bin/player volume-up")
+local cmd_player_voldown = home("bin/player volume-down")
+local cmd_vol_mute = home("bin/volume mute")
+local cmd_vol_raise = home("bin/volume up")
+local cmd_vol_lower = home("bin/volume down")
 
-cmd_vol_mute = home("bin/volume mute")
-cmd_vol_raise = home("bin/volume up")
-cmd_vol_lower = home("bin/volume down")
-
-cmd_disp_external_on = home("bin/monitor don")
-cmd_disp_external_off = home("bin/monitor doff")
-cmd_disp_builtin_on = home("bin/monitor integrated")
-cmd_disp_brightness_down = home("bin/brightness down")
-cmd_disp_brightness_up = home("bin/brightness up")
+local cmd_disp_external_on = home("bin/monitor don")
+local cmd_disp_external_off = home("bin/monitor doff")
+local cmd_disp_builtin_on = home("bin/monitor integrated")
+local cmd_disp_brightness_down = home("bin/brightness down")
+local cmd_disp_brightness_up = home("bin/brightness up")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
-editor = os.getenv("EDITOR") or "editor"
-editor_cmd = terminal .. " -e " .. editor
+local terminal = "x-terminal-emulator"
+local editor = os.getenv("EDITOR") or "editor"
+local editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
-altkey = "Mod1"
-ctrlkey = "Control"
-shiftkey = "Shift"
+local modkey = "Mod4"
+local altkey = "Mod1"
+local ctrlkey = "Control"
+local shiftkey = "Shift"
 
-tags = {"$", "dev", "dev:www", "[www]", "#", "d{-_-}b", "/tmp"}
+local tags = {"$", "dev", "dev:www", "[www]", "#", "d{-_-}b", "/tmp"}
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -147,7 +145,7 @@ end
 
 -- {{{ Menu
 -- Create a launcher widget and a main menu
-myawesomemenu = {
+local myawesomemenu = {
     {"hotkeys", function() return false, hotkeys_popup.show_help end},
     {"manual", terminal .. " -e man awesome"},
     {"edit config", editor_cmd .. " " .. awesome.conffile},
@@ -155,13 +153,13 @@ myawesomemenu = {
     {"quit", function() awesome.quit() end}
 }
 
-mymainmenu = awful.menu({
+local mymainmenu = awful.menu({
       items = {
          {"awesome", myawesomemenu, beautiful.awesome_icon},
          {"open terminal", terminal}
 }})
 
-mylauncher = awful.widget.launcher({
+local mylauncher = awful.widget.launcher({
         image = beautiful.awesome_icon,
         menu = mymainmenu
     })
@@ -170,7 +168,7 @@ mylauncher = awful.widget.launcher({
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock(" %b %d %H:%M ")
+local mytextclock = wibox.widget.textclock(" %b %d %H:%M ")
 
 -- {{ Widgets
 
@@ -197,11 +195,11 @@ kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current] .. " ")
 kbdcfg.widget:buttons(gears.table.join(awful.button({}, 1, function() kbdcfg.switch() end)))
 
 -- Battery
-battery = require("battery")
+local battery = require("battery")
 
 -- you can override default battery settings here
 -- battery.settings={method='generic', color='#dcdccc', battery='BAT0', warning={ color='#fecf35', level=30}, critical={color='red', level=15}}
-batterywidget = {
+local batterywidget = {
     widget = wibox.widget.textbox(),
     timer = gears.timer({timeout = 5})
 }
@@ -223,7 +221,7 @@ mytextclock:buttons(gears.table.join(
     awful.button({"Shift"}, 5, function() cal:call_calendar(12)  end)
 ))
 
-cpuwidget = wibox.widget.textbox()
+local cpuwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.cpu)
 vicious.register(cpuwidget,
                  vicious.widgets.cpu,
@@ -232,7 +230,7 @@ vicious.register(cpuwidget,
                  end,
                  5)
 
-memwidget = wibox.widget.textbox()
+local memwidget = wibox.widget.textbox()
 vicious.cache(vicious.widgets.mem)
 vicious.register(memwidget, vicious.widgets.mem,
    function(widget, args)
@@ -367,7 +365,7 @@ root.buttons(
 -- }}}
 
 -- {{{ Key bindings
-globalkeys =
+local globalkeys =
     gears.table.join(
     --awful.key({ modkey, }, "s", hotkeys_popup.show_help,
     --           {description="show help", group="awesome"}),
@@ -406,8 +404,8 @@ globalkeys =
     awful.key({modkey, shiftkey}, "Right", function() awful.spawn(cmd_player_next) end ),
     awful.key({modkey, shiftkey}, "Up", function() awful.spawn(cmd_player_stop) end ),
     awful.key({modkey, shiftkey}, "Down", function() awful.spawn(cmd_player_playpause) end ), -- brightness
-    awful.key({}, "XF86MonBrightnessDown", function() awful.spawn(home("bin/brightness d")) end ), -- brightness
-    awful.key({}, "XF86MonBrightnessUp", function() awful.spawn(home("bin/brightness u")) end ), -- monitors
+    awful.key({}, "XF86MonBrightnessDown", function() awful.spawn(cmd_disp_brightness_down) end ), -- brightness
+    awful.key({}, "XF86MonBrightnessUp", function() awful.spawn(cmd_disp_brightness_up) end ), -- monitors
     awful.key({modkey}, "F11", function() awful.spawn(cmd_disp_external_off) end ),
     awful.key({modkey, shiftkey}, "F11", function() awful.spawn(cmd_disp_builtin_on) end ),
     awful.key({modkey}, "F12", function() awful.spawn(cmd_disp_external_on) end ),
@@ -443,7 +441,7 @@ globalkeys =
     )
 )
 
-clientkeys =
+local clientkeys =
     gears.table.join(
     awful.key({modkey}, "f",
         function(c)
@@ -561,7 +559,7 @@ for i = 1, 9 do
     )
 end
 
-clientbuttons =
+local clientbuttons =
     gears.table.join(
       awful.button( {}, 1,
          function(c)
@@ -771,9 +769,9 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- autostart items (won't run on awesome restart)
 -- {{{
-run_once = require("runonce")
+local run_once = require("runonce")
 
-autorun_items = {
+local autorun_items = {
     "ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
     "nm-applet",
     "kitty --start-as maximized $HOME/bin/startup",

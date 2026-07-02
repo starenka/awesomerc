@@ -4,7 +4,7 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
 -- {{{ Main
-theme = {}
+local theme = {}
 -- }}}
 
 local THEME_DIR = string.format("%s/.config/awesome/themes/starenka/", os.getenv("HOME"))

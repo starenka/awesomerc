@@ -16,7 +16,7 @@ end
 local function make_text(stats, settings)
    local spacer = ' '
    local color = beautiful.fg_normal
-   local dir, rtime = '', nil
+   local rtime
 
    local sign = ''
    if stats.state == 0 then
@@ -25,7 +25,7 @@ local function make_text(stats, settings)
       sign, rtime = '+', stats.rem_chtime
    end
    -- lightning whenever plugged in, then a space, then +/- next to the number
-   dir = (stats.ac and '↯ ' or '') .. sign
+   local dir = (stats.ac and '↯ ' or '') .. sign
 
    -- colour/blink on low charge regardless of charging state
    if stats.rem_perc <= settings.critical.level then
