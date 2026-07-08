@@ -69,7 +69,7 @@ beautiful.notification_icon_size = 40
 
 -- fancy launcher
 local launcher = function()
-  awful.spawn("rofi -modi drun -show drun -show-icons -no-click-to-exit -theme " .. home(".config/awesome/themes/starenka/rofi.rasi"))
+  awful.spawn("rofi -show combi -modi combi,drun,run -combi-modi drun,run -combi-display-format '{text}' -show-icons -no-click-to-exit -theme " .. home(".config/awesome/themes/starenka/rofi.rasi"))
 end
 
 
