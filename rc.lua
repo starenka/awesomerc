@@ -91,7 +91,7 @@ local cmd_disp_brightness_down = home("bin/brightness down")
 local cmd_disp_brightness_up = home("bin/brightness up")
 
 -- This is used later as the default terminal and editor to run.
-local terminal = "x-terminal-emulator"
+local terminal = "xterm"
 local editor = os.getenv("EDITOR") or "editor"
 local editor_cmd = terminal .. " -e " .. editor
 
