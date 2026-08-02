@@ -7,8 +7,9 @@ local wibox = require("wibox")
 local vicious = require("vicious") -- apt install awesome-extra
 -- Theme handling library
 local beautiful = require("beautiful")
--- Notification library
-local naughty = require("naughty")
+-- Internal Awesome notifications only; leave Freedesktop notifications to dunst.
+-- apt install dunst
+local naughty = require("naughty.core")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
 require("awful.remote") -- awesome-client
@@ -774,6 +775,7 @@ local run_once = require("runonce")
 local autorun_items = {
     "ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
     "nm-applet",
+    "dunst -conf ~/.config/awesome/themes/starenka/dunstrc",
     "kitty --start-as maximized $HOME/bin/startup",
     --"blueman-applet",
     "~/bin/monitor doff",
