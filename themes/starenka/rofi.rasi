@@ -9,10 +9,13 @@
 
 window {
     background-color: @bg;
-    border:           1px;
-    border-color:     @border;
+    border:           0px;
     padding:          4px;
     width:            30%;
+    location:         north;
+    anchor:           north;
+    x-offset:         0px;
+    y-offset:         0px;
 }
 
 mainbox {
