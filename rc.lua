@@ -777,7 +777,6 @@ local autorun_items = {
     "nm-applet",
     "dunst -conf ~/.config/awesome/themes/starenka/dunstrc",
     "kitty --start-as maximized $HOME/bin/startup",
-    --"blueman-applet",
     "~/bin/monitor doff",
     "redshift",
     "~/.dropbox-dist/dropboxd",
@@ -786,6 +785,7 @@ local autorun_items = {
     "cantata",
     "emacsclient -t",
     "vivaldi",
+    --"blueman-applet",
     --"pavucontrol"
 }
 
