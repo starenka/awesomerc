@@ -1,29 +1,38 @@
 #!/usr/bin/python3
 
 import argparse
+import json
 import subprocess
+import sys
 
 parser = argparse.ArgumentParser(description='Toasts a naughty message')
 parser.add_argument('message', type=str, nargs='+', help='message words')
 parser.add_argument('-t', '--title', nargs='*', help='title')
-parser.add_argument('--timeout', type=int, default=0, help="timout (secs), 0 = don't hide")
+parser.add_argument('--timeout', type=int, default=0, help="timeout (secs), 0 = don't hide")
 parser.add_argument('-p', '--preset', choices=('low', 'normal', 'critical'), default='normal', help="preset")
 parser.add_argument('--fg', help='fg color')
 parser.add_argument('--bg', help='bg color')
 
+
+def lua_string(value):
+    return json.dumps(value, ensure_ascii=False)
+
+
 args = vars(parser.parse_args())
-payload = ['text="%s"' % ' '.join(args.pop('message')),
-           'timeout=%d' % args['timeout'],
-           'preset=naughty.config.presets.%s' % args['preset']]
+payload = [f'text={lua_string(" ".join(args.pop("message")))}',
+           f'timeout={args["timeout"]}',
+           f'preset=naughty.config.presets.{args["preset"]}']
 
 if args['title']:
-    payload.append('title="%s"' % ' '.join(args['title']))
+    payload.append(f'title={lua_string(" ".join(args["title"]))}')
 if args['fg']:
-    payload.append('fg="%s"' % ' '.join(args['fg']))
+    payload.append(f'fg={lua_string(args["fg"])}')
 if args['bg']:
-    payload.append('bg="%s"' % ' '.join(args['bg']))
+    payload.append(f'bg={lua_string(args["bg"])}')
 
-cmd = "echo 'local naughty=require(\"naughty\"); naughty.notify({%s})' | awesome-client" % ','.join(payload)
+cmd = f'local naughty=require("naughty"); naughty.notify({",".join(payload)})\n'
 
-ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-ps.communicate()[0]
+result = subprocess.run(["awesome-client"], input=cmd, text=True, capture_output=True)
+sys.stdout.write(result.stdout)
+sys.stderr.write(result.stderr)
+sys.exit(result.returncode)
