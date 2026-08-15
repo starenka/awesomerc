@@ -775,7 +775,6 @@ local run_once = require("runonce")
 local autorun_items = {
     "ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
     "nm-applet",
-    "dunst -conf ~/.config/awesome/themes/starenka/dunstrc",
     "kitty --start-as maximized $HOME/bin/startup",
     "~/bin/monitor doff",
     "redshift",
