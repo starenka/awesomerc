@@ -1,0 +1,57 @@
+[global]
+    monitor = 0
+    follow = mouse
+
+    width = 320
+    height = (0, 180)
+    origin = top-right
+    offset = (1, 22)
+    notification_limit = 6
+
+    font = Hack 9
+    line_height = 0
+    format = "<b>%s</b>\n%b"
+    markup = full
+    sort = yes
+    indicate_hidden = yes
+    word_wrap = yes
+    ellipsize = middle
+    alignment = left
+    vertical_alignment = center
+
+    show_age_threshold = 60
+    show_indicators = no
+    icon_position = left
+    min_icon_size = 0
+    max_icon_size = 40
+    text_icon_padding = 8
+
+    padding = 6
+    horizontal_padding = 8
+    separator_height = 1
+    separator_color = frame
+    frame_width = 1
+    gap_size = 0
+    corner_radius = 0
+
+    mouse_left_click = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
+
+[urgency_low]
+    background = "#232323"
+    foreground = "#DCDCCC"
+    frame_color = "#6F6F6F"
+    timeout = 4
+
+[urgency_normal]
+    background = "#232323"
+    foreground = "#DCDCCC"
+    frame_color = "#232323"
+    timeout = 8
+
+[urgency_critical]
+    background = "#232323"
+    foreground = "#FFFFFF"
+    frame_color = "#232323"
+    timeout = 0
