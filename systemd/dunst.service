@@ -1,0 +1,14 @@
+[Unit]
+Description=Dunst notification daemon
+Documentation=man:dunst(1)
+
+[Service]
+Type=dbus
+BusName=org.freedesktop.Notifications
+ExecStart=/usr/bin/dunst -conf %h/.config/awesome/themes/starenka/dunstrc
+ExecReload=/usr/bin/dunstctl reload
+Restart=on-failure
+RestartSec=1s
+
+[Install]
+WantedBy=default.target
