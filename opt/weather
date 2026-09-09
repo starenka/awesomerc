@@ -182,24 +182,55 @@ def _aladin_run_candidates(now_utc: datetime):
         cursor = run_dt - timedelta(hours=1)
 
 
+def _aladin_file_meta(headers) -> dict:
+    return {
+        "etag": headers.get("ETag"),
+        "last_modified": headers.get("Last-Modified"),
+        "content_length": headers.get("Content-Length"),
+    }
+
+
 def _aladin_ensure_cached(param: str, run_dt: datetime) -> Path:
-    """Download+decompress this param/run's grid into .weather-cache/ if not already there."""
+    """Download+decompress this param/run's grid into .weather-cache/ if not
+    already there, or if it has changed on the server since. The run+param is
+    only a stable *identifier*, not a guarantee the file itself never gets
+    republished/corrected - opendata.chmi.cz is a plain static file server
+    that exposes ETag/Last-Modified/Content-Length, so a cheap HEAD request
+    checks those against what we last saved instead of trusting local
+    existence blindly."""
     run_tag = run_dt.strftime("%Y%m%d%H")
     grb_path = CACHE_DIR / f"aladin-{run_tag}-{param}.grb"
-    if grb_path.exists():
-        return grb_path
-
+    meta_path = CACHE_DIR / f"aladin-{run_tag}-{param}.meta.json"
     url = f"{ALADIN_BASE}/{run_dt:%H}/ALADCZ1K4opendata_{run_dt:%Y%m%d%H}_{param}.grb.bz2"
+
+    if grb_path.exists() and meta_path.exists():
+        try:
+            head_req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(head_req, timeout=10) as resp:
+                current_meta = _aladin_file_meta(resp.headers)
+            with meta_path.open() as f:
+                cached_meta = json.load(f)
+            if current_meta == cached_meta:
+                return grb_path  # unchanged on the server - skip the full re-download
+        except OSError:
+            return grb_path  # can't check right now - keep using what we have rather than fail
+
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=30) as resp:
         compressed = resp.read()  # raises HTTPError (a run not published yet -> 404) via OSError
+        meta = _aladin_file_meta(resp.headers)
 
     CACHE_DIR.mkdir(exist_ok=True)
     grb_path.write_bytes(bz2.decompress(compressed))
+    with meta_path.open("w") as f:
+        json.dump(meta, f)
 
     for old in CACHE_DIR.glob(f"aladin-*-{param}.grb"):
         if old != grb_path:
             old.unlink(missing_ok=True)  # only the latest run is worth keeping on disk
+    for old in CACHE_DIR.glob(f"aladin-*-{param}.meta.json"):
+        if old != meta_path:
+            old.unlink(missing_ok=True)
 
     return grb_path
 

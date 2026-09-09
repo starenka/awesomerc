@@ -38,6 +38,8 @@ rate_limit_per_day = 400
 cache_interval = 300
 
 [providers.aladin]
-# No API key; open data. Naturally bounded by per-run disk caching (~4
-# downloads/day, one per 00/06/12/18 UTC model run) rather than a request
-# count, so no rate_limit_per_day/cache_interval needed here.
+# No API key; open data. The GRIB downloads themselves are already bounded
+# to ~4/day by the run-based disk cache, but every call still does a HEAD
+# request per parameter (to check the cached file is still current) plus a
+# fresh decode - cache_interval avoids repeating that work within the window.
+cache_interval = 300
