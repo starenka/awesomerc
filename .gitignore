@@ -1,2 +1,6 @@
 .hg
 /.agent-shell/
+
+# weather widget: holds API keys + last-fetched location data
+/opt/weather.toml
+/opt/.weather-cache/

@@ -208,6 +208,10 @@ batterywidget.widget:set_text(" […] ")
 batterywidget.timer:connect_signal("timeout", function() battery.update(batterywidget.widget) end)
 batterywidget.timer:start()
 
+-- Weather
+local weather = require("weather")
+local weatherwidget = weather.new()
+
 -- Calendar
 local cal = awful.widget.calendar_popup.month()
 cal:attach(mytextclock, "tr")
@@ -347,6 +351,7 @@ awful.screen.connect_for_each_screen(
                 volume.widget,
                 kbdcfg.widget,
                 widget_sep(),
+                weatherwidget,
                 mytextclock,
                 s.mylayoutbox
             }
