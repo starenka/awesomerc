@@ -75,21 +75,23 @@ end
 
 
 
-local cmd_player_playpause = home("bin/player playpause")
-local cmd_player_next = home("bin/player next")
-local cmd_player_prev = home("bin/player prev")
-local cmd_player_stop = home("bin/player stop")
-local cmd_player_volup = home("bin/player volume-up")
-local cmd_player_voldown = home("bin/player volume-down")
-local cmd_vol_mute = home("bin/volume mute")
-local cmd_vol_raise = home("bin/volume up")
-local cmd_vol_lower = home("bin/volume down")
+-- these tools (from ~/prac/letools, symlinked into ~/bin) are assumed to be
+-- on PATH rather than invoked by absolute path
+local cmd_player_playpause = "player playpause"
+local cmd_player_next = "player next"
+local cmd_player_prev = "player prev"
+local cmd_player_stop = "player stop"
+local cmd_player_volup = "player volume-up"
+local cmd_player_voldown = "player volume-down"
+local cmd_vol_mute = "volume mute"
+local cmd_vol_raise = "volume up"
+local cmd_vol_lower = "volume down"
 
-local cmd_disp_external_on = home("bin/monitor don")
-local cmd_disp_external_off = home("bin/monitor doff")
-local cmd_disp_builtin_on = home("bin/monitor integrated")
-local cmd_disp_brightness_down = home("bin/brightness down")
-local cmd_disp_brightness_up = home("bin/brightness up")
+local cmd_disp_external_on = "monitor don"
+local cmd_disp_external_off = "monitor doff"
+local cmd_disp_builtin_on = "monitor integrated"
+local cmd_disp_brightness_down = "brightness down"
+local cmd_disp_brightness_up = "brightness up"
 
 -- This is used later as the default terminal and editor to run.
 local terminal = "xterm"
@@ -781,8 +783,8 @@ local run_once = require("runonce")
 local autorun_items = {
     "ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
     "nm-applet",
-    "kitty --start-as maximized $HOME/bin/startup",
-    "~/bin/monitor doff",
+    "kitty --start-as maximized startup",
+    "monitor doff",
     "redshift",
     "~/.dropbox-dist/dropboxd",
     "~/bin/nicotine",

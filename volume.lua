@@ -8,7 +8,7 @@ M.widget = wibox.widget.textbox()
 M.widget:set_align("right")
 
 function M.update()
-   awful.spawn.easy_async(string.format("%s/bin/volume level", os.getenv("HOME")),
+   awful.spawn.easy_async("volume level", -- from ~/prac/letools, symlinked into ~/bin (assumed on PATH)
       function(stdout)
          M.widget:set_markup(' <span font-size="small">VOL ' .. stdout .. '</span> ')
       end)

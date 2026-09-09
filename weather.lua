@@ -6,8 +6,8 @@ local cjson = require("cjson")
 
 local M = {
    settings = {
-      cmd = string.format("%s/bin/weather", os.getenv("HOME")),
-      interval = 300, -- 5 min; per-provider rate limits are enforced by opt/weather itself
+      cmd = "weather", -- from ~/prac/letools, symlinked into ~/bin (assumed on PATH)
+      interval = 300, -- 5 min; per-provider rate limits are enforced by the weather script itself
       providers = { "open-meteo", "meteosource", "aladin" }, -- right-click cycle order
    },
 }
