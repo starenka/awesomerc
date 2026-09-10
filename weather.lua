@@ -6,7 +6,11 @@ local cjson = require("cjson")
 
 local M = {
    settings = {
-      cmd = "weather", -- from ~/prac/letools, symlinked into ~/bin (assumed on PATH)
+      -- full path, not a bare "weather": awesome's own process PATH (inherited
+      -- from sddm, not the interactive shell) doesn't include ~/bin, so a bare
+      -- name fails to spawn - and silently, since easy_async's callback never
+      -- fires on a synchronous spawn failure (see the check in refresh() below).
+      cmd = string.format("%s/bin/weather", os.getenv("HOME")),
       interval = 300, -- 5 min; per-provider rate limits are enforced by the weather script itself
       providers = { "open-meteo", "meteosource", "aladin" }, -- right-click cycle order
    },
@@ -92,7 +96,11 @@ function M.new()
       busy = true
       spinner_timer:start()
       local cmd = force and (M.settings.cmd .. " --force") or M.settings.cmd
-      awful.spawn.easy_async(cmd, function(stdout, _, _, code)
+      -- awful.spawn.easy_async's completion callback never fires if the spawn
+      -- itself fails synchronously (bad path, ENOENT, ...) - it just returns
+      -- the error as a string instead of a pid. Without this check, a broken
+      -- cmd leaves busy/the spinner stuck forever with no way to recover.
+      local spawn_result = awful.spawn.easy_async(cmd, function(stdout, _, _, code)
          spinner_timer:stop()
          busy = false
          last_fetch_time = os.time()
@@ -119,6 +127,13 @@ function M.new()
          widget:set_markup(text)
          tooltip_text = ttip
       end)
+      if type(spawn_result) == "string" then
+         spinner_timer:stop()
+         busy = false
+         last_fetch_time = os.time()
+         widget:set_markup(' <span font-size="small">err</span> ')
+         tooltip_text = "weather: spawn failed: " .. spawn_result
+      end
    end
 
    local function cycle_provider()
