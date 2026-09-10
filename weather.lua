@@ -146,7 +146,7 @@ function M.new()
          end
          local next_provider = M.settings.providers[(idx % #M.settings.providers) + 1]
          awful.spawn.easy_async(M.settings.cmd .. " provider " .. next_provider, function()
-            refresh(true)
+            refresh(false)
          end)
       end)
    end
