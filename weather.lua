@@ -13,6 +13,7 @@ local M = {
       cmd = string.format("%s/bin/weather", os.getenv("HOME")),
       interval = 300, -- 5 min; per-provider rate limits are enforced by the weather script itself
       providers = { "open-meteo", "meteosource", "aladin" }, -- right-click cycle order
+      width = 70, -- px; keeps the right-side wibar from shifting as values change
    },
 }
 -- you can override settings in rc.lua, e.g. weather.settings.interval = 600
@@ -34,19 +35,23 @@ local function strip_null(t)
    return t
 end
 
-local function rain_color(prob)
-   if not prob then return beautiful.fg_normal end
-   if prob >= 60 then return beautiful.widget_critical or beautiful.fg_normal end
-   if prob >= 30 then return beautiful.widget_warning or beautiful.fg_normal end
+local function rain_color(amount)
+   amount = tonumber(amount) or 0
+   -- Rain matters for skating even at a trace: yellow for >0–<0.5 mm/h,
+   -- orange for 0.5–<2, and red for 2+ mm/h. This works for every provider,
+   -- unlike precipitation probability (which Meteosource and ALADIN omit).
+   if amount >= 2 then return "#ff0000" end
+   if amount >= 0.5 then return beautiful.widget_critical or beautiful.fg_normal end
+   if amount > 0 then return beautiful.widget_warning or beautiful.fg_normal end
    return beautiful.fg_normal
 end
 
--- Probability isn't shown as a number in the compact widget; it's folded into
--- the mm figure's color instead (dim = unlikely, warning/critical = likely).
+-- The compact widget color encodes rain intensity, not probability, because
+-- probability is unavailable from Meteosource and ALADIN.
 local function make_text(data)
    local c = data.current
    local temp = c.temp_c and string.format("%.0f°", c.temp_c) or "?"
-   local rain = string.format('<span color="%s">%.1fmm</span>', rain_color(c.precip_prob_pct), c.precip_mm or 0)
+   local rain = string.format('<span color="%s">%.1fmm</span>', rain_color(c.precip_mm), c.precip_mm or 0)
    local stale_mark = data.stale and string.format(' <span color="%s">~</span>', beautiful.widget_warning or beautiful.fg_normal) or ""
    return string.format(' <span font-size="small">%s %s%s</span> ', temp, rain, stale_mark)
 end
@@ -63,7 +68,7 @@ local function make_tooltip_text(data)
    for _, h in ipairs(data.hourly or {}) do
       local prob = h.precip_prob_pct and string.format("%3d%%", h.precip_prob_pct) or "  - "
       local line = string.format("%s  %4.0f°C  %4.1fmm  %s", h.time, h.temp_c, h.precip_mm or 0, prob)
-      table.insert(lines, string.format('<span color="%s">%s</span>', rain_color(h.precip_prob_pct), line))
+      table.insert(lines, string.format('<span color="%s">%s</span>', rain_color(h.precip_mm), line))
    end
    return table.concat(lines, "\n")
 end
@@ -73,6 +78,7 @@ local spinner_frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧",
 function M.new()
    local widget = wibox.widget.textbox()
    widget:set_markup(' <span font-size="small">…</span> ')
+   local container = wibox.container.constraint(widget, "exact", M.settings.width)
 
    local tooltip = awful.tooltip({
       objects = { widget },
@@ -91,11 +97,11 @@ function M.new()
       widget:set_markup(string.format(' <span font-size="small">%s</span> ', spinner_frames[spinner_idx]))
    end)
 
-   local function refresh(force)
+   local function refresh()
       if busy then return end
       busy = true
       spinner_timer:start()
-      local cmd = force and (M.settings.cmd .. " --force") or M.settings.cmd
+      local cmd = M.settings.cmd
       -- awful.spawn.easy_async's completion callback never fires if the spawn
       -- itself fails synchronously (bad path, ENOENT, ...) - it just returns
       -- the error as a string instead of a pid. Without this check, a broken
@@ -152,7 +158,7 @@ function M.new()
    end
 
    widget:buttons(gears.table.join(
-      awful.button({}, 1, function() refresh(true) end), -- left click: force a real refresh
+      awful.button({}, 1, refresh), -- left click: respect the provider cache interval
       awful.button({}, 3, cycle_provider) -- right click: cycle to the next provider
    ))
 
@@ -171,7 +177,7 @@ function M.new()
    timer:start()
    refresh()
 
-   return widget
+   return container
 end
 
 return M
