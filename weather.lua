@@ -97,11 +97,11 @@ function M.new()
       widget:set_markup(string.format(' <span font-size="small">%s</span> ', spinner_frames[spinner_idx]))
    end)
 
-   local function refresh()
+   local function refresh(force)
       if busy then return end
       busy = true
       spinner_timer:start()
-      local cmd = M.settings.cmd
+      local cmd = force and (M.settings.cmd .. " --force") or M.settings.cmd
       -- awful.spawn.easy_async's completion callback never fires if the spawn
       -- itself fails synchronously (bad path, ENOENT, ...) - it just returns
       -- the error as a string instead of a pid. Without this check, a broken
@@ -152,14 +152,14 @@ function M.new()
          end
          local next_provider = M.settings.providers[(idx % #M.settings.providers) + 1]
          awful.spawn.easy_async(M.settings.cmd .. " provider " .. next_provider, function()
-            refresh(false)
+            refresh()
          end)
       end)
    end
 
    widget:buttons(gears.table.join(
-      awful.button({}, 1, refresh), -- left click: respect the provider cache interval
-      awful.button({}, 3, cycle_provider) -- right click: cycle to the next provider
+      awful.button({}, 1, cycle_provider), -- left click: cycle provider, respecting its cache
+      awful.button({}, 3, function() refresh(true) end) -- right click: force a live refresh
    ))
 
    -- Catch up if the periodic timer's tick was missed (e.g. the machine was
