@@ -488,6 +488,12 @@ local clientkeys =
         end,
         {description = "toggle keep on top", group = "client"}
     ),
+    awful.key({modkey, "Shift"}, "d",
+        function(c)
+            awful.titlebar.toggle(c)
+        end,
+        {description = "toggle titlebar", group = "client"}
+    ),
     awful.key({modkey}, "n",
         function(c)
             -- The client currently has the input focus, so it cannot be
@@ -620,10 +626,11 @@ awful.rules.rules = {
         },
         properties = {floating = true}
     },
-    -- Add titlebars to normal clients and dialogs
+    -- Add titlebars to normal clients and dialogs.
+    -- Always create the titlebar (so it can be toggled at runtime with
+    -- modkey+Shift+d), but hide it by default -- see request::titlebars below.
     {rule_any = {type = {"normal", "dialog"}},
-     properties = {titlebars_enabled = false} -- disable window decorators
-     --,properties = {titlebars_enabled = true} -- enable window decorators
+     properties = {titlebars_enabled = true}
     },
     -- default apps -> tags, use xprop | grep WM_CLAS to determine window props (second item)
     -- terms
@@ -762,6 +769,9 @@ client.connect_signal(
             },
             layout = wibox.layout.align.horizontal
         }
+
+        -- hidden by default; toggle with modkey+Shift+t
+        awful.titlebar.hide(c)
     end
 )
 
