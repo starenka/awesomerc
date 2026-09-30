@@ -649,6 +649,17 @@ awful.rules.rules = {
         maximized_horizontal = true
      }
     },
+    -- llm-offtopic side frame (see sta:llm-offtopic in emacs defuns.el): must
+    -- come after the Emacs rule above so it can undo the forced maximize
+    {rule = {class = "Emacs", instance = "llm-offtopic"},
+     properties = {
+        maximized_vertical = false,
+        maximized_horizontal = false,
+        maximized = false,
+        floating = true,
+        size_hints_honor = true
+     }
+    },
     -- dev:www
     {rule_any = {class = {
         "firefox",
