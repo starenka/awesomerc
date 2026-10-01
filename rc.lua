@@ -192,7 +192,8 @@ kbdcfg.switch = function()
     kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
     local t = " " .. kbdcfg.layout[kbdcfg.current] .. " "
     kbdcfg.widget:set_text(t:gsub("%s%-variant%s", ":"))
-    awful.spawn(kbdcfg.cmd .. t)
+    -- keep caps->ctrl remap across layout switches
+    awful.spawn(kbdcfg.cmd .. t .. "-option ctrl:nocaps")
 end
 kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current] .. " ")
 
