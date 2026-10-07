@@ -5,10 +5,12 @@ Documentation=man:dunst(1)
 [Service]
 Type=dbus
 BusName=org.freedesktop.Notifications
-# Wait until the X11 server socket actually exists before starting, to avoid
-# racing X startup at login (dunst would otherwise abort with "Cannot open
-# X11 display" on the first attempt and rely on Restart= to recover).
-ExecStartPre=/bin/sh -c 'for i in $(seq 1 100); do [ -n "$(ls /tmp/.X11-unix/ 2>/dev/null)" ] && exit 0; sleep 0.1; done; exit 1'
+# Wait until the X server is actually accepting connections before starting,
+# to avoid racing X startup at login (dunst would otherwise abort with
+# "Cannot open X11 display" on the first attempt and rely on Restart= to
+# recover). Checking for the /tmp/.X11-unix socket dir isn't enough: it can
+# exist before Xorg is ready to accept clients, so probe with xset instead.
+ExecStartPre=/bin/sh -c 'for i in $(seq 1 100); do xset q >/dev/null 2>&1 && exit 0; sleep 0.1; done; exit 1'
 ExecStart=/usr/bin/dunst -conf %h/.config/awesome/themes/starenka/dunstrc
 ExecReload=/usr/bin/dunstctl reload
 Restart=on-failure
