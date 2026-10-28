@@ -711,6 +711,7 @@ awful.rules.rules = {
         "[Tt]ransmission",
         "Nicotine",
         "Okular",
+        "md.obsidian.Obsidian",
         "Wireshark",
         "dosbox",
         "Kcachegrind",
