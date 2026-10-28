@@ -627,6 +627,23 @@ awful.rules.rules = {
         },
         properties = {floating = true}
     },
+    -- pavucontrol: fixed compact size (its saved 500px width clips the content)
+    {rule = {class = "pavucontrol"},
+     properties = {
+        floating = true,
+        width = 700,
+        height = 380,
+        placement = awful.placement.centered
+     }
+    },
+    {rule = {class = "Blueman-manager"},
+     properties = {
+        floating = true,
+        width = 560,
+        height = 320,
+        placement = awful.placement.centered
+     }
+    },
     -- Add titlebars to normal clients and dialogs.
     -- Always create the titlebar (so it can be toggled at runtime with
     -- modkey+Shift+d), but hide it by default -- see request::titlebars below.
@@ -806,11 +823,12 @@ local run_once = require("runonce")
 
 local autorun_items = {
     "ogg123 -q ~/.config/awesome/themes/starenka/login.ogg",
-    "nm-applet",
+    "XDG_CONFIG_HOME=$HOME/.config/snixembed-xdg nm-applet", -- own GTK settings (light breeze-tray icons, nm-* aliases); dconf symlinked
     "kitty --start-as maximized $HOME/bin/startup",
     "$HOME/bin/monitor doff",
     "redshift",
     "~/.dropbox-dist/dropboxd",
+    "XDG_CONFIG_HOME=$HOME/.config/snixembed-xdg snixembed", -- StatusNotifierItem -> XEmbed bridge (own GTK settings: light breeze-tray icons); must start before nicotine/dropbox tray icons
     "~/bin/nicotine",
     "slack",
     "cantata",
