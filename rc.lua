@@ -831,7 +831,7 @@ local autorun_items = {
     "redshift",
     "~/.dropbox-dist/dropboxd",
     "XDG_CONFIG_HOME=$HOME/.config/snixembed-xdg snixembed", -- StatusNotifierItem -> XEmbed bridge (own GTK settings: light breeze-tray icons); must start before nicotine/dropbox tray icons
-    "~/bin/nicotine",
+    "nicotine",
     "slack",
     "cantata",
     "emacsclient -t",
