@@ -96,7 +96,8 @@ local cmd_disp_brightness_down = home("bin/brightness down")
 local cmd_disp_brightness_up = home("bin/brightness up")
 
 -- This is used later as the default terminal and editor to run.
-local terminal = "xterm"
+-- "kitty" resolves to ~/.local/bin/kitty (wrapper: sets PYTHONPYCACHEPREFIX for fast startup)
+local terminal = "kitty"
 local editor = os.getenv("EDITOR") or "editor"
 local editor_cmd = terminal .. " -e " .. editor
 
